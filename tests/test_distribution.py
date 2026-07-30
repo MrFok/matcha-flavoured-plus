@@ -8,9 +8,6 @@ import zipfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
-KNOWN_EMPTY_JSON = {
-    Path("data/minecraft/loot_table/advancement/custom/root.json"),
-}
 SPEC = importlib.util.spec_from_file_location("build_distribution", ROOT / "tools" / "build_distribution.py")
 builder = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
@@ -81,7 +78,7 @@ class DistributionTests(unittest.TestCase):
         self.assertIn('loaderVersion="[1,)"', neoforge)
         self.assertIn("showAsResourcePack=false", neoforge)
 
-    def test_source_json_is_valid_or_explicitly_allowlisted(self):
+    def test_source_json_is_valid(self):
         paths = [builder.ROOT / "pack.mcmeta"]
         for directory in ("data", "assets"):
             paths.extend((builder.ROOT / directory).rglob("*.json"))
@@ -94,7 +91,7 @@ class DistributionTests(unittest.TestCase):
                 continue
             with self.subTest(path=relative_path):
                 json.loads(text)
-        self.assertEqual(empty_paths, KNOWN_EMPTY_JSON)
+        self.assertEqual(empty_paths, set())
 
     def test_rebuild_is_byte_deterministic(self):
         first = {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in self.artifacts.items()}
