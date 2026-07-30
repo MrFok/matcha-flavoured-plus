@@ -24,7 +24,7 @@
 						"minecraft:village_savanna"
 					],
 					"block": {
-						"blocks": "minecraft:coarse_dirtt"
+						"blocks": "minecraft:coarse_dirt"
 					}
 				}
 			}
