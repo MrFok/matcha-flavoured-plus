@@ -104,6 +104,53 @@ class DistributionTests(unittest.TestCase):
                     invalid.append(relative_path)
         self.assertEqual(invalid, [])
 
+    def test_chicken_noodle_soup_model_resolves(self):
+        item_definition = json.loads(
+            (builder.ROOT / "assets/minecraft/items/rabbit_stew.json").read_text(encoding="utf-8")
+        )
+        cases = item_definition["model"]["cases"]
+        soup_case = next(case for case in cases if case["when"] == "chicken_noodle_soup")
+        model_id = soup_case["model"]["model"]
+        namespace, model_path = (
+            model_id.split(":", 1) if ":" in model_id else ("minecraft", model_id)
+        )
+        self.assertTrue(
+            (builder.ROOT / "assets" / namespace / "models" / f"{model_path}.json").is_file()
+        )
+
+    def test_warding_stone_trial_chamber_rejection_is_placement_scoped(self):
+        mechanic_dir = ROOT / "data" / "main" / "function" / "mechanic"
+        warding_stone = (mechanic_dir / "warding_stone.mcfunction").read_text(encoding="utf-8")
+        check_forbidden = (mechanic_dir / "warding_stone_check_forbidden.mcfunction").read_text(encoding="utf-8")
+        forbidden = (mechanic_dir / "warding_stone_forbidden.mcfunction").read_text(encoding="utf-8")
+        particles = (mechanic_dir / "warding_stone_particles.mcfunction").read_text(encoding="utf-8")
+        killer = (mechanic_dir / "warding_stone_killer.mcfunction").read_text(encoding="utf-8")
+        advancement = json.loads(
+            (ROOT / "data" / "main" / "advancement" / "mechanics" / "enter_trial_chamber.json").read_text(
+                encoding="utf-8"
+            )
+        )
+
+        setup_selector = "execute as @e[type=minecraft:armor_stand,tag=WardingStone,tag=!WardingStoneSetup] at @s"
+        self.assertEqual(warding_stone.count(setup_selector), 1)
+        self.assertIn(
+            f"{setup_selector} run function main:mechanic/warding_stone_check_forbidden",
+            warding_stone,
+        )
+        self.assertEqual(
+            check_forbidden.splitlines()[0],
+            "execute if predicate main:in_trial_chamber run return run function main:mechanic/warding_stone_forbidden",
+        )
+        self.assertIn("function main:mechanic/warding_stone_particles", check_forbidden)
+        self.assertNotIn("@e", forbidden)
+        self.assertNotIn("@a", forbidden)
+        self.assertNotIn("advancement revoke", forbidden)
+        self.assertIn("function main:mechanic/warding_stone_killer", forbidden)
+        self.assertIn("tag @s add WardingStoneSetup", particles)
+        self.assertIn("kill @s", killer)
+        self.assertNotIn("@n[tag=WardingStoneSetup]", killer)
+        self.assertNotIn("rewards", advancement)
+
     def test_rebuild_is_byte_deterministic(self):
         first = {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in self.artifacts.items()}
         second_dir = self.output / "again"
