@@ -14,11 +14,36 @@ See [CREDITS.txt](CREDITS.txt) for the upstream attribution and acknowledgements
 
 ## Installation
 
-The datapack and resource pack are distributed together:
+Build the distribution files with `python tools/build_distribution.py`. The generated files are in `dist/`.
 
-1. Place the pack in the world's `datapacks` folder.
-2. Place the same pack in the client's `resourcepacks` folder.
-3. Enable it when creating or loading the world.
+### Modrinth App / launcher
+
+Install `matcha_flavoured_plus-1.0.0-mod.jar` as a mod. It contains both the datapack and resource pack. Fabric 26.2 with Fabric API is runtime-verified. Quilt, Forge, and NeoForge metadata is included, but those launch paths remain experimental until they are tested in-game.
+
+### Vanilla Minecraft
+
+Install both archives manually:
+
+1. Put `matcha_flavoured_plus-1.0.0-datapack.zip` in the target world's `datapacks` folder.
+2. Put `matcha_flavoured_plus-1.0.0-resource-pack.zip` in the client's `resourcepacks` folder, then enable it.
+
+The Modrinth App cannot install one `loader=datapack` archive into both a world-specific datapack directory and the client resource-pack directory. The mod JAR is the launcher-compatible release; the two ZIPs are the vanilla release.
+
+## Verification
+
+The distribution builder uses only Python's standard library. Run:
+
+```powershell
+python -m unittest discover -s tests -v
+python tools/build_distribution.py
+```
+
+Tests validate archive layout, content boundaries, metadata, JSON, exclusions, and deterministic rebuild hashes. They do not replace in-game Minecraft testing of gameplay behavior.
+
+## Compatibility notes
+
+- Dungeons & Taverns can be enabled. Matcha no longer filters the vanilla advancement roots that its advancements use.
+- The experience bar is intentionally transparent. AppleSkin can still draw its own hunger HUD overlays; disable AppleSkin or its HUD overlays if you want Matcha's hidden hunger bar.
 
 ## License
 
