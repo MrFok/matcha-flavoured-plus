@@ -1,0 +1,36 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"ESE",
+		"SBS",
+		"ESE"
+	],
+	"key": {
+		"S": "minecraft:fire_charge",
+		"B": "minecraft:enchanted_book",
+		"E": "minecraft:gold_ingot"
+	},
+	"result": {
+		"components": {
+			"minecraft:stored_enchantments": {
+				"minecraft:flame": 1,
+				"minecraft:fire_aspect": 1,
+				"minecraft:fire_protection": 3
+			},
+			"minecraft:item_name": {
+				"translate": "item.kleispack.blessing"
+			},
+			"minecraft:lore": [
+				{
+					"translate": "item.kleispack.blessing.yama",
+					"color": "dark_gray",
+					"italic": false
+				}
+			],
+			"minecraft:item_model": "minecraft:blessing_yama"
+		},
+		"count": 1,
+		"id": "minecraft:enchanted_book"
+	}
+}
