@@ -2,6 +2,7 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+import re
 import tempfile
 import unittest
 import zipfile
@@ -92,6 +93,16 @@ class DistributionTests(unittest.TestCase):
             with self.subTest(path=relative_path):
                 json.loads(text)
         self.assertEqual(empty_paths, set())
+
+    def test_resource_paths_are_valid_identifiers(self):
+        valid_path = re.compile(r"^[a-z0-9._/-]+$")
+        invalid = []
+        for path in (builder.ROOT / "assets").rglob("*"):
+            if path.is_file():
+                relative_path = path.relative_to(builder.ROOT).as_posix()
+                if not valid_path.fullmatch(relative_path):
+                    invalid.append(relative_path)
+        self.assertEqual(invalid, [])
 
     def test_rebuild_is_byte_deterministic(self):
         first = {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in self.artifacts.items()}

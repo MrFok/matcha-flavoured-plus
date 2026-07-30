@@ -18,7 +18,7 @@ Build the distribution files with `python tools/build_distribution.py`. The gene
 
 ### Modrinth App / launcher
 
-Install `matcha_flavoured_plus-1.0.0-mod.jar` as a mod. It contains both the datapack and resource pack and is packaged for Fabric, Quilt, Forge, and NeoForge. Fabric requires Fabric API's resource loader; Quilt uses its native resource loader.
+Install `matcha_flavoured_plus-1.0.0-mod.jar` as a mod. It contains both the datapack and resource pack. Fabric 26.2 with Fabric API is runtime-verified. Quilt, Forge, and NeoForge metadata is included, but those launch paths remain experimental until they are tested in-game.
 
 ### Vanilla Minecraft
 
@@ -39,6 +39,11 @@ python tools/build_distribution.py
 ```
 
 Tests validate archive layout, content boundaries, metadata, JSON, exclusions, and deterministic rebuild hashes. They do not replace in-game Minecraft testing of gameplay behavior.
+
+## Compatibility notes
+
+- Dungeons & Taverns can be enabled. Matcha no longer filters the vanilla advancement roots that its advancements use.
+- The experience bar is intentionally transparent. AppleSkin can still draw its own hunger HUD overlays; disable AppleSkin or its HUD overlays if you want Matcha's hidden hunger bar.
 
 ## License
 
