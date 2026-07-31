@@ -4,12 +4,6 @@ PROPER CREDITS -----------------------------------------------------------------
 
 The original textures and data were made by Klei and are included under the project license.
 
-The Matcha Flavoured Plus 1.0 asset baseline incorporates "Matcha Vanilla Flavoured" 1.03
-by bug_eater_:
-https://www.planetminecraft.com/texture-pack/matcha-vanilla-flavoured/
-
-
-
 INSPIRATIONAL ARTISTS AND WORKS ------------------------------------------------------------------------------
 
 This data-resource-pack was heavily inspired by Raspmary's wonderful modpack "Raspberry Flavoured"

@@ -2,7 +2,7 @@
 
 A preference-driven derivative of [Matcha Flavoured](https://modrinth.com/datapack/matcha-flavoured) for Minecraft: Java Edition.
 
-The goal of this repository is to build on the original datapack while making deliberate balance, usability, compatibility, and quality-of-life changes. The current files provide the upstream baseline; planned deviations and verified defects are tracked as GitHub issues before implementation.
+The goal of this repository is to build on the original datapack while making deliberate balance, usability, compatibility, and quality-of-life changes. The original Matcha textures are the recommended texture choice; planned deviations and verified defects are tracked as GitHub issues before implementation.
 
 ## Upstream
 
@@ -18,16 +18,30 @@ Build the distribution files with `python tools/build_distribution.py`. The gene
 
 ### Modrinth App / launcher
 
-Install `matcha_flavoured_plus-1.0.0-mod.jar` as a mod. It contains both the datapack and resource pack. Fabric 26.2 with Fabric API is runtime-verified. Quilt, Forge, and NeoForge metadata is included, but those launch paths remain experimental until they are tested in-game.
+Upload only `matcha_flavoured_plus-1.0.0-mod.jar` to the profile. It contains
+the gameplay datapack and the Original Matcha resource assets, including the
+Divine item visuals. No resource-pack installation or in-game toggle is needed.
+
+Fabric 26.2 with Fabric API is runtime-verified. Quilt, Forge, and NeoForge
+metadata is included, but those launch paths remain experimental until they are
+tested in-game.
 
 ### Vanilla Minecraft
 
-Install both archives manually:
+Install the gameplay archive and texture archive manually:
 
 1. Put `matcha_flavoured_plus-1.0.0-datapack.zip` in the target world's `datapacks` folder.
-2. Put `matcha_flavoured_plus-1.0.0-resource-pack.zip` in the client's `resourcepacks` folder, then enable it.
+2. Put `matcha_flavoured_plus-1.0.0-resource-pack.zip` in the client's `resourcepacks` folder.
+3. Enable **Matcha Flavoured Plus**.
 
-The Modrinth App cannot install one `loader=datapack` archive into both a world-specific datapack directory and the client resource-pack directory. The mod JAR is the launcher-compatible release; the two ZIPs are the vanilla release.
+The Modrinth App can install the self-contained mod JAR directly. The standalone
+archives remain available for vanilla-world installation.
+
+## Textures
+
+The repository's root `assets/` tree is the only built texture source. The mod JAR
+and standalone resource pack contain the same Original Matcha assets. There is no
+Original/Vanilla style selector or generated Vanilla Flavoured pack.
 
 ## Verification
 
