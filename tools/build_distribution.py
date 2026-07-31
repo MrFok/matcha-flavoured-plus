@@ -26,12 +26,23 @@ def archive_name(kind: str) -> str:
     return f"{PROJECT_ID}-{VERSION}-{kind}.{extension}"
 
 
+DEPRECATED_ARTIFACT_NAMES = (
+    archive_name("original-resource-pack"),
+    archive_name("vanilla-resource-pack"),
+)
+
+
 def json_bytes(value: object) -> bytes:
     return (json.dumps(value, indent=2, sort_keys=True) + "\n").encode("utf-8")
 
 
-def source_entries(directories: tuple[str, ...]) -> dict[str, bytes]:
-    entries = {name: (ROOT / name).read_bytes() for name in ROOT_FILES}
+def source_entries(
+    directories: tuple[str, ...], extra_root_files: tuple[str, ...] = ()
+) -> dict[str, bytes]:
+    entries = {
+        name: (ROOT / name).read_bytes()
+        for name in (*ROOT_FILES, *extra_root_files)
+    }
     for directory in directories:
         for path in sorted((ROOT / directory).rglob("*")):
             if path.is_file():
@@ -45,7 +56,7 @@ def fabric_metadata() -> dict[str, object]:
         "id": PROJECT_ID,
         "version": VERSION,
         "name": NAME,
-        "description": "Matcha Flavoured Plus datapack and resource pack.",
+        "description": "Matcha Flavoured Plus gameplay datapack and original visuals.",
         "license": LICENSE,
         "icon": "pack.png",
         "contact": {"homepage": REPOSITORY, "issues": ISSUES, "sources": REPOSITORY},
@@ -63,7 +74,7 @@ def quilt_metadata() -> dict[str, object]:
             "version": VERSION,
             "metadata": {
                 "name": NAME,
-                "description": "Matcha Flavoured Plus datapack and resource pack.",
+                "description": "Matcha Flavoured Plus gameplay datapack and original visuals.",
                 "license": LICENSE,
                 "icon": "pack.png",
                 "contact": {"homepage": REPOSITORY, "issues": ISSUES, "sources": REPOSITORY},
@@ -94,7 +105,7 @@ modId="{PROJECT_ID}"
 version="{VERSION}"
 displayName="{NAME}"
 displayURL="{REPOSITORY}"
-description="Matcha Flavoured Plus datapack and resource pack."
+description="Matcha Flavoured Plus gameplay datapack and original visuals."
 '''.encode("utf-8")
 
 
@@ -105,12 +116,23 @@ def write_archive(destination: Path, entries: dict[str, bytes]) -> None:
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o100644 << 16
             archive.writestr(info, entries[name], compress_type=zipfile.ZIP_DEFLATED, compresslevel=9)
+    with zipfile.ZipFile(destination) as archive:
+        corrupt_entry = archive.testzip()
+    if corrupt_entry is not None:
+        raise RuntimeError(f"archive validation failed for {destination}: {corrupt_entry}")
 
 
 def build(output_dir: Path = DIST) -> list[Path]:
     output_dir.mkdir(parents=True, exist_ok=True)
+    for name in DEPRECATED_ARTIFACT_NAMES:
+        deprecated = output_dir / name
+        if deprecated.is_file():
+            deprecated.unlink()
+
     datapack = source_entries(("data",))
     resource_pack = source_entries(("assets",))
+    # The mod jar is the default Fabric release: it must work without a
+    # separately enabled resource pack, so it includes the Original asset tree.
     mod = source_entries(("data", "assets"))
     mod.update(
         {
@@ -121,7 +143,11 @@ def build(output_dir: Path = DIST) -> list[Path]:
         }
     )
     artifacts = []
-    for kind, entries in (("datapack", datapack), ("resource-pack", resource_pack), ("mod", mod)):
+    for kind, entries in (
+        ("datapack", datapack),
+        ("resource-pack", resource_pack),
+        ("mod", mod),
+    ):
         destination = output_dir / archive_name(kind)
         write_archive(destination, entries)
         artifacts.append(destination)

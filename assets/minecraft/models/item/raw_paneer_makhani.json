@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-      "layer0": "item/raw_paneer_makhani"
+      "layer0": "minecraft:item/uncooked_paneer_makhani"
   }
 }
