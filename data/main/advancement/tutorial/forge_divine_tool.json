@@ -1,0 +1,49 @@
+{
+  "parent": "main:tutorial/craft_tyraels_wings_fragment",
+  "criteria": {
+    "forge_divine_pickaxe": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "smithing_table:divine_pickaxe"
+      }
+    },
+    "forge_divine_axe": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "smithing_table:divine_axe"
+      }
+    },
+    "forge_divine_dolabra": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "smithing_table:divine_dolabra"
+      }
+    }
+  },
+  "display": {
+    "description": {
+      "text": "Use a Fragment of Tyrael's Wings to forge a Divine tool."
+    },
+    "icon": {
+      "id": "minecraft:netherite_pickaxe",
+      "count": 1,
+      "components": {
+        "minecraft:item_model": "minecraft:divine_pickaxe"
+      }
+    },
+    "title": {
+      "text": "Divine Intervention"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "forge_divine_pickaxe",
+      "forge_divine_axe",
+      "forge_divine_dolabra"
+    ]
+  ]
+}
