@@ -6,11 +6,6 @@
 		"id": "minecraft:netherite_helmet",
 		"components": {
 			"minecraft:max_damage": 1500,
-			"minecraft:enchantments": {
-				"main:divinity": 1,
-				"minecraft:unbreaking": 2,
-				"minecraft:protection": 1
-			},
 			"minecraft:lore": [
 				{
 					"text": "⛊ 3",

@@ -1,0 +1,13 @@
+{
+  "criteria": {
+    "crafted": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "smithing_table:adamant_spear"
+      }
+    }
+  },
+  "rewards": {
+    "function": "main:smithing_enchantments/adamant_spear"
+  }
+}

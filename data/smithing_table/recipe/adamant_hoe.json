@@ -17,10 +17,6 @@
 				"default_mining_speed": 1,
 				"damage_per_block": 1
 			},
-			"minecraft:enchantments": {
-				"main:divinity": 1,
-				"minecraft:unbreaking": 2
-			},
 			"minecraft:lore": [
 				{
 					"text": "⛏ 15",

@@ -107,9 +107,6 @@
 				"block_sound": "minecraft:entity.zombie.attack_iron_door",
 				"disabled_sound": "minecraft:item.shield.break"
 			},
-			"minecraft:enchantments": {
-				"main:riposte": 1
-			},
 			"minecraft:repairable": {
 				"items": [
 					"minecraft:copper_ingot"

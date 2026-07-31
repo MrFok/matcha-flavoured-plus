@@ -37,11 +37,6 @@
 					"minecraft:attribute_modifiers"
 				]
 			},
-			"minecraft:enchantments": {
-				"minecraft:smite": 2,
-				"minecraft:looting": 2,
-				"main:warding2": 1
-			},
 			"minecraft:repairable": {
 				"items": [
 					"minecraft:gold_ingot",

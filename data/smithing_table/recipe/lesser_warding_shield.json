@@ -36,9 +36,6 @@
 					"minecraft:banner_patterns"
 				]
 			},
-			"minecraft:enchantments": {
-				"main:warding1": 1
-			},
 			"minecraft:item_name": "Warding Shield"
 		}
 	},
