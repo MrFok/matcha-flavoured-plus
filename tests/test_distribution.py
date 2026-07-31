@@ -139,11 +139,15 @@ class DistributionTests(unittest.TestCase):
         self.assertEqual(pool[0]["rolls"], 1)
         self.assertEqual(len(pool[0]["entries"]), 1)
         entry = pool[0]["entries"][0]
-        self.assertEqual(entry["type"], "minecraft:item")
-        self.assertEqual(entry["name"], "minecraft:enchanting_table")
-        self.assertNotIn("functions", entry)
+        self.assertEqual(entry["type"], "minecraft:alternatives")
+        self.assertEqual(len(entry["children"]), 2)
+
+        silk_touch_entry, fallback_entry = entry["children"]
+        self.assertEqual(silk_touch_entry["type"], "minecraft:item")
+        self.assertEqual(silk_touch_entry["name"], "minecraft:enchanting_table")
+        self.assertNotIn("functions", silk_touch_entry)
         self.assertEqual(
-            entry["conditions"],
+            silk_touch_entry["conditions"],
             [
                 {
                     "condition": "minecraft:match_tool",
@@ -159,6 +163,12 @@ class DistributionTests(unittest.TestCase):
                     },
                 }
             ],
+        )
+        self.assertEqual(fallback_entry["type"], "minecraft:item")
+        self.assertEqual(fallback_entry["name"], "minecraft:obsidian")
+        self.assertEqual(
+            fallback_entry["functions"],
+            [{"function": "minecraft:set_count", "count": 4, "add": False}],
         )
 
     def test_resource_paths_are_valid_identifiers(self):

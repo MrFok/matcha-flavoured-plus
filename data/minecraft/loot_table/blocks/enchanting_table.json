@@ -5,23 +5,39 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "minecraft:enchanting_table",
-          "conditions": [
+          "type": "minecraft:alternatives",
+          "children": [
             {
-              "condition": "minecraft:match_tool",
-              "predicate": {
-                "predicates": {
-                  "minecraft:enchantments": [
-                    {
-                      "enchantments": "minecraft:silk_touch",
-                      "levels": {
-                        "min": 1
-                      }
+              "type": "minecraft:item",
+              "name": "minecraft:enchanting_table",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "predicates": {
+                      "minecraft:enchantments": [
+                        {
+                          "enchantments": "minecraft:silk_touch",
+                          "levels": {
+                            "min": 1
+                          }
+                        }
+                      ]
                     }
-                  ]
+                  }
                 }
-              }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:obsidian",
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": 4,
+                  "add": false
+                }
+              ]
             }
           ]
         }
