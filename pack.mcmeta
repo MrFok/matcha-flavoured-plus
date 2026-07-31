@@ -25,6 +25,9 @@
 			"path": "recipe/mace.json"
 		},{
 			"namespace": "minecraft",
+			"path": "recipe/enchanting_table.json"
+		},{
+			"namespace": "minecraft",
 			"path": "recipe/blast_furnace.json"
 		},{
 			"namespace": "minecraft",
