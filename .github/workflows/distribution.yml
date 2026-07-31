@@ -15,8 +15,40 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '25'
       - run: python -m unittest discover -s tests -v
       - run: python tools/build_distribution.py
+      - name: Start Fabric runtime smoke server
+        shell: bash
+        run: |
+          set -euo pipefail
+          runtime_dir=.runtime-server
+          mkdir -p "$runtime_dir/mods"
+          curl --fail --location --silent --show-error --output "$runtime_dir/fabric-server-launch.jar" "https://meta.fabricmc.net/v2/versions/loader/26.2/0.19.3/1.1.0/server/jar"
+          curl --fail --location --silent --show-error --output "$runtime_dir/mods/fabric-api-0.156.0+26.2.jar" "https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/0.156.0%2B26.2/fabric-api-0.156.0%2B26.2.jar"
+          mod_artifact=$(find dist -maxdepth 1 -name '*-mod.jar' -print -quit)
+          test -n "$mod_artifact"
+          cp "$mod_artifact" "$runtime_dir/mods/"
+          printf '%s\n' 'eula=true' > "$runtime_dir/eula.txt"
+          printf '%s\n' 'server-ip=127.0.0.1' 'server-port=25565' 'enable-rcon=true' 'rcon.password=matcha-runtime-smoke' 'rcon.port=25575' 'online-mode=false' 'pause-when-empty-seconds=600' > "$runtime_dir/server.properties"
+          (
+            cd "$runtime_dir"
+            java -Xmx1G -jar fabric-server-launch.jar nogui > server.log 2>&1 &
+            echo $! > server.pid
+          )
+      - name: Exercise Fabric runtime smoke test
+        run: python tools/runtime_smoke.py --log .runtime-server/server.log --password matcha-runtime-smoke
+      - name: Collect runtime server log
+        if: always()
+        shell: bash
+        run: |
+          if [[ -f .runtime-server/server.pid ]] && kill -0 "$(cat .runtime-server/server.pid)" 2>/dev/null; then
+            kill "$(cat .runtime-server/server.pid)"
+          fi
+          cat .runtime-server/server.log
       - uses: actions/upload-artifact@v4
         with:
           name: matcha-flavoured-plus-distribution
