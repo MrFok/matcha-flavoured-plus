@@ -226,6 +226,43 @@ class DistributionTests(unittest.TestCase):
                     expected_texture,
                 )
 
+    def test_blind_fish_assets_and_translations_resolve(self):
+        expected = {
+            "blind_cave_fish": ("minecraft:item/big_placeholder_fish", "Blind Cave Fish"),
+            "blind_minnow": ("minecraft:item/small_placeholder_fish", "Blind Minnow"),
+        }
+
+        for fish, (texture, translation) in expected.items():
+            with self.subTest(fish=fish):
+                item = json.loads(
+                    (ROOT / f"assets/minecraft/items/{fish}.json").read_text(encoding="utf-8")
+                )
+                self.assertEqual(item["model"]["model"], f"minecraft:item/{fish}")
+                model = json.loads(
+                    (ROOT / f"assets/minecraft/models/item/{fish}.json").read_text(encoding="utf-8")
+                )
+                self.assertEqual(model["textures"]["layer0"], texture)
+                namespace, texture_path = texture.split(":", 1)
+                self.assertTrue(
+                    (ROOT / "assets" / namespace / "textures" / f"{texture_path}.png").is_file()
+                )
+                for locale in ("en_us", "en_gb", "en_ca", "en_au"):
+                    language = json.loads(
+                        (ROOT / f"assets/minecraft/lang/{locale}.json").read_text(encoding="utf-8")
+                    )
+                    self.assertEqual(language[f"item.kleispack.fish.{fish}"], translation)
+
+    def test_alaska_blackfish_advancement_criterion_matches_the_fishing_model(self):
+        advancement_path = ROOT / "data/main/advancement/tutorial/catch_everything.json"
+        advancement = json.loads(advancement_path.read_text(encoding="utf-8"))
+        self.assertIn("alaska_blackfish", advancement["criteria"])
+        self.assertNotIn("alaksa_blackfish", advancement["criteria"])
+        self.assertEqual(
+            advancement["criteria"]["alaska_blackfish"]["conditions"]["item"]["components"]
+            ["minecraft:item_model"],
+            "minecraft:alaska_blackfish",
+        )
+
     def test_divine_upgrade_content_is_marked_and_restricted(self):
         fragment = json.loads(
             (ROOT / "data/crafting/recipe/fragment_of_tyraels_wings.json").read_text(encoding="utf-8")
