@@ -21,7 +21,16 @@
 				},
 				{
 					"id": "minecraft:sweet_berries",
-					"count": 8
+					"count": 8,
+					"components": {
+						"minecraft:lore": [
+							{
+								"text": "❣",
+								"color": "red",
+								"italic": false
+							}
+						]
+					}
 				},
 				{
 					"id": "minecraft:glow_berries",
