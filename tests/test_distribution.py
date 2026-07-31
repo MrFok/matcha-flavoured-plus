@@ -117,6 +117,29 @@ class DistributionTests(unittest.TestCase):
                 json.loads(text)
         self.assertEqual(empty_paths, set())
 
+    def test_water_bottle_stacking_is_player_scoped(self):
+        water_bottle = (
+            'minecraft:potion[potion_contents={potion:"minecraft:water"},'
+            '!max_stack_size=64]'
+        )
+        stackable_water_bottle = (
+            'minecraft:potion[potion_contents={potion:"minecraft:water"},'
+            'max_stack_size=64]'
+        )
+        commands = (
+            ROOT / "data/main/function/mechanic/water_bottle_stacking.mcfunction"
+        ).read_text(encoding="utf-8").splitlines()
+
+        self.assertEqual(
+            commands,
+            [
+                f"execute as @a if items entity @s inventory.* {water_bottle} run give @s {stackable_water_bottle}",
+                f"execute as @a if items entity @s hotbar.* {water_bottle} run give @s {stackable_water_bottle}",
+                f"execute as @a if items entity @s inventory.* {water_bottle} run clear @s {water_bottle}",
+                f"execute as @a if items entity @s hotbar.* {water_bottle} run clear @s {water_bottle}",
+            ],
+        )
+
     def test_resource_paths_are_valid_identifiers(self):
         valid_path = re.compile(r"^[a-z0-9._/-]+$")
         invalid = []
