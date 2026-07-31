@@ -1,0 +1,40 @@
+{
+  "parent": "main:tutorial/obtain_diamond",
+  "criteria": {
+    "craft_fragment": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "crafting:fragment_of_tyraels_wings"
+      }
+    }
+  },
+  "display": {
+    "description": {
+      "text": "Craft a Fragment of Tyrael's Wings."
+    },
+    "icon": {
+      "id": "minecraft:feather",
+      "count": 1,
+      "components": {
+        "minecraft:custom_data": {
+          "matcha": {
+            "divine_fragment": true
+          }
+        },
+        "minecraft:item_model": "minecraft:fragment_of_tyraels_wings"
+      }
+    },
+    "title": {
+      "text": "A Fragment of Tyrael's Wings"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "craft_fragment"
+    ]
+  ]
+}

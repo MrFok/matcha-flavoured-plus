@@ -290,6 +290,7 @@ class DistributionTests(unittest.TestCase):
             {"D": "minecraft:diamond", "F": "minecraft:nether_star"},
         )
         self.assertEqual(fragment["result"]["components"]["minecraft:item_model"], "minecraft:fragment_of_tyraels_wings")
+        self.assertNotIn("minecraft:lore", fragment["result"]["components"])
         self.assertNotIn(
             "minecraft:enchantment_glint_override",
             fragment["result"]["components"],
@@ -359,6 +360,7 @@ class DistributionTests(unittest.TestCase):
             if "minecraft:fragment_of_tyraels_wings" in line
         )
         self.assertNotIn("minecraft:enchantment_glint_override", wing_line)
+        self.assertNotIn("minecraft:lore", wing_line)
 
         for tool, item_model in (
             ("pickaxe", "minecraft:divine_pickaxe"),
@@ -375,6 +377,45 @@ class DistributionTests(unittest.TestCase):
                     self.assertIn(f'"minecraft:efficiency":{level}', test_set)
                 self.assertNotIn('"minecraft:fortune":3', test_set)
                 self.assertNotIn('"minecraft:silk_touch":1', test_set)
+
+    def test_tyraels_wings_achievements_follow_the_divine_upgrade_path(self):
+        fragment = json.loads(
+            (
+                ROOT
+                / "data/main/advancement/tutorial/craft_tyraels_wings_fragment.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertEqual(fragment["parent"], "main:tutorial/obtain_diamond")
+        self.assertEqual(fragment["criteria"]["craft_fragment"], {
+            "trigger": "minecraft:recipe_crafted",
+            "conditions": {"recipe_id": "crafting:fragment_of_tyraels_wings"},
+        })
+        self.assertEqual(
+            fragment["display"]["icon"]["components"]["minecraft:item_model"],
+            "minecraft:fragment_of_tyraels_wings",
+        )
+
+        divine_tool = json.loads(
+            (ROOT / "data/main/advancement/tutorial/forge_divine_tool.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(divine_tool["parent"], "main:tutorial/craft_tyraels_wings_fragment")
+        self.assertEqual(
+            divine_tool["requirements"],
+            [["forge_divine_pickaxe", "forge_divine_axe", "forge_divine_dolabra"]],
+        )
+        self.assertEqual(
+            {
+                criterion["conditions"]["recipe_id"]
+                for criterion in divine_tool["criteria"].values()
+            },
+            {
+                "smithing_table:divine_pickaxe",
+                "smithing_table:divine_axe",
+                "smithing_table:divine_dolabra",
+            },
+        )
 
     def test_divine_mining_test_wall_covers_target_blocks(self):
         wall = (
