@@ -86,7 +86,7 @@ class HudCompatibilityTests(unittest.TestCase):
                 self.assertEqual((width, height), (182, 5))
                 self.assertTrue(all(channel == 0 for row in rows for channel in row[3::4]))
 
-    def test_dungeons_and_taverns_parent_trees_are_not_filtered(self):
+    def test_vanilla_progression_trees_remain_filtered(self):
         metadata = json.loads((ROOT / "pack.mcmeta").read_text(encoding="utf-8"))
         blocked_paths = {
             item["path"]
@@ -99,7 +99,7 @@ class HudCompatibilityTests(unittest.TestCase):
             "advancement/nether",
             "advancement/story",
         }
-        self.assertFalse(blocked_paths & required_trees)
+        self.assertTrue(required_trees <= blocked_paths)
 
 
 if __name__ == "__main__":
