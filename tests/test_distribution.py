@@ -117,6 +117,50 @@ class DistributionTests(unittest.TestCase):
                 json.loads(text)
         self.assertEqual(empty_paths, set())
 
+    def test_enchanting_tables_are_structure_only_and_silk_touch_recoverable(self):
+        metadata = json.loads((ROOT / "pack.mcmeta").read_text(encoding="utf-8"))
+        blocked_recipes = {
+            item["path"]
+            for item in metadata["filter"]["block"]
+            if item.get("namespace") == "minecraft"
+        }
+        self.assertIn("recipe/enchanting_table.json", blocked_recipes)
+
+        loot_table = json.loads(
+            (
+                ROOT
+                / "data/minecraft/loot_table/blocks/enchanting_table.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertEqual(loot_table["type"], "minecraft:block")
+        self.assertEqual(loot_table["random_sequence"], "minecraft:blocks/enchanting_table")
+        pool = loot_table["pools"]
+        self.assertEqual(len(pool), 1)
+        self.assertEqual(pool[0]["rolls"], 1)
+        self.assertEqual(len(pool[0]["entries"]), 1)
+        entry = pool[0]["entries"][0]
+        self.assertEqual(entry["type"], "minecraft:item")
+        self.assertEqual(entry["name"], "minecraft:enchanting_table")
+        self.assertNotIn("functions", entry)
+        self.assertEqual(
+            entry["conditions"],
+            [
+                {
+                    "condition": "minecraft:match_tool",
+                    "predicate": {
+                        "predicates": {
+                            "minecraft:enchantments": [
+                                {
+                                    "enchantments": "minecraft:silk_touch",
+                                    "levels": {"min": 1},
+                                }
+                            ]
+                        }
+                    },
+                }
+            ],
+        )
+
     def test_resource_paths_are_valid_identifiers(self):
         valid_path = re.compile(r"^[a-z0-9._/-]+$")
         invalid = []
