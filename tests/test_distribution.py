@@ -86,8 +86,10 @@ class DistributionTests(unittest.TestCase):
         )
 
         self.assertIn("minecraft:consumable", recipe["result"]["components"])
+        self.assertTrue(recipe["result"]["components"]["minecraft:food"]["can_always_eat"])
         loot_components = loot["pools"][0]["entries"][0]["functions"][0]["components"]
         self.assertIn("minecraft:consumable", loot_components)
+        self.assertTrue(loot_components["minecraft:food"]["can_always_eat"])
         self.assertEqual(
             advancement["criteria"]["consumed_heart_container"]["trigger"],
             "minecraft:consume_item",
@@ -592,6 +594,24 @@ class DistributionTests(unittest.TestCase):
         )
         self.assertIn('"main:tyrael_wings":1', qa)
         self.assertIn("Divine Elytra QA ready", qa)
+
+        migration = (ROOT / "data/main/function/tyrael_elytra/ensure_enchanted.mcfunction").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("armor.chest", migration)
+        self.assertIn("main:tyrael_elytra", migration)
+        self.assertIn(
+            "function main:tyrael_elytra/ensure_enchanted",
+            ticking,
+        )
+
+        modifier = json.loads(
+            (ROOT / "data/main/item_modifier/tyrael_elytra.json").read_text(encoding="utf-8")
+        )
+        sequence = modifier[0]["modifier"]["modifier"]
+        self.assertEqual(sequence["function"], "minecraft:sequence")
+        self.assertEqual(sequence["functions"][-1]["function"], "minecraft:set_enchantments")
+        self.assertTrue(sequence["functions"][-1]["add"])
 
     def test_tyrael_elytra_has_a_dedicated_angel_wing_visual(self):
         recipe = json.loads(

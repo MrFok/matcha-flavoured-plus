@@ -13,14 +13,14 @@ WING_TEXTURES = ROOT / "assets" / "minecraft" / "textures" / "entity" / "equipme
 ITEM_TEXTURES = ROOT / "assets" / "minecraft" / "textures" / "item"
 
 TRANSPARENT = (0, 0, 0, 0)
-SHADOW = (77, 72, 58, 255)
-FEATHER_SHADE = (161, 157, 143, 255)
-FEATHER = (226, 224, 210, 255)
-IVORY = (250, 249, 239, 255)
-HIGHLIGHT = (255, 255, 252, 255)
-GOLD_SHADOW = (111, 76, 19, 255)
-GOLD = (205, 159, 48, 255)
-GOLD_LIGHT = (255, 225, 131, 255)
+SHADOW = (92, 101, 111, 255)
+FEATHER_SHADE = (179, 188, 195, 255)
+FEATHER = (229, 230, 224, 255)
+IVORY = (255, 249, 225, 255)
+HIGHLIGHT = (255, 255, 250, 255)
+GOLD_SHADOW = (133, 89, 26, 255)
+GOLD = (222, 172, 65, 255)
+GOLD_LIGHT = (255, 231, 148, 255)
 CYAN = (82, 227, 239, 255)
 
 
@@ -32,7 +32,7 @@ def row_bounds(image: Image.Image, y: int) -> tuple[int, int] | None:
 
 
 def make_worn_wings() -> None:
-    """Keep vanilla's wing silhouette while painting layered ivory feathers."""
+    """Keep vanilla's wing silhouette while painting layered angel feathers."""
     source = Image.open(WING_TEXTURES / "elytra.png").convert("RGBA")
     result = Image.new("RGBA", source.size, TRANSPARENT)
 
@@ -48,20 +48,21 @@ def make_worn_wings() -> None:
                 continue
             local_x = x - left
             leading_edge = local_x <= 1
-            trailing_edge = local_x >= width - 2
-            feather_seam = y >= 5 and y % 4 == 0
-            inner_rib = local_x == max(2, width // 3) and y >= 3
+            trailing_edge = local_x >= width - 1
+            feather_row = y >= 4 and y % 3 == 1
+            feather_tip = y >= 6 and (local_x + y // 2) % 5 == 0
+            inner_rib = local_x == max(2, width // 3) and y >= 2
 
             color = FEATHER
-            if feather_seam:
+            if feather_row:
                 color = FEATHER_SHADE
-            elif (local_x + y) % 7 == 0:
+            elif feather_tip:
                 color = IVORY
-            if y >= 5 and local_x == max(2, width // 3) + 1:
+            if y >= 4 and local_x == max(2, width // 3) + 1:
                 color = HIGHLIGHT
             if leading_edge or inner_rib:
                 color = GOLD
-            if leading_edge and y % 3 == 0:
+            if leading_edge and y % 2 == 0:
                 color = GOLD_LIGHT
             if trailing_edge:
                 color = SHADOW
@@ -76,34 +77,39 @@ def make_worn_wings() -> None:
     result.save(WING_TEXTURES / "tyraels_elytra.png")
 
 
-def paint_wing(image: Image.Image, points: tuple[tuple[int, int], ...], mirror: bool) -> None:
-    for x, y in points:
-        draw_x = 15 - x if mirror else x
-        color = IVORY
-        if x in (2, 3) or y in (4, 8, 12):
-            color = FEATHER_SHADE
-        if x == 4:
-            color = GOLD
-        image.putpixel((draw_x, y), color)
+def paint_wing(image: Image.Image, mirror: bool) -> None:
+    """Paint a wide fan of overlapping feathers for the inventory icon."""
+    feather_rows = {
+        2: (6, 6),
+        3: (5, 6),
+        4: (4, 6),
+        5: (3, 6),
+        6: (2, 6),
+        7: (1, 6),
+        8: (0, 6),
+        9: (0, 5),
+        10: (1, 5),
+        11: (2, 5),
+        12: (3, 5),
+        13: (4, 5),
+    }
+    for y, (start, end) in feather_rows.items():
+        for x in range(start, end + 1):
+            draw_x = 15 - x if mirror else x
+            color = FEATHER
+            if x == start:
+                color = GOLD_LIGHT if y < 7 else GOLD
+            elif y >= 7 and (x + y) % 3 == 0:
+                color = FEATHER_SHADE
+            elif x == end:
+                color = IVORY
+            image.putpixel((draw_x, y), color)
 
 
 def make_inventory_icons() -> None:
     icon = Image.new("RGBA", (16, 16), TRANSPARENT)
-    wing_points = (
-        (4, 2),
-        (3, 3), (4, 3), (5, 3),
-        (2, 4), (3, 4), (4, 4), (5, 4),
-        (2, 5), (3, 5), (4, 5), (5, 5),
-        (1, 6), (2, 6), (3, 6), (4, 6),
-        (1, 7), (2, 7), (3, 7), (4, 7),
-        (1, 8), (2, 8), (3, 8), (4, 8),
-        (2, 9), (3, 9), (4, 9),
-        (2, 10), (3, 10), (4, 10),
-        (3, 11), (4, 11),
-        (3, 12),
-    )
-    paint_wing(icon, wing_points, mirror=False)
-    paint_wing(icon, wing_points, mirror=True)
+    paint_wing(icon, mirror=False)
+    paint_wing(icon, mirror=True)
     icon.putpixel((7, 2), GOLD_LIGHT)
     icon.putpixel((8, 2), GOLD_LIGHT)
     icon.putpixel((7, 3), CYAN)
