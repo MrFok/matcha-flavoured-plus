@@ -697,17 +697,7 @@ class DistributionTests(unittest.TestCase):
             },
         )
 
-        divine_pickaxe = json.loads(
-            (ROOT / "data/main/advancement/end/divine_pickaxe.json").read_text(
-                encoding="utf-8"
-            )
-        )
-        self.assertEqual(divine_pickaxe["parent"], "main:end/craft_divine_item")
-        self.assertEqual(divine_pickaxe["display"]["title"]["text"], "Into Dreams")
-        self.assertEqual(
-            divine_pickaxe["criteria"]["divine_pickaxe"]["conditions"]["recipe_id"],
-            "smithing_table:divine_pickaxe",
-        )
+        self.assertFalse((ROOT / "data/main/advancement/end/divine_pickaxe.json").exists())
 
         credits = (ROOT / "CREDITS.txt").read_text(encoding="utf-8")
         self.assertIn("https://modrinth.com/datapack/elytra-boost", credits)
