@@ -557,18 +557,8 @@ class DistributionTests(unittest.TestCase):
             "An ascent without rockets.",
         )
 
-        enchantment = json.loads(
-            (ROOT / "data/main/enchantment/tyrael_wings.json").read_text(encoding="utf-8")
-        )
-        effect = enchantment["effects"]["minecraft:tick"][0]
-        self.assertEqual(effect["effect"]["type"], "minecraft:apply_impulse")
-        self.assertEqual(effect["effect"]["direction"], [0, 0, 1])
-        self.assertEqual(effect["effect"]["magnitude"], 0.15)
-        self.assertEqual(effect["effect"]["coordinate_scale"], [0.1, 0.1, 0.1])
-        self.assertTrue(effect["requirements"]["predicate"]["flags"]["is_fall_flying"])
-        self.assertFalse(
-            effect["requirements"]["predicate"]["type_specific/player"]["input"]["sneak"]
-        )
+        self.assertFalse((ROOT / "data/main/enchantment/tyrael_wings.json").exists())
+        self.assertFalse((ROOT / "data/main/item_modifier/tyrael_elytra.json").exists())
 
         attribution = (ROOT / "CREDITS.txt").read_text(encoding="utf-8")
         self.assertIn("https://modrinth.com/datapack/elytra-boost", attribution)
@@ -592,29 +582,20 @@ class DistributionTests(unittest.TestCase):
         qa = (ROOT / "data/main/function/qa/divine_elytra/setup.mcfunction").read_text(
             encoding="utf-8"
         )
-        self.assertIn('"main:tyrael_wings":1', qa)
+        self.assertNotIn("minecraft:enchantments", qa)
         self.assertIn("Divine Elytra QA ready", qa)
 
-        migration = (ROOT / "data/main/function/tyrael_elytra/ensure_enchanted.mcfunction").read_text(
+        boost = (ROOT / "data/main/function/tyrael_elytra/boost.mcfunction").read_text(
             encoding="utf-8"
         )
-        self.assertIn("armor.chest", migration)
-        self.assertIn("main:tyrael_elytra", migration)
+        self.assertIn("FallFlying:1b", boost)
+        self.assertIn("armor.chest", boost)
+        self.assertIn("minecraft:custom_data~{matcha:{tyrael_wings:true}}", boost)
+        self.assertIn("main:tyrael_elytra/not_sneaking", boost)
+        self.assertIn("tp @s ^ ^ ^0.15", boost)
         self.assertIn(
-            "function main:tyrael_elytra/ensure_enchanted",
+            "function main:tyrael_elytra/boost",
             ticking,
-        )
-
-        modifier = json.loads(
-            (ROOT / "data/main/item_modifier/tyrael_elytra.json").read_text(encoding="utf-8")
-        )
-        sequence = modifier[0]
-        self.assertEqual(sequence["function"], "minecraft:sequence")
-        self.assertEqual(sequence["functions"][-1]["function"], "minecraft:set_enchantments")
-        self.assertTrue(sequence["functions"][-1]["add"])
-        self.assertIn(
-            'minecraft:enchantments~[{enchantments:"main:tyrael_wings",levels:1}]',
-            migration,
         )
 
     def test_tyrael_elytra_has_a_dedicated_angel_wing_visual(self):

@@ -1,1 +1,0 @@
-execute as @a if items entity @s armor.chest minecraft:elytra[minecraft:custom_data~{matcha:{tyrael_wings:true}}] unless items entity @s armor.chest minecraft:elytra[minecraft:enchantments~[{enchantments:"main:tyrael_wings",levels:1}]] run item modify entity @s armor.chest main:tyrael_elytra

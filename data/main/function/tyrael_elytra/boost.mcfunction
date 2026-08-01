@@ -1,0 +1,1 @@
+execute as @a[nbt={FallFlying:1b}] at @s if items entity @s armor.chest minecraft:elytra[minecraft:custom_data~{matcha:{tyrael_wings:true}}] if predicate main:tyrael_elytra/not_sneaking run tp @s ^ ^ ^0.15
