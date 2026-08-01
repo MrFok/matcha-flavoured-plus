@@ -1,0 +1,42 @@
+{
+	"parent": "main:tutorial/upgrade_mattock",
+	"criteria": {
+		"tyraels_wing_fragment": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:feather",
+						"components": {
+							"minecraft:item_model": "minecraft:fragment_of_tyraels_wings"
+						}
+					}
+				]
+			}
+		}
+	},
+	"display": {
+		"title": {
+			"text": "Feathers of Justice",
+			"color": "aqua"
+		},
+		"description": {
+			"text": "Obtain a fragment of Tyrael's wings."
+		},
+		"icon": {
+			"id": "minecraft:feather",
+			"components": {
+				"minecraft:item_model": "minecraft:fragment_of_tyraels_wings"
+			}
+		},
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"requirements": [
+		[
+			"tyraels_wing_fragment"
+		]
+	]
+}

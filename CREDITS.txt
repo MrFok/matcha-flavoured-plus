@@ -36,5 +36,11 @@ Their resourcepack: https://www.curseforge.com/minecraft/texture-packs/detail-br
 Rhythmic under PurpurMC for providing a framework for looting shears. 
 Their datapack: https://modrinth.com/datapack/purpurpacks-looting-shears?version=26.1&loader=datapack
 
+DRECUBED's Elytra Boost datapack provided the rocket-free flight idea and the
+`minecraft:apply_impulse` implementation adapted and modified for Divine
+Elytra. Elytra Boost is licensed CC-BY-NC-4.0:
+https://modrinth.com/datapack/elytra-boost
+https://creativecommons.org/licenses/by-nc/4.0/
+
 
 *NO ONE MENTIONED KNOWS OF ME OR CONDONES MY WORK. I just wanted to cite where my inspirations came from.

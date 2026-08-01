@@ -1,7 +1,7 @@
 {
 	"parent": "main:mechanics/root",
 	"criteria": {
-		"obtained_heart_container": {
+		"consumed_heart_container": {
 			"conditions": {
 				"items": [
 					{
@@ -11,12 +11,12 @@
 					}
 				]
 			},
-			"trigger": "minecraft:inventory_changed"
+			"trigger": "minecraft:consume_item"
 		}
 	},
 	"requirements": [
 		[
-			"obtained_heart_container"
+			"consumed_heart_container"
 		]
 	],
 	"rewards": {

@@ -19,14 +19,27 @@ REPOSITORY = "https://github.com/MrFok/matcha-flavoured-plus"
 ISSUES = f"{REPOSITORY}/issues"
 ROOT_FILES = ("pack.mcmeta", "pack.png", "CREDITS.txt")
 EPOCH = (1980, 1, 1, 0, 0, 0)
+PACK_VARIANTS = {
+    "clean-tabs": {
+        "blocked_advancement_roots": (
+            "advancement/adventure",
+            "advancement/end",
+            "advancement/nether",
+            "advancement/story",
+        )
+    },
+    "dungeons-and-taverns-compatible": {"blocked_advancement_roots": ()},
+}
 
 
 def archive_name(kind: str) -> str:
-    extension = "jar" if kind == "mod" else "zip"
+    extension = "jar" if kind.endswith("mod") else "zip"
     return f"{PROJECT_ID}-{VERSION}-{kind}.{extension}"
 
 
 DEPRECATED_ARTIFACT_NAMES = (
+    archive_name("datapack"),
+    archive_name("mod"),
     archive_name("original-resource-pack"),
     archive_name("vanilla-resource-pack"),
 )
@@ -37,7 +50,9 @@ def json_bytes(value: object) -> bytes:
 
 
 def source_entries(
-    directories: tuple[str, ...], extra_root_files: tuple[str, ...] = ()
+    directories: tuple[str, ...],
+    extra_root_files: tuple[str, ...] = (),
+    root_overrides: dict[str, bytes] | None = None,
 ) -> dict[str, bytes]:
     entries = {
         name: (ROOT / name).read_bytes()
@@ -47,7 +62,16 @@ def source_entries(
         for path in sorted((ROOT / directory).rglob("*")):
             if path.is_file():
                 entries[path.relative_to(ROOT).as_posix()] = path.read_bytes()
+    entries.update(root_overrides or {})
     return entries
+
+
+def pack_metadata(variant: str) -> bytes:
+    metadata = json.loads((ROOT / "pack.mcmeta").read_text(encoding="utf-8"))
+    blocked = metadata.setdefault("filter", {}).setdefault("block", [])
+    for path in PACK_VARIANTS[variant]["blocked_advancement_roots"]:
+        blocked.append({"namespace": "minecraft", "path": path})
+    return json_bytes(metadata)
 
 
 def fabric_metadata() -> dict[str, object]:
@@ -129,28 +153,25 @@ def build(output_dir: Path = DIST) -> list[Path]:
         if deprecated.is_file():
             deprecated.unlink()
 
-    datapack = source_entries(("data",))
     resource_pack = source_entries(("assets",))
-    # The mod jar is the default Fabric release: it must work without a
-    # separately enabled resource pack, so it includes the Original asset tree.
-    mod = source_entries(("data", "assets"))
-    mod.update(
-        {
-            "fabric.mod.json": json_bytes(fabric_metadata()),
-            "quilt.mod.json": json_bytes(quilt_metadata()),
-            "META-INF/mods.toml": forge_metadata(False),
-            "META-INF/neoforge.mods.toml": forge_metadata(True),
-        }
-    )
-    artifacts = []
-    for kind, entries in (
-        ("datapack", datapack),
-        ("resource-pack", resource_pack),
-        ("mod", mod),
-    ):
-        destination = output_dir / archive_name(kind)
-        write_archive(destination, entries)
-        artifacts.append(destination)
+    artifacts = [output_dir / archive_name("resource-pack")]
+    write_archive(artifacts[0], resource_pack)
+    for variant in PACK_VARIANTS:
+        root_overrides = {"pack.mcmeta": pack_metadata(variant)}
+        datapack = source_entries(("data",), root_overrides=root_overrides)
+        mod = source_entries(("data", "assets"), root_overrides=root_overrides)
+        mod.update(
+            {
+                "fabric.mod.json": json_bytes(fabric_metadata()),
+                "quilt.mod.json": json_bytes(quilt_metadata()),
+                "META-INF/mods.toml": forge_metadata(False),
+                "META-INF/neoforge.mods.toml": forge_metadata(True),
+            }
+        )
+        for kind, entries in (("datapack", datapack), ("mod", mod)):
+            destination = output_dir / archive_name(f"{variant}-{kind}")
+            write_archive(destination, entries)
+            artifacts.append(destination)
     return artifacts
 
 

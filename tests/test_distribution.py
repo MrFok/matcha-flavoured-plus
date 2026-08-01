@@ -31,11 +31,99 @@ class DistributionTests(unittest.TestCase):
         with zipfile.ZipFile(artifact) as archive:
             return archive.namelist()
 
+    def artifact(self, variant, kind):
+        return self.artifacts[builder.archive_name(f"{variant}-{kind}")]
+
+    def test_death_penalty_initializes_and_targets_the_dead_player(self):
+        hpdown = (ROOT / "data/main/function/mechanic/hpdown.mcfunction").read_text(
+            encoding="utf-8"
+        )
+        scoreboard = (ROOT / "data/main/function/setup/scoreboard.mcfunction").read_text(
+            encoding="utf-8"
+        )
+        set_max_hp = (ROOT / "data/main/function/mechanic/set_max_hp.mcfunction").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn(
+            "execute as @a[scores={Hearts=0}] run scoreboard players set @s Hearts 20",
+            scoreboard,
+        )
+        self.assertIn("function main:mechanic/set_max_hp", scoreboard)
+        self.assertIn(
+            "execute as @a[scores={deaths=1..,Hearts=12..}] run scoreboard players remove @s Hearts 2",
+            hpdown,
+        )
+        self.assertIn(
+            "execute if entity @a[scores={deaths=1..}] run function main:mechanic/set_max_hp",
+            hpdown,
+        )
+        self.assertIn(
+            "execute as @a[scores={deaths=1..}] run scoreboard players set @s deaths 0",
+            hpdown,
+        )
+        self.assertIn(
+            "execute as @a[scores={Hearts=10}] run attribute @s minecraft:max_health base set 10",
+            set_max_hp,
+        )
+
+    def test_crystal_heart_is_deliberately_consumed_not_auto_used(self):
+        recipe = json.loads(
+            (ROOT / "data/crafting/recipe/crystal_heart.json").read_text(encoding="utf-8")
+        )
+        loot = json.loads(
+            (ROOT / "data/minecraft/loot_table/kleis_items/crystal_heart.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        advancement = json.loads(
+            (ROOT / "data/main/advancement/mechanics/heart_container_obtained.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        process = (ROOT / "data/main/function/mechanic/process_heart_container.mcfunction").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("minecraft:consumable", recipe["result"]["components"])
+        loot_components = loot["pools"][0]["entries"][0]["functions"][0]["components"]
+        self.assertIn("minecraft:consumable", loot_components)
+        self.assertEqual(
+            advancement["criteria"]["consumed_heart_container"]["trigger"],
+            "minecraft:consume_item",
+        )
+        self.assertNotIn("minecraft:inventory_changed", json.dumps(advancement))
+        self.assertIn("execute if score @s Hearts matches ..58 run scoreboard players add @s Hearts 2", process)
+        self.assertIn("execute if score @s Hearts matches 60.. run loot give @s loot minecraft:kleis_items/crystal_heart", process)
+        self.assertNotIn("container.*", process)
+        self.assertFalse((ROOT / "data/main/function/mechanic/clear_heart_container.mcfunction").exists())
+
+    def test_enchanting_table_returns_obsidian_without_silk_touch(self):
+        loot_table = json.loads(
+            (ROOT / "data/minecraft/loot_table/blocks/enchanting_table.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        silk_pool, ordinary_pool = loot_table["pools"]
+
+        self.assertEqual(silk_pool["entries"][0]["name"], "minecraft:enchanting_table")
+        silk_enchantment = silk_pool["conditions"][1]["predicate"]["predicates"][
+            "minecraft:enchantments"
+        ][0]
+        self.assertEqual(silk_enchantment["enchantments"], "minecraft:silk_touch")
+
+        self.assertEqual(ordinary_pool["entries"][0]["name"], "minecraft:obsidian")
+        self.assertEqual(ordinary_pool["entries"][0]["functions"][0]["count"], 4)
+        self.assertEqual(ordinary_pool["conditions"][1]["condition"], "minecraft:inverted")
+
     def test_expected_filenames_and_root_layout(self):
         expected = {
-            builder.archive_name("datapack"),
             builder.archive_name("resource-pack"),
-            builder.archive_name("mod"),
+            *(
+                builder.archive_name(f"{variant}-{kind}")
+                for variant in builder.PACK_VARIANTS
+                for kind in ("datapack", "mod")
+            ),
         }
         self.assertEqual(set(self.artifacts), expected)
         allowed_roots = {
@@ -52,55 +140,47 @@ class DistributionTests(unittest.TestCase):
                 self.assertFalse(name.startswith(("matcha_flavoured_plus/", "dist/", ".git/")))
 
     def test_content_boundaries(self):
-        datapack = self.names(self.artifacts[builder.archive_name("datapack")])
         resource_pack = self.names(
             self.artifacts[builder.archive_name("resource-pack")]
         )
-        mod = self.names(self.artifacts[builder.archive_name("mod")])
-        self.assertTrue(any(name.startswith("data/") for name in datapack))
-        self.assertFalse(any(name.startswith("assets/") for name in datapack))
         self.assertTrue(any(name.startswith("assets/") for name in resource_pack))
         self.assertFalse(any(name.startswith("data/") for name in resource_pack))
-        self.assertTrue(any(name.startswith("data/") for name in mod))
-        self.assertTrue(any(name.startswith("assets/") for name in mod))
-        for names in (datapack, resource_pack, mod):
+        all_names = [resource_pack]
+        for variant in builder.PACK_VARIANTS:
+            datapack = self.names(self.artifact(variant, "datapack"))
+            mod = self.names(self.artifact(variant, "mod"))
+            self.assertTrue(any(name.startswith("data/") for name in datapack))
+            self.assertFalse(any(name.startswith("assets/") for name in datapack))
+            self.assertTrue(any(name.startswith("data/") for name in mod))
+            self.assertTrue(any(name.startswith("assets/") for name in mod))
+            all_names.extend((datapack, mod))
+        for names in all_names:
             self.assertTrue(set(builder.ROOT_FILES).issubset(names))
             self.assertFalse(any(name.startswith((".git/", "tools/", "tests/", "dist/")) for name in names))
             self.assertNotIn("respackopts.json5", names)
 
     def test_loader_metadata_and_json(self):
-        artifact = self.artifacts[builder.archive_name("mod")]
-        with zipfile.ZipFile(artifact) as archive:
-            fabric = json.loads(archive.read("fabric.mod.json"))
-            quilt = json.loads(archive.read("quilt.mod.json"))
-            forge = archive.read("META-INF/mods.toml").decode()
-            neoforge = archive.read("META-INF/neoforge.mods.toml").decode()
-        self.assertEqual(fabric["id"], builder.PROJECT_ID)
-        self.assertEqual(
-            fabric["description"],
-            "Matcha Flavoured Plus gameplay datapack and original visuals.",
-        )
-        self.assertIn("fabric-resource-loader-v0", fabric["depends"])
-        self.assertNotIn("suggests", fabric)
-        self.assertEqual(quilt["quilt_loader"]["id"], builder.PROJECT_ID)
-        self.assertEqual(
-            quilt["quilt_loader"]["metadata"]["description"],
-            "Matcha Flavoured Plus gameplay datapack and original visuals.",
-        )
-        quilt_dependencies = {
-            dependency["id"]: dependency for dependency in quilt["quilt_loader"]["depends"]
-        }
-        self.assertEqual(
-            quilt_dependencies["quilt_resource_loader"]["unless"],
-            "fabric-resource-loader-v0",
-        )
-        self.assertIn('modLoader="lowcodefml"', forge)
-        self.assertIn('description="Matcha Flavoured Plus gameplay datapack and original visuals."', forge)
-        self.assertIn('loaderVersion="[40,)"', forge)
-        self.assertIn("showAsResourcePack=false", forge)
-        self.assertIn('modLoader="javafml"', neoforge)
-        self.assertIn('loaderVersion="[1,)"', neoforge)
-        self.assertIn("showAsResourcePack=false", neoforge)
+        for variant in builder.PACK_VARIANTS:
+            with self.subTest(variant=variant), zipfile.ZipFile(self.artifact(variant, "mod")) as archive:
+                fabric = json.loads(archive.read("fabric.mod.json"))
+                quilt = json.loads(archive.read("quilt.mod.json"))
+                forge = archive.read("META-INF/mods.toml").decode()
+                neoforge = archive.read("META-INF/neoforge.mods.toml").decode()
+            self.assertEqual(fabric["id"], builder.PROJECT_ID)
+            self.assertEqual(fabric["description"], "Matcha Flavoured Plus gameplay datapack and original visuals.")
+            self.assertIn("fabric-resource-loader-v0", fabric["depends"])
+            self.assertNotIn("suggests", fabric)
+            self.assertEqual(quilt["quilt_loader"]["id"], builder.PROJECT_ID)
+            self.assertEqual(quilt["quilt_loader"]["metadata"]["description"], "Matcha Flavoured Plus gameplay datapack and original visuals.")
+            quilt_dependencies = {dependency["id"]: dependency for dependency in quilt["quilt_loader"]["depends"]}
+            self.assertEqual(quilt_dependencies["quilt_resource_loader"]["unless"], "fabric-resource-loader-v0")
+            self.assertIn('modLoader="lowcodefml"', forge)
+            self.assertIn('description="Matcha Flavoured Plus gameplay datapack and original visuals."', forge)
+            self.assertIn('loaderVersion="[40,)"', forge)
+            self.assertIn("showAsResourcePack=false", forge)
+            self.assertIn('modLoader="javafml"', neoforge)
+            self.assertIn('loaderVersion="[1,)"', neoforge)
+            self.assertIn("showAsResourcePack=false", neoforge)
 
     def test_source_json_is_valid(self):
         paths = [builder.ROOT / "pack.mcmeta"]
@@ -117,75 +197,104 @@ class DistributionTests(unittest.TestCase):
                 json.loads(text)
         self.assertEqual(empty_paths, set())
 
-    def test_enchanting_tables_are_structure_only_and_silk_touch_recoverable(self):
-        metadata = json.loads((ROOT / "pack.mcmeta").read_text(encoding="utf-8"))
-        blocked_recipes = {
-            item["path"]
-            for item in metadata["filter"]["block"]
-            if item.get("namespace") == "minecraft"
-        }
-        self.assertIn("recipe/enchanting_table.json", blocked_recipes)
-
-        loot_table = json.loads(
+    def test_sweet_berry_behavior_is_item_id_driven(self):
+        advancement = json.loads(
             (
-                ROOT
-                / "data/minecraft/loot_table/blocks/enchanting_table.json"
+                ROOT / "data/main/advancement/mechanics/sweet_berries_eaten.json"
             ).read_text(encoding="utf-8")
         )
-        self.assertEqual(loot_table["type"], "minecraft:block")
-        self.assertEqual(loot_table["random_sequence"], "minecraft:blocks/enchanting_table")
-        pool = loot_table["pools"]
-        self.assertEqual(len(pool), 1)
-        self.assertEqual(pool[0]["rolls"], 1)
-        self.assertEqual(len(pool[0]["entries"]), 1)
-        entry = pool[0]["entries"][0]
-        self.assertEqual(entry["type"], "minecraft:alternatives")
-        self.assertEqual(len(entry["children"]), 2)
-
-        silk_touch_entry, fallback_entry = entry["children"]
-        self.assertEqual(silk_touch_entry["type"], "minecraft:item")
-        self.assertEqual(silk_touch_entry["name"], "minecraft:enchanting_table")
-        self.assertNotIn("functions", silk_touch_entry)
+        criterion = advancement["criteria"]["eat_sweet_berries"]
+        self.assertEqual(criterion["trigger"], "minecraft:consume_item")
         self.assertEqual(
-            silk_touch_entry["conditions"],
+            criterion["conditions"]["item"], {"items": "minecraft:sweet_berries"}
+        )
+        self.assertEqual(
+            advancement["rewards"]["function"],
+            "main:effects/sweet_berry_regeneration",
+        )
+
+        effect = (
+            ROOT / "data/main/function/effects/sweet_berry_regeneration.mcfunction"
+        ).read_text(encoding="utf-8").splitlines()
+        self.assertEqual(
+            effect,
             [
-                {
-                    "condition": "minecraft:match_tool",
-                    "predicate": {
-                        "predicates": {
-                            "minecraft:enchantments": [
-                                {
-                                    "enchantments": "minecraft:silk_touch",
-                                    "levels": {"min": 1},
-                                }
-                            ]
-                        }
-                    },
-                }
+                "effect give @s minecraft:regeneration 1 2 true",
+                "advancement revoke @s only main:mechanics/sweet_berries_eaten",
             ],
         )
-        self.assertEqual(fallback_entry["type"], "minecraft:item")
-        self.assertEqual(fallback_entry["name"], "minecraft:obsidian")
-        self.assertEqual(
-            fallback_entry["functions"],
-            [{"function": "minecraft:set_count", "count": 4, "add": False}],
-        )
+        scheduled_uses = [
+            path
+            for path in (ROOT / "data/main/function").rglob("*.mcfunction")
+            if path.name != "sweet_berry_regeneration.mcfunction"
+            and "sweet_berry_regeneration" in path.read_text(encoding="utf-8")
+        ]
+        self.assertEqual(scheduled_uses, [])
 
-    def test_resource_paths_are_valid_identifiers(self):
+        berry_lore = [{"text": "❣", "color": "red", "italic": False}]
+        for source in (
+            "data/minecraft/loot_table/food/sweet_berries.json",
+            "data/minecraft/loot_table/harvest/sweet_berry_bush.json",
+            "data/minecraft/loot_table/blocks/sweet_berry_bush.json",
+        ):
+            with self.subTest(source=source):
+                loot_table = json.loads((ROOT / source).read_text(encoding="utf-8"))
+                serialized = json.dumps(loot_table)
+                self.assertNotIn("minecraft:consumable", serialized)
+                self.assertIn("minecraft:lore", serialized)
+
+        trade = json.loads(
+            (
+                ROOT
+                / "data/minecraft/villager_trade/farmer/1/exotic_seed_bundle.json"
+            ).read_text(encoding="utf-8")
+        )
+        berry = next(
+            item
+            for item in trade["gives"]["components"]["minecraft:bundle_contents"]
+            if item["id"] == "minecraft:sweet_berries"
+        )
+        self.assertEqual(berry["components"]["minecraft:lore"], berry_lore)
+        self.assertNotIn("minecraft:consumable", berry["components"])
+
+    def test_pack_paths_are_valid_identifiers(self):
         valid_path = re.compile(r"^[a-z0-9._/-]+$")
         invalid = []
-        directory = builder.ROOT / "assets"
-        for path in directory.rglob("*"):
-            if path.is_file():
-                relative_path = path.relative_to(directory).as_posix()
-                if not valid_path.fullmatch(relative_path):
-                    invalid.append(relative_path)
+        for directory_name in ("data", "assets"):
+            directory = builder.ROOT / directory_name
+            for path in directory.rglob("*"):
+                if path.is_file():
+                    relative_path = path.relative_to(directory).as_posix()
+                    if not valid_path.fullmatch(relative_path):
+                        invalid.append(f"{directory_name}/{relative_path}")
         self.assertEqual(invalid, [])
 
+    def test_legacy_mechanics_qa_functions_are_shipped(self):
+        expected = {
+            "start.mcfunction",
+            "death_setup.mcfunction",
+            "custom_music_setup.mcfunction",
+            "predicate_setup.mcfunction",
+            "anvil_setup.mcfunction",
+            "enchanting_setup.mcfunction",
+            "endless_repairs_setup.mcfunction",
+        }
+        function_dir = ROOT / "data/main/function/qa/legacy_notes"
+        self.assertEqual({path.name for path in function_dir.iterdir()}, expected)
+        for variant in builder.PACK_VARIANTS:
+            names = set(self.names(self.artifact(variant, "datapack")))
+            for name in expected:
+                with self.subTest(variant=variant, name=name):
+                    self.assertIn(f"data/main/function/qa/legacy_notes/{name}", names)
+
+    def test_endless_repairs_qa_explains_default_component_serialization(self):
+        instructions = (
+            ROOT / "data/main/function/qa/legacy_notes/endless_repairs_setup.mcfunction"
+        ).read_text(encoding="utf-8")
+        self.assertIn("no repair_cost component", instructions)
+        self.assertIn("default value of 0", instructions)
+
     def test_mod_jar_is_self_contained_with_the_authoritative_assets(self):
-        mod_artifact = self.artifacts[builder.archive_name("mod")]
-        with zipfile.ZipFile(mod_artifact) as archive:
-            mod_names = set(archive.namelist())
         original_asset_names = {
             f"assets/{path.relative_to(ROOT / 'assets').as_posix()}"
             for path in (ROOT / "assets").rglob("*")
@@ -193,7 +302,9 @@ class DistributionTests(unittest.TestCase):
         }
 
         self.assertTrue(original_asset_names)
-        self.assertTrue(original_asset_names.issubset(mod_names))
+        for variant in builder.PACK_VARIANTS:
+            with self.subTest(variant=variant), zipfile.ZipFile(self.artifact(variant, "mod")) as archive:
+                self.assertTrue(original_asset_names.issubset(set(archive.namelist())))
 
     def test_build_removes_deprecated_resource_pack_artifacts(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -201,6 +312,8 @@ class DistributionTests(unittest.TestCase):
             deprecated = [
                 output / builder.archive_name(kind)
                 for kind in (
+                    "datapack",
+                    "mod",
                     "original-resource-pack",
                     "vanilla-resource-pack",
                 )
@@ -215,6 +328,40 @@ class DistributionTests(unittest.TestCase):
             for artifact in deprecated:
                 self.assertFalse(artifact.exists())
             self.assertEqual(unrelated.read_bytes(), b"unrelated")
+
+    def test_advancement_tab_variants_have_their_declared_filter_policy(self):
+        with zipfile.ZipFile(self.artifact("clean-tabs", "datapack")) as archive:
+            clean_tabs = json.loads(archive.read("pack.mcmeta"))
+        with zipfile.ZipFile(self.artifact("dungeons-and-taverns-compatible", "datapack")) as archive:
+            compatible = json.loads(archive.read("pack.mcmeta"))
+
+        def filtered_roots(metadata):
+            return {
+                entry["path"]
+                for entry in metadata["filter"]["block"]
+                if entry.get("namespace") == "minecraft" and entry["path"].startswith("advancement/")
+            }
+
+        self.assertEqual(
+            filtered_roots(clean_tabs),
+            {
+                "advancement/adventure",
+                "advancement/end",
+                "advancement/husbandry",
+                "advancement/nether",
+                "advancement/story",
+            },
+        )
+        self.assertEqual(
+            filtered_roots(compatible),
+            {
+                "advancement/adventure",
+                "advancement/end",
+                "advancement/husbandry",
+                "advancement/nether",
+                "advancement/story",
+            },
+        )
 
     def test_generated_archive_paths_are_relative(self):
         for artifact in self.artifacts.values():
@@ -279,6 +426,43 @@ class DistributionTests(unittest.TestCase):
                     ).is_file(),
                     expected_texture,
                 )
+
+    def test_blind_fish_assets_and_translations_resolve(self):
+        expected = {
+            "blind_cave_fish": ("minecraft:item/big_placeholder_fish", "Blind Cave Fish"),
+            "blind_minnow": ("minecraft:item/small_placeholder_fish", "Blind Minnow"),
+        }
+
+        for fish, (texture, translation) in expected.items():
+            with self.subTest(fish=fish):
+                item = json.loads(
+                    (ROOT / f"assets/minecraft/items/{fish}.json").read_text(encoding="utf-8")
+                )
+                self.assertEqual(item["model"]["model"], f"minecraft:item/{fish}")
+                model = json.loads(
+                    (ROOT / f"assets/minecraft/models/item/{fish}.json").read_text(encoding="utf-8")
+                )
+                self.assertEqual(model["textures"]["layer0"], texture)
+                namespace, texture_path = texture.split(":", 1)
+                self.assertTrue(
+                    (ROOT / "assets" / namespace / "textures" / f"{texture_path}.png").is_file()
+                )
+                for locale in ("en_us", "en_gb", "en_ca", "en_au"):
+                    language = json.loads(
+                        (ROOT / f"assets/minecraft/lang/{locale}.json").read_text(encoding="utf-8")
+                    )
+                    self.assertEqual(language[f"item.kleispack.fish.{fish}"], translation)
+
+    def test_alaska_blackfish_advancement_criterion_matches_the_fishing_model(self):
+        advancement_path = ROOT / "data/main/advancement/tutorial/catch_everything.json"
+        advancement = json.loads(advancement_path.read_text(encoding="utf-8"))
+        self.assertIn("alaska_blackfish", advancement["criteria"])
+        self.assertNotIn("alaksa_blackfish", advancement["criteria"])
+        self.assertEqual(
+            advancement["criteria"]["alaska_blackfish"]["conditions"]["item"]["components"]
+            ["minecraft:item_model"],
+            "minecraft:alaska_blackfish",
+        )
 
     def test_divine_upgrade_content_is_marked_and_restricted(self):
         fragment = json.loads(
@@ -347,6 +531,168 @@ class DistributionTests(unittest.TestCase):
                 )
                 self.assertEqual(components["minecraft:tool"]["rules"][0]["speed"], mining_speed)
 
+    def test_tyrael_elytra_uses_rocket_free_upstream_effect(self):
+        recipe = json.loads(
+            (ROOT / "data/smithing_table/recipe/tyraels_elytra.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(recipe["template"], "minecraft:netherite_upgrade_smithing_template")
+        self.assertEqual(recipe["base"], "minecraft:elytra")
+        self.assertEqual(recipe["addition"]["base"], "minecraft:feather")
+        self.assertEqual(
+            recipe["addition"]["components"]["minecraft:custom_data"]["matcha"],
+            {"divine_fragment": True},
+        )
+        self.assertEqual(
+            recipe["result"]["components"]["minecraft:custom_data"]["matcha"],
+            {"tyrael_wings": True},
+        )
+        self.assertEqual(
+            recipe["result"]["components"]["minecraft:item_name"]["text"],
+            "Divine Elytra",
+        )
+        self.assertEqual(
+            recipe["result"]["components"]["minecraft:lore"][0]["text"],
+            "An ascent without rockets.",
+        )
+
+        enchantment = json.loads(
+            (ROOT / "data/main/enchantment/tyrael_wings.json").read_text(encoding="utf-8")
+        )
+        effect = enchantment["effects"]["minecraft:tick"][0]
+        self.assertEqual(effect["effect"]["type"], "minecraft:apply_impulse")
+        self.assertEqual(effect["effect"]["direction"], [0, 0, 1])
+        self.assertEqual(effect["effect"]["magnitude"], 0.15)
+        self.assertEqual(effect["effect"]["coordinate_scale"], [0.1, 0.1, 0.1])
+        self.assertTrue(effect["requirements"]["predicate"]["flags"]["is_fall_flying"])
+        self.assertFalse(
+            effect["requirements"]["predicate"]["type_specific/player"]["input"]["sneak"]
+        )
+
+        attribution = (ROOT / "CREDITS.txt").read_text(encoding="utf-8")
+        self.assertIn("https://modrinth.com/datapack/elytra-boost", attribution)
+
+    def test_divine_elytra_has_a_glide_trail_and_direct_qa_kit(self):
+        trail = (ROOT / "data/main/function/tyrael_elytra/trail.mcfunction").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("FallFlying:1b", trail)
+        self.assertIn(
+            "armor.chest minecraft:elytra[minecraft:custom_data~{matcha:{tyrael_wings:true}}]",
+            trail,
+        )
+        self.assertIn("particle minecraft:end_rod", trail)
+
+        ticking = (ROOT / "data/main/function/setup/ticking_functions.mcfunction").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("function main:tyrael_elytra/trail", ticking)
+
+        qa = (ROOT / "data/main/function/qa/divine_elytra/setup.mcfunction").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn('"main:tyrael_wings":1', qa)
+        self.assertIn("Divine Elytra QA ready", qa)
+
+    def test_tyrael_elytra_has_a_dedicated_angel_wing_visual(self):
+        recipe = json.loads(
+            (ROOT / "data/smithing_table/recipe/tyraels_elytra.json").read_text(encoding="utf-8")
+        )
+        components = recipe["result"]["components"]
+        self.assertEqual(components["minecraft:item_model"], "minecraft:tyraels_elytra")
+        self.assertEqual(
+            components["minecraft:equippable"]["asset_id"],
+            "minecraft:tyraels_elytra",
+        )
+
+        equipment = json.loads(
+            (ROOT / "assets/minecraft/equipment/tyraels_elytra.json").read_text(encoding="utf-8")
+        )
+        wing = equipment["layers"]["wings"][0]
+        self.assertEqual(wing["texture"], "minecraft:tyraels_elytra")
+        self.assertFalse(wing["use_player_texture"])
+
+        for path in (
+            "data/main/advancement/end/obtain_tyraels_elytra.json",
+            "data/main/advancement/end/obtain_tyraels_wing_fragment.json",
+            "data/main/advancement/end/craft_divine_item.json",
+            "assets/minecraft/items/tyraels_elytra.json",
+            "assets/minecraft/models/item/tyraels_elytra.json",
+            "assets/minecraft/models/item/tyraels_elytra_broken.json",
+            "assets/minecraft/textures/entity/equipment/wings/tyraels_elytra.png",
+            "assets/minecraft/textures/item/tyraels_elytra.png",
+            "assets/minecraft/textures/item/tyraels_elytra_broken.png",
+        ):
+            self.assertTrue((ROOT / path).is_file(), path)
+
+        for path, dimensions in (
+            ("assets/minecraft/textures/entity/equipment/wings/tyraels_elytra.png", (64, 32)),
+            ("assets/minecraft/textures/item/tyraels_elytra.png", (16, 16)),
+            ("assets/minecraft/textures/item/tyraels_elytra_broken.png", (16, 16)),
+        ):
+            texture = (ROOT / path).read_bytes()
+            self.assertEqual(texture[:8], b"\x89PNG\r\n\x1a\n")
+            self.assertEqual(struct.unpack(">II", texture[16:24]), dimensions)
+
+        advancement = json.loads(
+            (ROOT / "data/main/advancement/end/obtain_tyraels_elytra.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(advancement["parent"], "main:end/elytra")
+        item = advancement["criteria"]["tyraels_elytra"]["conditions"]["items"][0]
+        self.assertEqual(item["items"], "minecraft:elytra")
+        self.assertEqual(item["components"]["minecraft:item_model"], "minecraft:tyraels_elytra")
+        self.assertEqual(advancement["display"]["title"]["text"], "Wings of Justice")
+        self.assertEqual(advancement["display"]["frame"], "goal")
+
+        fragment_advancement = json.loads(
+            (ROOT / "data/main/advancement/end/obtain_tyraels_wing_fragment.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(fragment_advancement["parent"], "main:tutorial/upgrade_mattock")
+        fragment_item = fragment_advancement["criteria"]["tyraels_wing_fragment"]["conditions"]["items"][0]
+        self.assertEqual(fragment_item["items"], "minecraft:feather")
+        self.assertEqual(
+            fragment_item["components"]["minecraft:item_model"],
+            "minecraft:fragment_of_tyraels_wings",
+        )
+
+        divine_advancement = json.loads(
+            (ROOT / "data/main/advancement/end/craft_divine_item.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(divine_advancement["parent"], "main:end/obtain_tyraels_wing_fragment")
+        self.assertEqual(divine_advancement["requirements"], [["divine_pickaxe", "divine_axe", "divine_dolabra"]])
+        self.assertEqual(
+            {
+                criterion["conditions"]["recipe_id"]
+                for criterion in divine_advancement["criteria"].values()
+            },
+            {
+                "smithing_table:divine_pickaxe",
+                "smithing_table:divine_axe",
+                "smithing_table:divine_dolabra",
+            },
+        )
+
+        divine_pickaxe = json.loads(
+            (ROOT / "data/main/advancement/end/divine_pickaxe.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(divine_pickaxe["parent"], "main:end/craft_divine_item")
+        self.assertEqual(divine_pickaxe["display"]["title"]["text"], "Into Dreams")
+        self.assertEqual(
+            divine_pickaxe["criteria"]["divine_pickaxe"]["conditions"]["recipe_id"],
+            "smithing_table:divine_pickaxe",
+        )
+
+        credits = (ROOT / "CREDITS.txt").read_text(encoding="utf-8")
+        self.assertIn("https://modrinth.com/datapack/elytra-boost", credits)
+        self.assertIn("https://creativecommons.org/licenses/by-nc/4.0/", credits)
+
     def test_divine_test_kit_is_shipped_with_the_datapack(self):
         test_kit = (
             ROOT / "data/main/function/divine/give_test_kit.mcfunction"
@@ -378,44 +724,11 @@ class DistributionTests(unittest.TestCase):
                 self.assertNotIn('"minecraft:fortune":3', test_set)
                 self.assertNotIn('"minecraft:silk_touch":1', test_set)
 
-    def test_tyraels_wings_achievements_follow_the_divine_upgrade_path(self):
-        fragment = json.loads(
-            (
-                ROOT
-                / "data/main/advancement/tutorial/craft_tyraels_wings_fragment.json"
-            ).read_text(encoding="utf-8")
-        )
-        self.assertEqual(fragment["parent"], "main:tutorial/obtain_diamond")
-        self.assertEqual(fragment["criteria"]["craft_fragment"], {
-            "trigger": "minecraft:recipe_crafted",
-            "conditions": {"recipe_id": "crafting:fragment_of_tyraels_wings"},
-        })
-        self.assertEqual(
-            fragment["display"]["icon"]["components"]["minecraft:item_model"],
-            "minecraft:fragment_of_tyraels_wings",
-        )
-
-        divine_tool = json.loads(
-            (ROOT / "data/main/advancement/tutorial/forge_divine_tool.json").read_text(
-                encoding="utf-8"
-            )
-        )
-        self.assertEqual(divine_tool["parent"], "main:tutorial/craft_tyraels_wings_fragment")
-        self.assertEqual(
-            divine_tool["requirements"],
-            [["forge_divine_pickaxe", "forge_divine_axe", "forge_divine_dolabra"]],
-        )
-        self.assertEqual(
-            {
-                criterion["conditions"]["recipe_id"]
-                for criterion in divine_tool["criteria"].values()
-            },
-            {
-                "smithing_table:divine_pickaxe",
-                "smithing_table:divine_axe",
-                "smithing_table:divine_dolabra",
-            },
-        )
+        for variant in builder.PACK_VARIANTS:
+            with self.subTest(variant=variant):
+                names = set(self.names(self.artifact(variant, "datapack")))
+                self.assertIn("data/main/function/qa/divine_elytra/setup.mcfunction", names)
+                self.assertIn("data/main/function/tyrael_elytra/trail.mcfunction", names)
 
     def test_divine_mining_test_wall_covers_target_blocks(self):
         wall = (
@@ -450,11 +763,13 @@ class DistributionTests(unittest.TestCase):
             "assets/minecraft/items/divine_axe_fortune.json",
             "assets/minecraft/items/divine_dolabra_fortune.json",
         }
-        names = set(self.names(self.artifacts[builder.archive_name("mod")]))
-        self.assertTrue(expected.issubset(names))
-        self.assertFalse(any("divine_" in name and "_silk" in name for name in names))
-        self.assertNotIn("assets/minecraft/textures/item/fragment_of_tyraels_wings_in_hand.png", names)
-        self.assertNotIn("assets/minecraft/models/item/divine_pickaxe_in_hand.json", names)
+        for variant in builder.PACK_VARIANTS:
+            with self.subTest(variant=variant):
+                names = set(self.names(self.artifact(variant, "mod")))
+                self.assertTrue(expected.issubset(names))
+                self.assertFalse(any("divine_" in name and "_silk" in name for name in names))
+                self.assertNotIn("assets/minecraft/textures/item/fragment_of_tyraels_wings_in_hand.png", names)
+                self.assertNotIn("assets/minecraft/models/item/divine_pickaxe_in_hand.json", names)
 
         held_model = json.loads(
             (ROOT / "assets/minecraft/models/item/fragment_of_tyraels_wings_in_hand.json").read_text(

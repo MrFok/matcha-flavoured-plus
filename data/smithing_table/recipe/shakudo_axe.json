@@ -22,9 +22,6 @@
 				"color": "#c96691"
 			},
 			"minecraft:item_model": "minecraft:shakudo_axe",
-			"minecraft:enchantments": {
-				"minecraft:silk_touch": 1
-			},
 			"minecraft:lore": [
 				{
 					"text": "⛏ 9",

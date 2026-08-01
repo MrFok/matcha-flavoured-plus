@@ -1,0 +1,173 @@
+[
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:iron_boots",
+      "components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:lore": [
+          {
+            "text": "💥🚫 +1",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛊ 2",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛨ 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.steel_boots",
+          "color": "white"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:armor_toughness",
+            "id": "minecraft:armor.boots",
+            "amount": 1,
+            "operation": "add_value",
+            "slot": "feet"
+          },
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.boots",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "feet"
+          },
+          {
+            "type": "minecraft:knockback_resistance",
+            "id": "minecraft:armor.boots",
+            "amount": 0.1,
+            "operation": "add_value",
+            "slot": "feet"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:equippable": {
+          "slot": "feet",
+          "asset_id": "minecraft:steel"
+        },
+        "minecraft:item_model": "minecraft:steel_boots"
+      }
+    },
+    "modifier": {
+      "function": "minecraft:filtered",
+      "item_filter": {
+        "predicates": {
+          "minecraft:enchantments": [
+            {
+              "enchantments": "minecraft:fire_protection",
+              "levels": {
+                "min": 1
+              }
+            }
+          ]
+        }
+      },
+      "on_fail": {
+        "function": "minecraft:filtered",
+        "item_filter": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "minecraft:projectile_protection",
+                "levels": {
+                  "min": 1
+                }
+              }
+            ]
+          }
+        },
+        "on_fail": {
+          "function": "minecraft:filtered",
+          "item_filter": {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "minecraft:protection",
+                  "levels": {
+                    "min": 1
+                  }
+                }
+              ]
+            }
+          },
+          "on_fail": {
+            "function": "minecraft:filtered",
+            "item_filter": {
+              "predicates": {
+                "minecraft:enchantments": [
+                  {
+                    "enchantments": "minecraft:blast_protection",
+                    "levels": {
+                      "min": 2
+                    }
+                  }
+                ]
+              }
+            },
+            "on_fail": {
+              "function": "minecraft:filtered",
+              "item_filter": {
+                "predicates": {
+                  "minecraft:enchantments": [
+                    {
+                      "enchantments": "minecraft:blast_protection",
+                      "levels": 0
+                    }
+                  ]
+                }
+              },
+              "modifier": {
+                "function": "minecraft:set_enchantments",
+                "enchantments": {
+                  "minecraft:blast_protection": 2
+                },
+                "add": true
+              },
+              "on_fail": {
+                "function": "minecraft:filtered",
+                "item_filter": {
+                  "predicates": {
+                    "minecraft:enchantments": [
+                      {
+                        "enchantments": "minecraft:blast_protection",
+                        "levels": 1
+                      }
+                    ]
+                  }
+                },
+                "modifier": {
+                  "function": "minecraft:set_enchantments",
+                  "enchantments": {
+                    "minecraft:blast_protection": 1
+                  },
+                  "add": true
+                },
+                "on_fail": {
+                  "function": "minecraft:set_enchantments",
+                  "enchantments": {
+                    "minecraft:blast_protection": 2
+                  },
+                  "add": true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]

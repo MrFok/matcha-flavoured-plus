@@ -1,0 +1,13 @@
+{
+  "criteria": {
+    "crafted": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "smithing_table:gilded_leather_boots"
+      }
+    }
+  },
+  "rewards": {
+    "function": "main:smithing_enchantments/gilded_leather_boots"
+  }
+}

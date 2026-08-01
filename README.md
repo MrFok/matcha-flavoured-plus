@@ -18,9 +18,11 @@ Build the distribution files with `python tools/build_distribution.py`. The gene
 
 ### Modrinth App / launcher
 
-Upload only `matcha_flavoured_plus-1.0.0-mod.jar` to the profile. It contains
-the gameplay datapack and the Original Matcha resource assets, including the
-Divine item visuals. No resource-pack installation or in-game toggle is needed.
+Choose exactly one mod JAR for the profile. Both include the gameplay datapack
+and the Original Matcha resource assets, including Divine item visuals:
+
+- `matcha_flavoured_plus-1.0.0-clean-tabs-mod.jar` hides vanilla advancement tabs.
+- `matcha_flavoured_plus-1.0.0-dungeons-and-taverns-compatible-mod.jar` keeps the vanilla roots Dungeons & Taverns uses visible.
 
 Fabric 26.2 with Fabric API is runtime-verified. Quilt, Forge, and NeoForge
 metadata is included, but those launch paths remain experimental until they are
@@ -30,7 +32,7 @@ tested in-game.
 
 Install the gameplay archive and texture archive manually:
 
-1. Put `matcha_flavoured_plus-1.0.0-datapack.zip` in the target world's `datapacks` folder.
+1. Put exactly one gameplay archive in the target world's `datapacks` folder: `matcha_flavoured_plus-1.0.0-clean-tabs-datapack.zip` or `matcha_flavoured_plus-1.0.0-dungeons-and-taverns-compatible-datapack.zip`.
 2. Put `matcha_flavoured_plus-1.0.0-resource-pack.zip` in the client's `resourcepacks` folder.
 3. Enable **Matcha Flavoured Plus**.
 
@@ -56,8 +58,12 @@ Tests validate archive layout, content boundaries, metadata, JSON, exclusions, a
 
 ## Compatibility notes
 
-- Dungeons & Taverns can be enabled. Matcha no longer filters the vanilla advancement roots that its advancements use.
-- The experience bar is intentionally transparent. AppleSkin can still draw its own hunger HUD overlays; disable AppleSkin or its HUD overlays if you want Matcha's hidden hunger bar.
+- Use the **D&T-compatible** archive when Dungeons & Taverns is enabled. Use **clean-tabs** otherwise to hide vanilla advancement tabs.
+- The experience-bar background keeps its vanilla visual, so it remains visible above the hotbar.
+
+## Implementation references
+
+- Divine Elytra adapts and modifies the rocket-free `minecraft:apply_impulse` enchantment effect from DRECUBED's [Elytra Boost datapack](https://modrinth.com/datapack/elytra-boost), version 1.0.1 for Minecraft 26.2, under its [CC-BY-NC-4.0 licence](https://creativecommons.org/licenses/by-nc/4.0/). Its ivory-feather and gold-trim wing textures are original artwork; no third-party Elytra textures are included.
 
 ## License
 

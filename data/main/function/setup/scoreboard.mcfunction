@@ -17,12 +17,13 @@ scoreboard objectives add HealthPoints health
 scoreboard objectives add deaths deathCount
 scoreboard objectives add Hearts dummy
 scoreboard players add @a Hearts 0
-execute at @a[scores={Hearts=..20}] run scoreboard players set @p Hearts 20
+execute as @a[scores={Hearts=0}] run scoreboard players set @s Hearts 20
+function main:mechanic/set_max_hp
 
 
+scoreboard objectives add sleepTimerScore dummy
 scoreboard players set 1 sleepTimerScore 1
 scoreboard players set 100 sleepTimerScore 100
-scoreboard objectives add sleepTimerScore dummy
 
 scoreboard objectives add divinity dummy
 scoreboard players set 0 divinity 0

@@ -1,12 +1,12 @@
 {
 	"parent": "main:tutorial/trade_fish",
 	"criteria": {
-		"alaksa_blackfish": {
+		"alaska_blackfish": {
 			"trigger": "minecraft:fishing_rod_hooked",
 			"conditions": {
 				"item": {
 					"components": {
-						"minecraft:item_model": "minecraft:alaksa_blackfish"
+						"minecraft:item_model": "minecraft:alaska_blackfish"
 					}
 				}
 			}

@@ -1,0 +1,43 @@
+{
+	"type": "minecraft:smithing_transform",
+	"template": "minecraft:netherite_upgrade_smithing_template",
+	"base": "minecraft:elytra",
+	"addition": {
+		"fabric:type": "fabric:components",
+		"base": "minecraft:feather",
+		"components": {
+			"minecraft:custom_data": {
+				"matcha": {
+					"divine_fragment": true
+				}
+			}
+		}
+	},
+	"result": {
+		"id": "minecraft:elytra",
+		"components": {
+			"minecraft:custom_data": {
+				"matcha": {
+					"tyrael_wings": true
+				}
+			},
+			"minecraft:item_name": {
+				"text": "Divine Elytra",
+				"color": "aqua",
+				"italic": false
+			},
+			"minecraft:item_model": "minecraft:tyraels_elytra",
+			"minecraft:equippable": {
+				"slot": "chest",
+				"asset_id": "minecraft:tyraels_elytra"
+			},
+			"minecraft:lore": [
+				{
+					"text": "An ascent without rockets.",
+					"color": "gray",
+					"italic": true
+				}
+			]
+		}
+	}
+}

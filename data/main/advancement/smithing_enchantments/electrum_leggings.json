@@ -1,0 +1,13 @@
+{
+  "criteria": {
+    "crafted": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "smithing_table:electrum_leggings"
+      }
+    }
+  },
+  "rewards": {
+    "function": "main:smithing_enchantments/electrum_leggings"
+  }
+}

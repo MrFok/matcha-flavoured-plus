@@ -1,0 +1,35 @@
+[
+	{
+		"function": "minecraft:filtered",
+		"item_filter": {
+			"items": "minecraft:elytra",
+			"components": {
+				"minecraft:custom_data": {
+					"matcha": {
+						"tyrael_wings": true
+					}
+				}
+			}
+		},
+		"modifier": {
+			"function": "minecraft:filtered",
+			"item_filter": {
+				"predicates": {
+					"minecraft:enchantments": [
+						{
+							"enchantments": "main:tyrael_wings",
+							"levels": 0
+						}
+					]
+				}
+			},
+			"modifier": {
+				"function": "minecraft:set_enchantments",
+				"enchantments": {
+					"main:tyrael_wings": 1
+				},
+				"add": true
+			}
+		}
+	}
+]

@@ -1,0 +1,3270 @@
+{
+  "schema": 1,
+  "description": "Source of truth for smithing material enchantment preservation.",
+  "recipes": [
+    {
+      "recipe": "adamant_axe",
+      "result_id": "minecraft:netherite_axe",
+      "identity_components": {
+        "minecraft:custom_data": {
+          "matcha": {
+            "tier": "adamant",
+            "tool": "axe"
+          }
+        },
+        "minecraft:max_damage": 5000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/axe",
+              "speed": 15,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:lore": [
+          {
+            "text": "⛏ 15",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 10",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block",
+            "minecraft:netherite_scrap"
+          ]
+        },
+        "minecraft:item_name": {
+          "translate": "item.minecraft.netherite_axe",
+          "color": "gold"
+        }
+      },
+      "enchantments": {
+        "main:divinity": 1,
+        "minecraft:unbreaking": 2
+      }
+    },
+    {
+      "recipe": "adamant_boots",
+      "result_id": "minecraft:netherite_boots",
+      "identity_components": {
+        "minecraft:max_damage": 1500,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛨ 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "💥🚫 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block"
+          ]
+        },
+        "minecraft:item_name": {
+          "translate": "item.minecraft.netherite_boots",
+          "color": "gold"
+        }
+      },
+      "enchantments": {
+        "main:divinity": 1,
+        "minecraft:unbreaking": 2,
+        "minecraft:protection": 1
+      }
+    },
+    {
+      "recipe": "adamant_chestplate",
+      "result_id": "minecraft:netherite_chestplate",
+      "identity_components": {
+        "minecraft:max_damage": 1500,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 8",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛨ 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "💥🚫 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block"
+          ]
+        },
+        "minecraft:item_name": {
+          "translate": "item.minecraft.netherite_chestplate",
+          "color": "gold"
+        }
+      },
+      "enchantments": {
+        "main:divinity": 1,
+        "minecraft:unbreaking": 2,
+        "minecraft:protection": 1
+      }
+    },
+    {
+      "recipe": "adamant_claymore",
+      "result_id": "minecraft:netherite_sword",
+      "identity_components": {
+        "minecraft:max_damage": 5000,
+        "minecraft:item_name": {
+          "translate": "item.kleispack.adamant_claymore",
+          "color": "gold"
+        },
+        "minecraft:item_model": "minecraft:adamant_claymore",
+        "minecraft:lore": [
+          {
+            "text": "🗡 9",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 0.5",
+            "color": "dark_green",
+            "italic": false
+          },
+          "",
+          {
+            "text": "When Blocking",
+            "color": "gray",
+            "italic": false
+          },
+          {
+            "text": "80% Melee Blocking",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "70% Projectile Blocking",
+            "color": "blue",
+            "italic": false
+          }
+        ],
+        "minecraft:blocks_attacks": {
+          "disable_cooldown_scale": 1,
+          "damage_reductions": [
+            {
+              "type": [
+                "minecraft:arrow",
+                "minecraft:mob_projectile"
+              ],
+              "base": 0,
+              "factor": 0.7
+            },
+            {
+              "type": [
+                "minecraft:mob_attack",
+                "minecraft:player_attack"
+              ],
+              "base": 0,
+              "factor": 0.8
+            }
+          ],
+          "item_damage": {
+            "threshold": 1,
+            "base": 0,
+            "factor": 0.25
+          },
+          "block_sound": "minecraft:entity.zombie.attack_iron_door",
+          "disabled_sound": "minecraft:item.shield.break"
+        },
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block",
+            "minecraft:netherite_scrap"
+          ]
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 8,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -3.5,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ]
+      },
+      "enchantments": {
+        "main:divinity": 1,
+        "minecraft:unbreaking": 2
+      }
+    },
+    {
+      "recipe": "adamant_dolabra",
+      "result_id": "minecraft:netherite_axe",
+      "identity_components": {
+        "minecraft:custom_data": {
+          "matcha": {
+            "tier": "adamant",
+            "tool": "dolabra"
+          }
+        },
+        "minecraft:max_damage": 5000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/pickaxe",
+              "speed": 13,
+              "correct_for_drops": true
+            },
+            {
+              "blocks": "#minecraft:mineable/axe",
+              "speed": 13,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:lore": [
+          {
+            "text": "⛏ 13",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 10",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block",
+            "minecraft:netherite_scrap"
+          ]
+        },
+        "minecraft:item_name": {
+          "translate": "item.kleispack.adamant_dolabra",
+          "color": "gold"
+        },
+        "minecraft:item_model": "minecraft:adamant_dolabra"
+      },
+      "enchantments": {
+        "main:divinity": 1,
+        "minecraft:unbreaking": 2
+      }
+    },
+    {
+      "recipe": "adamant_helmet",
+      "result_id": "minecraft:netherite_helmet",
+      "identity_components": {
+        "minecraft:max_damage": 1500,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛨ 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "💥🚫 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block"
+          ]
+        },
+        "minecraft:item_name": {
+          "translate": "item.minecraft.netherite_helmet",
+          "color": "gold"
+        }
+      },
+      "enchantments": {
+        "main:divinity": 1,
+        "minecraft:unbreaking": 2,
+        "minecraft:protection": 1
+      }
+    },
+    {
+      "recipe": "adamant_hoe",
+      "result_id": "minecraft:netherite_hoe",
+      "identity_components": {
+        "minecraft:max_damage": 5000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/hoe",
+              "speed": 15,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:lore": [
+          {
+            "text": "⛏ 15",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 1",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 4",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block",
+            "minecraft:netherite_scrap"
+          ]
+        },
+        "minecraft:item_name": {
+          "translate": "item.minecraft.netherite_hoe",
+          "color": "gold"
+        }
+      },
+      "enchantments": {
+        "main:divinity": 1,
+        "minecraft:unbreaking": 2
+      }
+    },
+    {
+      "recipe": "adamant_leggings",
+      "result_id": "minecraft:netherite_leggings",
+      "identity_components": {
+        "minecraft:max_damage": 1500,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 6",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛨ 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "💥🚫 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block"
+          ]
+        },
+        "minecraft:item_name": {
+          "translate": "item.minecraft.netherite_leggings",
+          "color": "gold"
+        }
+      },
+      "enchantments": {
+        "main:divinity": 1,
+        "minecraft:unbreaking": 2,
+        "minecraft:protection": 1
+      }
+    },
+    {
+      "recipe": "adamant_mattock",
+      "result_id": "minecraft:netherite_hoe",
+      "identity_components": {
+        "minecraft:max_damage": 5000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/hoe",
+              "speed": 13,
+              "correct_for_drops": true
+            },
+            {
+              "blocks": "#minecraft:mineable/shovel",
+              "speed": 13,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:lore": [
+          {
+            "text": "⛏ 13",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 1",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 4",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block",
+            "minecraft:netherite_scrap"
+          ]
+        },
+        "minecraft:item_name": {
+          "translate": "item.kleispack.adamant_mattock",
+          "color": "gold"
+        },
+        "minecraft:item_model": "minecraft:adamant_mattock"
+      },
+      "enchantments": {
+        "main:divinity": 1,
+        "minecraft:unbreaking": 2
+      }
+    },
+    {
+      "recipe": "adamant_pickaxe",
+      "result_id": "minecraft:netherite_pickaxe",
+      "identity_components": {
+        "minecraft:custom_data": {
+          "matcha": {
+            "tier": "adamant",
+            "tool": "pickaxe"
+          }
+        },
+        "minecraft:max_damage": 5000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/pickaxe",
+              "speed": 15,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:lore": [
+          {
+            "text": "⛏ 15",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 6",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.2",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block",
+            "minecraft:netherite_scrap"
+          ]
+        },
+        "minecraft:item_name": {
+          "translate": "item.minecraft.netherite_pickaxe",
+          "color": "gold"
+        }
+      },
+      "enchantments": {
+        "main:divinity": 1,
+        "minecraft:unbreaking": 2
+      }
+    },
+    {
+      "recipe": "adamant_shovel",
+      "result_id": "minecraft:netherite_shovel",
+      "identity_components": {
+        "minecraft:max_damage": 5000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/shovel",
+              "speed": 15,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:lore": [
+          {
+            "text": "⛏ 15",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 6.5",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block",
+            "minecraft:netherite_scrap"
+          ]
+        },
+        "minecraft:item_name": {
+          "translate": "item.minecraft.netherite_shovel",
+          "color": "gold"
+        }
+      },
+      "enchantments": {
+        "main:divinity": 1,
+        "minecraft:unbreaking": 2
+      }
+    },
+    {
+      "recipe": "adamant_spear",
+      "result_id": "minecraft:netherite_spear",
+      "identity_components": {
+        "minecraft:max_damage": 5000,
+        "minecraft:item_name": {
+          "translate": "item.minecraft.netherite_spear",
+          "color": "gold"
+        },
+        "minecraft:lore": [
+          {
+            "text": "🗡 4",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 0.95",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block",
+            "minecraft:netherite_scrap"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false
+      },
+      "enchantments": {
+        "main:divinity": 1,
+        "minecraft:unbreaking": 2
+      }
+    },
+    {
+      "recipe": "adamant_sword",
+      "result_id": "minecraft:netherite_sword",
+      "identity_components": {
+        "minecraft:max_damage": 5000,
+        "minecraft:item_name": {
+          "translate": "item.minecraft.netherite_sword",
+          "color": "gold"
+        },
+        "minecraft:lore": [
+          {
+            "text": "🗡 8",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.6",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block",
+            "minecraft:netherite_scrap"
+          ]
+        }
+      },
+      "enchantments": {
+        "main:divinity": 1,
+        "minecraft:unbreaking": 2
+      }
+    },
+    {
+      "recipe": "amber_earrings",
+      "result_id": "minecraft:copper_helmet",
+      "identity_components": {
+        "minecraft:max_damage": 250,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "text": "Amber Earrings",
+          "color": "#e58904"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.helmet",
+            "amount": 1,
+            "operation": "add_value",
+            "slot": "head"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:item_model": "minecraft:amber_earrings",
+        "minecraft:equippable": {
+          "slot": "head",
+          "asset_id": "minecraft:amber_earrings"
+        }
+      },
+      "enchantments": {
+        "main:regeneration": 1
+      }
+    },
+    {
+      "recipe": "bronze_boots",
+      "result_id": "minecraft:copper_boots",
+      "identity_components": {
+        "minecraft:max_damage": 500,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 2",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🏃 +0.008",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.bronze_boots",
+          "color": "#ac7b5c"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:movement_speed",
+            "id": "bronze_boots",
+            "amount": 0.0085,
+            "operation": "add_value",
+            "slot": "feet"
+          },
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.boots",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "feet"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:item_model": "minecraft:bronze_boots",
+        "minecraft:equippable": {
+          "slot": "feet",
+          "asset_id": "minecraft:bronze"
+        }
+      },
+      "enchantments": {}
+    },
+    {
+      "recipe": "bronze_chestplate",
+      "result_id": "minecraft:copper_chestplate",
+      "identity_components": {
+        "minecraft:max_damage": 500,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 6",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🏃 +0.008",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.bronze_chestplate",
+          "color": "#ac7b5c"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:movement_speed",
+            "id": "bronze_chestplate",
+            "amount": 0.0085,
+            "operation": "add_value",
+            "slot": "chest"
+          },
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.chestplate",
+            "amount": 6,
+            "operation": "add_value",
+            "slot": "chest"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:item_model": "minecraft:bronze_chestplate",
+        "minecraft:equippable": {
+          "slot": "chest",
+          "asset_id": "minecraft:bronze"
+        }
+      },
+      "enchantments": {}
+    },
+    {
+      "recipe": "bronze_elytra",
+      "result_id": "minecraft:elytra",
+      "identity_components": {
+        "minecraft:max_damage": 800,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 1",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🏃 +0.016",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.bronze_elytra",
+          "color": "#ac7b5c"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:movement_speed",
+            "id": "bronze_elytra",
+            "amount": 0.016,
+            "operation": "add_value",
+            "slot": "chest"
+          },
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.chestplate",
+            "amount": 1,
+            "operation": "add_value",
+            "slot": "chest"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:item_model": "minecraft:bronze_elytra",
+        "minecraft:equippable": {
+          "slot": "chest",
+          "asset_id": "minecraft:bronze_elytra"
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:honeycomb",
+            "minecraft:feather"
+          ]
+        }
+      },
+      "enchantments": {}
+    },
+    {
+      "recipe": "bronze_helmet",
+      "result_id": "minecraft:copper_helmet",
+      "identity_components": {
+        "minecraft:max_damage": 500,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 2",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🏃 +0.008",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.bronze_helmet",
+          "color": "#ac7b5c"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:movement_speed",
+            "id": "bronze_helmet",
+            "amount": 0.0085,
+            "operation": "add_value",
+            "slot": "head"
+          },
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.helmet",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "head"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:item_model": "minecraft:bronze_helmet",
+        "minecraft:equippable": {
+          "slot": "head",
+          "asset_id": "minecraft:bronze"
+        }
+      },
+      "enchantments": {}
+    },
+    {
+      "recipe": "bronze_leggings",
+      "result_id": "minecraft:copper_leggings",
+      "identity_components": {
+        "minecraft:max_damage": 500,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 5",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🏃 +0.008",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.bronze_leggings",
+          "color": "#ac7b5c"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:movement_speed",
+            "id": "bronze_leggings",
+            "amount": 0.0085,
+            "operation": "add_value",
+            "slot": "legs"
+          },
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.leggings",
+            "amount": 5,
+            "operation": "add_value",
+            "slot": "legs"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:item_model": "minecraft:bronze_leggings",
+        "minecraft:equippable": {
+          "slot": "legs",
+          "asset_id": "minecraft:bronze"
+        }
+      },
+      "enchantments": {}
+    },
+    {
+      "recipe": "bronze_spear",
+      "result_id": "minecraft:stone_spear",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:item_name": {
+          "translate": "item.kleispack.bronze_spear",
+          "color": "#ac7b5c"
+        },
+        "minecraft:item_model": "minecraft:bronze_spear",
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:movement_speed",
+            "id": "bronze_sword",
+            "amount": 0.0105,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_damage",
+            "id": "damage",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:lore": [
+          {
+            "text": "🗡 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.18",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🏃 +0.01",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:copper_ingot"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false
+      },
+      "enchantments": {
+        "minecraft:lunge": 3
+      }
+    },
+    {
+      "recipe": "bronze_sword",
+      "result_id": "minecraft:stone_sword",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:item_name": {
+          "translate": "item.kleispack.bronze_sword",
+          "color": "#ac7b5c"
+        },
+        "minecraft:item_model": "minecraft:bronze_sword",
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -2.1,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 5,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:movement_speed",
+            "id": "bronze_sword",
+            "amount": 0.0105,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:entity_interaction_range",
+            "id": "reach",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:lore": [
+          {
+            "text": "🗡 6",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.9",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🏃 +0.01",
+            "color": "dark_green",
+            "italic": false
+          },
+          "",
+          {
+            "text": "When Blocking:",
+            "color": "gray",
+            "italic": false
+          },
+          {
+            "text": "75% Melee Blocking",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "25% Projectile Blocking",
+            "color": "blue",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:blocks_attacks": {
+          "disable_cooldown_scale": 1,
+          "damage_reductions": [
+            {
+              "type": [
+                "minecraft:mob_attack",
+                "minecraft:player_attack"
+              ],
+              "base": 0,
+              "factor": 0.75
+            },
+            {
+              "type": [
+                "minecraft:mob_projectile",
+                "minecraft:arrow"
+              ],
+              "base": 0,
+              "factor": 0.25
+            }
+          ],
+          "item_damage": {
+            "threshold": 1,
+            "base": 0,
+            "factor": 0.25
+          },
+          "block_sound": "minecraft:entity.zombie.attack_iron_door",
+          "disabled_sound": "minecraft:item.shield.break"
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:copper_ingot"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false
+      },
+      "enchantments": {
+        "main:riposte": 1
+      }
+    },
+    {
+      "recipe": "butcher_knife",
+      "result_id": "minecraft:stone_sword",
+      "identity_components": {
+        "minecraft:item_name": "Butcher's Knife",
+        "minecraft:max_damage": 1500,
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 5,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:entity_interaction_range",
+            "id": "interaction_range",
+            "amount": -1,
+            "operation": "add_value"
+          }
+        ],
+        "minecraft:item_model": "minecraft:butcher_knife",
+        "minecraft:lore": [
+          {
+            "text": "🧍↔🧍 -1",
+            "color": "red",
+            "italic": false
+          },
+          {
+            "text": "🗡 6",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.6",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hide_tooltip": false,
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:iron_nugget",
+            "minecraft:iron_ingot"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false
+      },
+      "enchantments": {
+        "main:slaughter": 1,
+        "minecraft:looting": 2
+      }
+    },
+    {
+      "recipe": "electrum_axe",
+      "result_id": "minecraft:diamond_axe",
+      "identity_components": {
+        "minecraft:max_damage": 3000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/axe",
+              "speed": 12,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:lore": [
+          {
+            "text": "⛏ 12",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 9",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.2",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_axe",
+          "color": "yellow"
+        },
+        "minecraft:item_model": "minecraft:electrum_axe",
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 8,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -2.8,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond",
+            "minecraft:gold_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "minecraft:fortune": 2,
+        "minecraft:looting": 2,
+        "minecraft:smite": 2,
+        "main:warding2": 1
+      }
+    },
+    {
+      "recipe": "electrum_boots",
+      "result_id": "minecraft:diamond_boots",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛨ 2",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_boots",
+          "color": "yellow"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:armor_toughness",
+            "id": "minecraft:armor.boots",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "feet"
+          },
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.boots",
+            "amount": 3,
+            "operation": "add_value",
+            "slot": "feet"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:item_model": "minecraft:electrum_boots",
+        "minecraft:equippable": {
+          "slot": "feet",
+          "asset_id": "minecraft:electrum"
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond",
+            "minecraft:gold_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "main:warding_armour": 1
+      }
+    },
+    {
+      "recipe": "electrum_chestplate",
+      "result_id": "minecraft:diamond_chestplate",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 8",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛨ 2",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_chestplate",
+          "color": "yellow"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:armor_toughness",
+            "id": "minecraft:armor.chestplate",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "chest"
+          },
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.chestplate",
+            "amount": 8,
+            "operation": "add_value",
+            "slot": "chest"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:item_model": "minecraft:electrum_chestplate",
+        "minecraft:equippable": {
+          "slot": "chest",
+          "asset_id": "minecraft:electrum"
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond",
+            "minecraft:gold_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "main:warding_armour": 1
+      }
+    },
+    {
+      "recipe": "electrum_dolabra",
+      "result_id": "minecraft:stone_axe",
+      "identity_components": {
+        "minecraft:max_damage": 3000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/pickaxe",
+              "speed": 10,
+              "correct_for_drops": true
+            },
+            {
+              "blocks": "#minecraft:mineable/axe",
+              "speed": 10,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:lore": [
+          {
+            "text": "⛏ 10",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 6",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.2",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_dolabra",
+          "color": "yellow"
+        },
+        "minecraft:item_model": "minecraft:electrum_dolabra",
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 5,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -2.8,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond",
+            "minecraft:gold_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "minecraft:fortune": 2,
+        "main:warding1": 1,
+        "minecraft:looting": 1
+      }
+    },
+    {
+      "recipe": "electrum_helmet",
+      "result_id": "minecraft:diamond_helmet",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛨ 2",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_helmet",
+          "color": "yellow"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:armor_toughness",
+            "id": "minecraft:armor.helmet",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "head"
+          },
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.helmet",
+            "amount": 3,
+            "operation": "add_value",
+            "slot": "head"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:item_model": "minecraft:electrum_helmet",
+        "minecraft:equippable": {
+          "slot": "head",
+          "asset_id": "minecraft:electrum"
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond",
+            "minecraft:gold_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "main:warding_armour": 1
+      }
+    },
+    {
+      "recipe": "electrum_hoe",
+      "result_id": "minecraft:stone_hoe",
+      "identity_components": {
+        "minecraft:max_damage": 3000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/hoe",
+              "speed": 12,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:lore": [
+          {
+            "text": "⛏ 12",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 1",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 4",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_hoe",
+          "color": "yellow"
+        },
+        "minecraft:item_model": "minecraft:electrum_hoe",
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 0,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": 0,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond",
+            "minecraft:gold_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "minecraft:fortune": 3,
+        "main:warding1": 1
+      }
+    },
+    {
+      "recipe": "electrum_leggings",
+      "result_id": "minecraft:diamond_leggings",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 6",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛨ 2",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_leggings",
+          "color": "yellow"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:armor_toughness",
+            "id": "minecraft:armor.leggings",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "legs"
+          },
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.leggings",
+            "amount": 6,
+            "operation": "add_value",
+            "slot": "legs"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:item_model": "minecraft:electrum_leggings",
+        "minecraft:equippable": {
+          "slot": "legs",
+          "asset_id": "minecraft:electrum"
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond",
+            "minecraft:gold_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "main:warding_armour": 1
+      }
+    },
+    {
+      "recipe": "electrum_mattock",
+      "result_id": "minecraft:stone_hoe",
+      "identity_components": {
+        "minecraft:max_damage": 3000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/shovel",
+              "speed": 10,
+              "correct_for_drops": true
+            },
+            {
+              "blocks": "#minecraft:mineable/hoe",
+              "speed": 10,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:lore": [
+          {
+            "text": "⛏ 10",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 3",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_mattock",
+          "color": "yellow"
+        },
+        "minecraft:item_model": "minecraft:electrum_mattock",
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -1,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond",
+            "minecraft:gold_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "minecraft:fortune": 2,
+        "main:warding1": 1
+      }
+    },
+    {
+      "recipe": "electrum_pickaxe",
+      "result_id": "minecraft:stone_pickaxe",
+      "identity_components": {
+        "minecraft:max_damage": 3000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/pickaxe",
+              "speed": 12,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:lore": [
+          {
+            "text": "⛏ 12",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 5",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.2",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_pickaxe",
+          "color": "yellow"
+        },
+        "minecraft:item_model": "minecraft:electrum_pickaxe",
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 4,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -2.8,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond",
+            "minecraft:gold_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "minecraft:fortune": 3,
+        "main:warding1": 1
+      }
+    },
+    {
+      "recipe": "electrum_shovel",
+      "result_id": "minecraft:stone_shovel",
+      "identity_components": {
+        "minecraft:max_damage": 3000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/shovel",
+              "speed": 12,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:lore": [
+          {
+            "text": "⛏ 12",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 6",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_shovel",
+          "color": "yellow"
+        },
+        "minecraft:item_model": "minecraft:electrum_shovel",
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 5,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -3,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond",
+            "minecraft:gold_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "minecraft:fortune": 3,
+        "main:warding1": 1
+      }
+    },
+    {
+      "recipe": "electrum_spear",
+      "result_id": "minecraft:stone_spear",
+      "identity_components": {
+        "minecraft:max_damage": 3000,
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_spear",
+          "color": "yellow"
+        },
+        "minecraft:item_model": "minecraft:electrum_spear",
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "damage",
+            "amount": 3,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:lore": [
+          {
+            "text": "🗡 4",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.18",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:gold_ingot",
+            "minecraft:diamond"
+          ]
+        }
+      },
+      "enchantments": {
+        "minecraft:smite": 2,
+        "minecraft:looting": 2,
+        "main:warding2": 1
+      }
+    },
+    {
+      "recipe": "electrum_sword",
+      "result_id": "minecraft:stone_sword",
+      "identity_components": {
+        "minecraft:max_damage": 3000,
+        "minecraft:lore": [
+          {
+            "text": "🗡 7",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.9",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_sword",
+          "color": "yellow"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 6,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -2.1,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond",
+            "minecraft:gold_ingot"
+          ]
+        },
+        "minecraft:item_model": "minecraft:electrum_sword"
+      },
+      "enchantments": {
+        "minecraft:looting": 2,
+        "minecraft:smite": 2,
+        "main:warding2": 1
+      }
+    },
+    {
+      "recipe": "gilded_leather_boots",
+      "result_id": "minecraft:leather_boots",
+      "identity_components": {
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:max_damage": 212,
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers",
+            "minecraft:trim"
+          ]
+        },
+        "minecraft:lore": [
+          {
+            "text": "⛊ 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:trim": {
+          "material": "minecraft:gold",
+          "pattern": "minecraft:silence"
+        },
+        "minecraft:item_name": "Gilded Leather Boots"
+      },
+      "enchantments": {
+        "minecraft:feather_falling": 1,
+        "minecraft:fire_protection": 1
+      }
+    },
+    {
+      "recipe": "lesser_warding_shield",
+      "result_id": "minecraft:shield",
+      "identity_components": {
+        "minecraft:banner_patterns": [
+          {
+            "color": "white",
+            "pattern": "minecraft:base"
+          },
+          {
+            "color": "light_blue",
+            "pattern": "minecraft:circle"
+          },
+          {
+            "color": "black",
+            "pattern": "minecraft:flower"
+          },
+          {
+            "color": "blue",
+            "pattern": "minecraft:curly_border"
+          },
+          {
+            "color": "blue",
+            "pattern": "minecraft:stripe_top"
+          },
+          {
+            "color": "blue",
+            "pattern": "minecraft:stripe_bottom"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:banner_patterns"
+          ]
+        },
+        "minecraft:item_name": "Warding Shield"
+      },
+      "enchantments": {
+        "main:warding1": 1
+      }
+    },
+    {
+      "recipe": "shakudo_axe",
+      "result_id": "minecraft:stone_axe",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/axe",
+              "speed": 9,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_axe",
+          "color": "#c96691"
+        },
+        "minecraft:item_model": "minecraft:shakudo_axe",
+        "minecraft:lore": [
+          {
+            "text": "⛏ 9",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 9",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 8,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -3,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:copper_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "minecraft:silk_touch": 1
+      }
+    },
+    {
+      "recipe": "shakudo_boots",
+      "result_id": "minecraft:copper_boots",
+      "identity_components": {
+        "minecraft:max_damage": 500,
+        "minecraft:lore": [
+          {
+            "text": "    Levitation",
+            "color": "gray",
+            "italic": false
+          },
+          {
+            "text": "⛊ 2",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_boots",
+          "color": "#c96691"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.boots",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "feet"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:item_model": "minecraft:shakudo_boots",
+        "minecraft:equippable": {
+          "slot": "feet",
+          "asset_id": "minecraft:shakudo"
+        }
+      },
+      "enchantments": {
+        "main:cleanse_armor_feet": 1
+      }
+    },
+    {
+      "recipe": "shakudo_chestplate",
+      "result_id": "minecraft:copper_chestplate",
+      "identity_components": {
+        "minecraft:max_damage": 500,
+        "minecraft:lore": [
+          {
+            "text": "    Poison",
+            "color": "gray",
+            "italic": false
+          },
+          {
+            "text": "    Wither",
+            "color": "gray",
+            "italic": false
+          },
+          {
+            "text": "⛊ 6",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_chestplate",
+          "color": "#c96691"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.chestplate",
+            "amount": 6,
+            "operation": "add_value",
+            "slot": "chest"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:item_model": "minecraft:shakudo_chestplate",
+        "minecraft:equippable": {
+          "slot": "chest",
+          "asset_id": "minecraft:shakudo"
+        }
+      },
+      "enchantments": {
+        "main:cleanse_armor_chest": 1
+      }
+    },
+    {
+      "recipe": "shakudo_dolabra",
+      "result_id": "minecraft:stone_axe",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/axe",
+              "speed": 7,
+              "correct_for_drops": true
+            },
+            {
+              "blocks": "#minecraft:mineable/pickaxe",
+              "speed": 7,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_dolabra",
+          "color": "#c96691"
+        },
+        "minecraft:item_model": "minecraft:shakudo_dolabra",
+        "minecraft:lore": [
+          {
+            "text": "⛏ 7",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 7",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -3,
+            "operation": "add_value"
+          },
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 6,
+            "operation": "add_value"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:copper_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "minecraft:silk_touch": 1
+      }
+    },
+    {
+      "recipe": "shakudo_helmet",
+      "result_id": "minecraft:copper_helmet",
+      "identity_components": {
+        "minecraft:max_damage": 500,
+        "minecraft:lore": [
+          {
+            "text": "    Blindness",
+            "color": "gray",
+            "italic": false
+          },
+          {
+            "text": "    Darkness",
+            "color": "gray",
+            "italic": false
+          },
+          {
+            "text": "⛊ 2",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_helmet",
+          "color": "#c96691"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.helmet",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "head"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:item_model": "minecraft:shakudo_helmet",
+        "minecraft:equippable": {
+          "slot": "head",
+          "asset_id": "minecraft:shakudo"
+        }
+      },
+      "enchantments": {
+        "main:cleanse_armor_head": 1
+      }
+    },
+    {
+      "recipe": "shakudo_hoe",
+      "result_id": "minecraft:stone_hoe",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/hoe",
+              "speed": 9,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_hoe",
+          "color": "#c96691"
+        },
+        "minecraft:item_model": "minecraft:shakudo_hoe",
+        "minecraft:lore": [
+          {
+            "text": "⛏ 9",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 1",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 4",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": 3,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:copper_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "minecraft:silk_touch": 1
+      }
+    },
+    {
+      "recipe": "shakudo_leggings",
+      "result_id": "minecraft:copper_leggings",
+      "identity_components": {
+        "minecraft:max_damage": 500,
+        "minecraft:lore": [
+          {
+            "text": "    Slowness",
+            "color": "gray",
+            "italic": false
+          },
+          {
+            "text": "⛊ 5",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_leggings",
+          "color": "#c96691"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.leggings",
+            "amount": 5,
+            "operation": "add_value",
+            "slot": "legs"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:item_model": "minecraft:shakudo_leggings",
+        "minecraft:equippable": {
+          "slot": "legs",
+          "asset_id": "minecraft:shakudo"
+        }
+      },
+      "enchantments": {
+        "main:cleanse_armor_legs": 1
+      }
+    },
+    {
+      "recipe": "shakudo_mattock",
+      "result_id": "minecraft:stone_hoe",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/hoe",
+              "speed": 8,
+              "correct_for_drops": true
+            },
+            {
+              "blocks": "#minecraft:mineable/shovel",
+              "speed": 8,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:lore": [
+          {
+            "text": "⛏ 8",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 4",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 4",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_mattock",
+          "color": "#c96691"
+        },
+        "minecraft:item_model": "minecraft:shakudo_mattock",
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 3,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": 0,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:copper_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "minecraft:silk_touch": 1
+      }
+    },
+    {
+      "recipe": "shakudo_pickaxe",
+      "result_id": "minecraft:stone_pickaxe",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/pickaxe",
+              "speed": 9,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_pickaxe",
+          "color": "#c96691"
+        },
+        "minecraft:item_model": "minecraft:shakudo_pickaxe",
+        "minecraft:lore": [
+          {
+            "text": "⛏ 9",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 4",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.2",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 3,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:copper_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "minecraft:silk_touch": 1
+      }
+    },
+    {
+      "recipe": "shakudo_shovel",
+      "result_id": "minecraft:stone_shovel",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/shovel",
+              "speed": 9,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_shovel",
+          "color": "#c96691"
+        },
+        "minecraft:item_model": "minecraft:shakudo_shovel",
+        "minecraft:lore": [
+          {
+            "text": "⛏ 9",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 4.5",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -3,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 3.5,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:copper_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "minecraft:silk_touch": 1
+      }
+    },
+    {
+      "recipe": "shakudo_spear",
+      "result_id": "minecraft:stone_spear",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_spear",
+          "color": "#c96691"
+        },
+        "minecraft:item_model": "minecraft:shakudo_spear",
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "damage",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:lore": [
+          {
+            "text": "🗡 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.18",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:copper_ingot"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false
+      },
+      "enchantments": {
+        "main:sanguine": 1
+      }
+    },
+    {
+      "recipe": "shakudo_sword",
+      "result_id": "minecraft:stone_sword",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_sword",
+          "color": "#c96691"
+        },
+        "minecraft:item_model": "minecraft:palatinate_sword",
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 5,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -2.4,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:lore": [
+          {
+            "text": "🗡 6",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.6",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:copper_ingot"
+          ]
+        }
+      },
+      "enchantments": {
+        "minecraft:sweeping_edge": 1,
+        "main:sanguine": 1
+      }
+    },
+    {
+      "recipe": "silver_sword",
+      "result_id": "minecraft:stone_sword",
+      "identity_components": {
+        "minecraft:max_damage": 800,
+        "minecraft:lore": [
+          {
+            "text": "🗡 6",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.6",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": "Silver Sword",
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 5,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -2.4,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": true,
+        "minecraft:item_model": "minecraft:silver_sword"
+      },
+      "enchantments": {
+        "minecraft:smite": 2,
+        "main:warding0": 1
+      }
+    },
+    {
+      "recipe": "steel_boots",
+      "result_id": "minecraft:iron_boots",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:lore": [
+          {
+            "text": "💥🚫 +1",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛊ 2",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛨ 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.steel_boots",
+          "color": "white"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:armor_toughness",
+            "id": "minecraft:armor.boots",
+            "amount": 1,
+            "operation": "add_value",
+            "slot": "feet"
+          },
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.boots",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "feet"
+          },
+          {
+            "type": "minecraft:knockback_resistance",
+            "id": "minecraft:armor.boots",
+            "amount": 0.1,
+            "operation": "add_value",
+            "slot": "feet"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:equippable": {
+          "slot": "feet",
+          "asset_id": "minecraft:steel"
+        },
+        "minecraft:item_model": "minecraft:steel_boots"
+      },
+      "enchantments": {
+        "minecraft:blast_protection": 2
+      }
+    },
+    {
+      "recipe": "steel_chestplate",
+      "result_id": "minecraft:iron_chestplate",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:lore": [
+          {
+            "text": "💥🚫 +2",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛊ 6",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛨ 2",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.steel_chestplate",
+          "color": "white"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:armor_toughness",
+            "id": "minecraft:armor.chestplate",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "chest"
+          },
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.chestplate",
+            "amount": 6,
+            "operation": "add_value",
+            "slot": "chest"
+          },
+          {
+            "type": "minecraft:knockback_resistance",
+            "id": "minecraft:armor.chestplate",
+            "amount": 0.2,
+            "operation": "add_value",
+            "slot": "chest"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:equippable": {
+          "slot": "chest",
+          "asset_id": "minecraft:steel"
+        },
+        "minecraft:item_model": "minecraft:steel_chestplate"
+      },
+      "enchantments": {
+        "minecraft:blast_protection": 4
+      }
+    },
+    {
+      "recipe": "steel_helmet",
+      "result_id": "minecraft:iron_helmet",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:lore": [
+          {
+            "text": "💥🚫 +1",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛊ 2",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛨ 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.steel_helmet",
+          "color": "white"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:armor_toughness",
+            "id": "minecraft:armor.helmet",
+            "amount": 1,
+            "operation": "add_value",
+            "slot": "head"
+          },
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.helmet",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "head"
+          },
+          {
+            "type": "minecraft:knockback_resistance",
+            "id": "minecraft:armor.helmet",
+            "amount": 0.1,
+            "operation": "add_value",
+            "slot": "head"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:item_model": "minecraft:steel_helmet",
+        "minecraft:equippable": {
+          "slot": "head",
+          "asset_id": "minecraft:steel"
+        }
+      },
+      "enchantments": {
+        "minecraft:blast_protection": 2
+      }
+    },
+    {
+      "recipe": "steel_leggings",
+      "result_id": "minecraft:iron_leggings",
+      "identity_components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:lore": [
+          {
+            "text": "💥🚫 +1",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛊ 5",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛨ 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.steel_leggings",
+          "color": "white"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:armor_toughness",
+            "id": "minecraft:armor.leggings",
+            "amount": 1,
+            "operation": "add_value",
+            "slot": "legs"
+          },
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.leggings",
+            "amount": 5,
+            "operation": "add_value",
+            "slot": "legs"
+          },
+          {
+            "type": "minecraft:knockback_resistance",
+            "id": "minecraft:armor.leggings",
+            "amount": 0.1,
+            "operation": "add_value",
+            "slot": "legs"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:item_model": "minecraft:steel_leggings",
+        "minecraft:equippable": {
+          "slot": "legs",
+          "asset_id": "minecraft:steel"
+        }
+      },
+      "enchantments": {
+        "minecraft:blast_protection": 3
+      }
+    },
+    {
+      "recipe": "steel_spear",
+      "result_id": "minecraft:stone_spear",
+      "identity_components": {
+        "minecraft:max_damage": 3000,
+        "minecraft:item_name": {
+          "translate": "item.kleispack.steel_spear"
+        },
+        "minecraft:item_model": "minecraft:steel_spear",
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "damage",
+            "amount": 3,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_knockback",
+            "id": "attack_knockback",
+            "amount": 1,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -3.1,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:lore": [
+          {
+            "text": "💥 1",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🗡 4",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 0.9",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:iron_ingot"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false
+      },
+      "enchantments": {}
+    },
+    {
+      "recipe": "warding_shield",
+      "result_id": "minecraft:shield",
+      "identity_components": {
+        "minecraft:banner_patterns": [
+          {
+            "color": "white",
+            "pattern": "minecraft:base"
+          },
+          {
+            "color": "light_blue",
+            "pattern": "minecraft:circle"
+          },
+          {
+            "color": "black",
+            "pattern": "minecraft:flower"
+          },
+          {
+            "color": "blue",
+            "pattern": "minecraft:curly_border"
+          },
+          {
+            "color": "blue",
+            "pattern": "minecraft:stripe_top"
+          },
+          {
+            "color": "blue",
+            "pattern": "minecraft:stripe_bottom"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:banner_patterns"
+          ]
+        },
+        "minecraft:item_name": "Warding Shield"
+      },
+      "enchantments": {
+        "main:warding1": 1
+      }
+    },
+    {
+      "recipe": "warding_sword",
+      "result_id": "minecraft:stone_sword",
+      "identity_components": {
+        "minecraft:max_damage": 500,
+        "minecraft:lore": [
+          {
+            "text": "🗡 5",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.6",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": "Warding Sword",
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 4,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -2.4,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": true,
+        "minecraft:item_model": "minecraft:warding_sword"
+      },
+      "enchantments": {
+        "main:warding0": 1
+      }
+    }
+  ]
+}

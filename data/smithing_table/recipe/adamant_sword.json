@@ -10,10 +10,6 @@
 				"translate": "item.minecraft.netherite_sword",
 				"color": "gold"
 			},
-			"minecraft:enchantments": {
-				"main:divinity": 1,
-				"minecraft:unbreaking": 2
-			},
 			"minecraft:lore": [
 				{
 					"text": "🗡 8",
