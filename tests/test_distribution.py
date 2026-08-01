@@ -608,10 +608,14 @@ class DistributionTests(unittest.TestCase):
         modifier = json.loads(
             (ROOT / "data/main/item_modifier/tyrael_elytra.json").read_text(encoding="utf-8")
         )
-        sequence = modifier[0]["modifier"]["modifier"]
+        sequence = modifier[0]
         self.assertEqual(sequence["function"], "minecraft:sequence")
         self.assertEqual(sequence["functions"][-1]["function"], "minecraft:set_enchantments")
         self.assertTrue(sequence["functions"][-1]["add"])
+        self.assertIn(
+            'minecraft:enchantments~[{enchantments:"main:tyrael_wings",levels:1}]',
+            migration,
+        )
 
     def test_tyrael_elytra_has_a_dedicated_angel_wing_visual(self):
         recipe = json.loads(
