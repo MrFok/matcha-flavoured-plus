@@ -5,11 +5,14 @@
 		"fabric:type": "fabric:components",
 		"base": "minecraft:netherite_axe",
 		"components": {
-			"minecraft:item_name": {
-				"translate": "item.minecraft.netherite_axe",
-				"color": "gold"
+			"minecraft:custom_data": {
+				"matcha": {
+					"tier": "adamant",
+					"tool": "axe"
+				}
 			}
-		}
+		},
+		"strict": false
 	},
 	"addition": {
 		"fabric:type": "fabric:components",
@@ -20,7 +23,8 @@
 					"divine_fragment": true
 				}
 			}
-		}
+		},
+		"strict": false
 	},
 	"result": {
 		"id": "minecraft:netherite_axe",

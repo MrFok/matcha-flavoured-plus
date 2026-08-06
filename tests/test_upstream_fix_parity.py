@@ -15,6 +15,69 @@ class UpstreamFixParityTests(unittest.TestCase):
         self.assertLess(objective, lines.index("scoreboard players set 1 sleepTimerScore 1"))
         self.assertLess(objective, lines.index("scoreboard players set 100 sleepTimerScore 100"))
 
+    def test_sleep_speedup_requires_a_single_all_player_quorum(self):
+        sleep = (
+            ROOT / "data/main/function/mechanic/sleep.mcfunction"
+        ).read_text(encoding="utf-8")
+        self.assertIn(
+            "execute as @a[gamemode=!spectator] run scoreboard players set @s sleepTimerScore 0",
+            sleep,
+        )
+        self.assertIn(
+            "execute as @a[gamemode=!spectator] store result score @s sleepTimerScore run data get entity @s SleepTimer",
+            sleep,
+        )
+        self.assertIn(
+            "execute if entity @a[gamemode=!spectator] unless entity @a[gamemode=!spectator,scores={sleepTimerScore=..0}] unless entity @a[gamemode=!spectator,scores={sleepTimerScore=100..}] run time add 120",
+            sleep,
+        )
+        self.assertEqual(sleep.count("time add 120"), 1)
+        commands = "\n".join(
+            line for line in sleep.splitlines() if not line.startswith("#")
+        )
+        self.assertNotIn("@p", commands)
+
+    def test_crystal_hearts_are_instant_consumables_from_all_sources(self):
+        recipe = json.loads(
+            (ROOT / "data/crafting/recipe/crystal_heart.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        loot = json.loads(
+            (ROOT / "data/minecraft/loot_table/kleis_items/crystal_heart.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        sources = [
+            recipe["result"]["components"]["minecraft:consumable"],
+            loot["pools"][0]["entries"][0]["functions"][0]["components"][
+                "minecraft:consumable"
+            ],
+        ]
+        for trade_name in ("divine_comedy", "paradise_lost"):
+            trade = json.loads(
+                (
+                    ROOT
+                    / f"data/minecraft/villager_trade/librarian/1/{trade_name}.json"
+                ).read_text(encoding="utf-8")
+            )
+            sources.append(trade["gives"]["components"]["minecraft:consumable"])
+
+        for consumable in sources:
+            with self.subTest(consumable=consumable):
+                self.assertEqual(consumable["consume_seconds"], 0.0)
+
+    def test_tyraels_wings_recipe_is_reserved_for_later(self):
+        self.assertFalse(
+            (ROOT / "data/crafting/recipe/fragment_of_tyraels_wings.json").exists()
+        )
+        self.assertFalse(
+            (
+                ROOT
+                / "data/main/advancement/recipe_unlocks/fragment_of_tyraels_wings.json"
+            ).exists()
+        )
+
     def test_heart_state_is_player_scoped_and_late_join_safe(self):
         process = (
             ROOT / "data/main/function/mechanic/process_heart_container.mcfunction"

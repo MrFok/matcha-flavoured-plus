@@ -5,8 +5,14 @@
 		"fabric:type": "fabric:components",
 		"base": "minecraft:netherite_axe",
 		"components": {
-			"minecraft:item_model": "minecraft:adamant_dolabra"
-		}
+			"minecraft:custom_data": {
+				"matcha": {
+					"tier": "adamant",
+					"tool": "dolabra"
+				}
+			}
+		},
+		"strict": false
 	},
 	"addition": {
 		"fabric:type": "fabric:components",
@@ -17,7 +23,8 @@
 					"divine_fragment": true
 				}
 			}
-		}
+		},
+		"strict": false
 	},
 	"result": {
 		"id": "minecraft:netherite_axe",

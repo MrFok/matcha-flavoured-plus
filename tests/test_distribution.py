@@ -116,23 +116,27 @@ class DistributionTests(unittest.TestCase):
         self.assertNotIn("container.*", process)
         self.assertFalse((ROOT / "data/main/function/mechanic/clear_heart_container.mcfunction").exists())
 
-    def test_enchanting_table_returns_obsidian_without_silk_touch(self):
+    def test_enchanting_table_returns_two_to_five_random_enchanted_books(self):
         loot_table = json.loads(
             (ROOT / "data/minecraft/loot_table/blocks/enchanting_table.json").read_text(
                 encoding="utf-8"
             )
         )
-        silk_pool, ordinary_pool = loot_table["pools"]
-
-        self.assertEqual(silk_pool["entries"][0]["name"], "minecraft:enchanting_table")
-        silk_enchantment = silk_pool["conditions"][1]["predicate"]["predicates"][
-            "minecraft:enchantments"
-        ][0]
-        self.assertEqual(silk_enchantment["enchantments"], "minecraft:silk_touch")
-
-        self.assertEqual(ordinary_pool["entries"][0]["name"], "minecraft:obsidian")
-        self.assertEqual(ordinary_pool["entries"][0]["functions"][0]["count"], 4)
-        self.assertEqual(ordinary_pool["conditions"][1]["condition"], "minecraft:inverted")
+        pack_metadata = json.loads((ROOT / "pack.mcmeta").read_text(encoding="utf-8"))
+        self.assertIn(
+            {"namespace": "minecraft", "path": "recipe/enchanting_table.json"},
+            pack_metadata["filter"]["block"],
+        )
+        self.assertEqual(len(loot_table["pools"]), 1)
+        pool = loot_table["pools"][0]
+        self.assertEqual(
+            pool["rolls"],
+            {"type": "minecraft:uniform", "min": 2, "max": 5},
+        )
+        self.assertEqual(pool["entries"][0]["name"], "minecraft:book")
+        enchant = pool["entries"][0]["functions"][0]
+        self.assertEqual(enchant["function"], "minecraft:enchant_randomly")
+        self.assertEqual(enchant["options"], "#minecraft:in_enchanting_table")
 
     def test_expected_filenames_and_root_layout(self):
         expected = {
@@ -470,6 +474,8 @@ class DistributionTests(unittest.TestCase):
         advancement = json.loads(advancement_path.read_text(encoding="utf-8"))
         self.assertIn("alaska_blackfish", advancement["criteria"])
         self.assertNotIn("alaksa_blackfish", advancement["criteria"])
+        self.assertIn(["alaska_blackfish"], advancement["requirements"])
+        self.assertNotIn(["alaksa_blackfish"], advancement["requirements"])
         self.assertEqual(
             advancement["criteria"]["alaska_blackfish"]["conditions"]["item"]["components"]
             ["minecraft:item_model"],
@@ -477,19 +483,14 @@ class DistributionTests(unittest.TestCase):
         )
 
     def test_divine_upgrade_content_is_marked_and_restricted(self):
-        fragment = json.loads(
-            (ROOT / "data/crafting/recipe/fragment_of_tyraels_wings.json").read_text(encoding="utf-8")
+        self.assertFalse(
+            (ROOT / "data/crafting/recipe/fragment_of_tyraels_wings.json").exists()
         )
-        self.assertEqual(fragment["pattern"], ["FDF", "DDD", "FDF"])
-        self.assertEqual(
-            fragment["key"],
-            {"D": "minecraft:diamond", "F": "minecraft:nether_star"},
-        )
-        self.assertEqual(fragment["result"]["components"]["minecraft:item_model"], "minecraft:fragment_of_tyraels_wings")
-        self.assertNotIn("minecraft:lore", fragment["result"]["components"])
-        self.assertNotIn(
-            "minecraft:enchantment_glint_override",
-            fragment["result"]["components"],
+        self.assertFalse(
+            (
+                ROOT
+                / "data/main/advancement/recipe_unlocks/fragment_of_tyraels_wings.json"
+            ).exists()
         )
 
         expected = {
@@ -515,21 +516,14 @@ class DistributionTests(unittest.TestCase):
                 self.assertEqual(recipe["template"], "minecraft:netherite_upgrade_smithing_template")
                 self.assertEqual(recipe["base"]["fabric:type"], "fabric:components")
                 self.assertEqual(recipe["base"]["base"], item_id)
-                if recipe_name in ("divine_pickaxe", "divine_axe"):
-                    self.assertEqual(
-                        recipe["base"]["components"]["minecraft:item_name"],
-                        {
-                            "translate": f"item.minecraft.{item_id.removeprefix('minecraft:')}",
-                            "color": "gold",
-                        },
-                    )
-                else:
-                    self.assertEqual(
-                        recipe["base"]["components"]["minecraft:item_model"],
-                        "minecraft:adamant_dolabra",
-                    )
+                self.assertEqual(
+                    recipe["base"]["components"]["minecraft:custom_data"],
+                    {"matcha": {"tier": "adamant", "tool": tool}},
+                )
+                self.assertFalse(recipe["base"]["strict"])
                 self.assertEqual(recipe["addition"]["fabric:type"], "fabric:components")
                 self.assertEqual(recipe["addition"]["base"], "minecraft:feather")
+                self.assertFalse(recipe["addition"]["strict"])
                 self.assertEqual(
                     recipe["addition"]["components"]["minecraft:custom_data"]["matcha"],
                     {"divine_fragment": True},

@@ -4,8 +4,9 @@ A preference-driven derivative of [Matcha Flavoured](https://modrinth.com/datapa
 
 The goal of this repository is to build on the original datapack while making deliberate balance, usability, compatibility, and quality-of-life changes. The original Matcha textures are the recommended texture choice; planned deviations and verified defects are tracked as GitHub issues before implementation.
 
-See [BRANCHES.md](BRANCHES.md) for the boundary between the pure
-`upstream-fixes` release and this customized `main` branch.
+See [BRANCHES.md](BRANCHES.md) for the boundary between the
+`upstream-fixes`, datapack-only `lite`, and full Fabric `main` branches. The
+short capability map is in [docs/capability-matrix.md](docs/capability-matrix.md).
 
 ## Upstream
 
@@ -19,7 +20,7 @@ See [CREDITS.txt](CREDITS.txt) for the upstream attribution and acknowledgements
 
 Build the distribution files with `python tools/build_distribution.py`. The generated files are in `dist/`.
 
-### Modrinth App / launcher
+### Full Fabric edition (`main`)
 
 Choose exactly one mod JAR for the profile. Both include the gameplay datapack
 and the Original Matcha resource assets, including Divine tool visuals:
@@ -31,7 +32,7 @@ Fabric 26.2 with Fabric API is runtime-verified. Quilt, Forge, and NeoForge
 metadata is included, but those launch paths remain experimental until they are
 tested in-game.
 
-### Vanilla Minecraft
+### Datapack-only edition (`lite`)
 
 Install the gameplay archive and texture archive manually:
 
@@ -39,8 +40,10 @@ Install the gameplay archive and texture archive manually:
 2. Put `matcha_flavoured_plus-1.0.0-resource-pack.zip` in the client's `resourcepacks` folder.
 3. Enable **Matcha Flavoured Plus**.
 
-The Modrinth App can install the self-contained mod JAR directly. The standalone
-archives remain available for vanilla-world installation.
+The standalone archives are the vanilla installation format. A JAR is a
+convenience package for the Fabric edition, not a way to make a vanilla
+datapack load automatically; vanilla still requires the gameplay ZIP in the
+world's `datapacks` directory.
 
 ## Textures
 
