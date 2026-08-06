@@ -70,6 +70,9 @@ class UpstreamFixTests(unittest.TestCase):
         set_max_hp = (
             ROOT / "data/main/function/mechanic/set_max_hp.mcfunction"
         ).read_text(encoding="utf-8")
+        ticking = (
+            ROOT / "data/main/function/setup/ticking_functions.mcfunction"
+        ).read_text(encoding="utf-8")
 
         self.assertIn(
             "execute as @a[scores={Hearts=0}] run scoreboard players set @s Hearts 20",
@@ -81,6 +84,18 @@ class UpstreamFixTests(unittest.TestCase):
         self.assertNotIn("@p", hpdown)
         self.assertNotIn("@p", set_max_hp)
         self.assertIn("execute if score @s Hearts matches ..58", process)
+        self.assertIn(
+            "execute unless score @s Hearts matches 20..60 run scoreboard players set @s Hearts 20",
+            process,
+        )
+        self.assertIn(
+            "execute as @a unless score @s Hearts matches 20..60 run scoreboard players set @s Hearts 20",
+            ticking,
+        )
+        self.assertIn(
+            "execute as @a[scores={deaths=1..}] unless score @s Hearts matches 20..60 run scoreboard players set @s Hearts 20",
+            hpdown,
+        )
         self.assertIn("clear @s", clear)
         self.assertIn("scoreboard players remove @s Hearts 2", hpdown)
         self.assertIn("attribute @s minecraft:max_health", set_max_hp)

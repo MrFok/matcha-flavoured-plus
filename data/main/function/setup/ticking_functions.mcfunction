@@ -1,3 +1,4 @@
+execute as @a unless score @s Hearts matches 20..60 run scoreboard players set @s Hearts 20
 function main:mechanic/sleep
 function main:mechanic/manage_hunger
 function main:mechanic/water_bottle_stacking
