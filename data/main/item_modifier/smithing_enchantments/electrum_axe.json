@@ -619,5 +619,22 @@
         }
       }
     }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:diamond_axe",
+      "predicates": {
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "electrum_axe"
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:set_components",
+      "components": {
+        "!minecraft:custom_data": {}
+      }
+    }
   }
 ]

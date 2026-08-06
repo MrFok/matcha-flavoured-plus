@@ -93,5 +93,22 @@
         }
       }
     }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:copper_chestplate",
+      "predicates": {
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "shakudo_chestplate"
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:set_components",
+      "components": {
+        "!minecraft:custom_data": {}
+      }
+    }
   }
 ]

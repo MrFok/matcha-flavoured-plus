@@ -189,5 +189,22 @@
         }
       }
     }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:leather_boots",
+      "predicates": {
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "gilded_leather_boots"
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:set_components",
+      "components": {
+        "!minecraft:custom_data": {}
+      }
+    }
   }
 ]

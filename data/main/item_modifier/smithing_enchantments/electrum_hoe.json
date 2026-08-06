@@ -281,5 +281,22 @@
         }
       }
     }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:stone_hoe",
+      "predicates": {
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "electrum_hoe"
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:set_components",
+      "components": {
+        "!minecraft:custom_data": {}
+      }
+    }
   }
 ]

@@ -276,5 +276,22 @@
         }
       }
     }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:netherite_boots",
+      "predicates": {
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "adamant_boots"
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:set_components",
+      "components": {
+        "!minecraft:custom_data": {}
+      }
+    }
   }
 ]

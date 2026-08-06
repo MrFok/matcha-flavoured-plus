@@ -192,5 +192,22 @@
         }
       }
     }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:iron_leggings",
+      "predicates": {
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "steel_leggings"
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:set_components",
+      "components": {
+        "!minecraft:custom_data": {}
+      }
+    }
   }
 ]
