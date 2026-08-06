@@ -18,8 +18,17 @@
           }
         ],
         "minecraft:item_name": {
-          "translate": "item.kleispack.shakudo_leggings",
-          "color": "#c96691"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.shakudo_leggings",
+              "color": "#c96691"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:shakudo_leggings"
+            }
+          ]
         },
         "minecraft:attribute_modifiers": [
           {
@@ -40,9 +49,6 @@
         "minecraft:equippable": {
           "slot": "legs",
           "asset_id": "minecraft:shakudo"
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "shakudo_leggings"
         }
       }
     },
@@ -93,16 +99,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:copper_leggings",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "shakudo_leggings"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.shakudo_leggings",
+              "color": "#c96691"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:shakudo_leggings"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_leggings",
+          "color": "#c96691"
+        }
       }
     }
   }

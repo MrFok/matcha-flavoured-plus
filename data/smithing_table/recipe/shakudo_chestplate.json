@@ -24,8 +24,17 @@
 				}
 			],
 			"minecraft:item_name": {
-				"translate": "item.kleispack.shakudo_chestplate",
-				"color": "#c96691"
+				"text": "",
+				"extra": [
+					{
+						"translate": "item.kleispack.shakudo_chestplate",
+						"color": "#c96691"
+					},
+					{
+						"text": "",
+						"insertion": "matcha_smithing_pending:shakudo_chestplate"
+					}
+				]
 			},
 			"minecraft:attribute_modifiers": [
 				{
@@ -46,9 +55,6 @@
 			"minecraft:equippable": {
 				"slot": "chest",
 				"asset_id": "minecraft:shakudo"
-			},
-			"minecraft:custom_data": {
-				"matcha_smithing_pending": "shakudo_chestplate"
 			}
 		}
 	},

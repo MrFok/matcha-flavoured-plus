@@ -24,8 +24,17 @@
 				}
 			],
 			"minecraft:item_name": {
-				"translate": "item.kleispack.steel_leggings",
-				"color": "white"
+				"text": "",
+				"extra": [
+					{
+						"translate": "item.kleispack.steel_leggings",
+						"color": "white"
+					},
+					{
+						"text": "",
+						"insertion": "matcha_smithing_pending:steel_leggings"
+					}
+				]
 			},
 			"minecraft:attribute_modifiers": [
 				{
@@ -60,9 +69,6 @@
 			"minecraft:equippable": {
 				"slot": "legs",
 				"asset_id": "minecraft:steel"
-			},
-			"minecraft:custom_data": {
-				"matcha_smithing_pending": "steel_leggings"
 			}
 		}
 	},

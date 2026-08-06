@@ -17,7 +17,16 @@
             "italic": false
           }
         ],
-        "minecraft:item_name": "Warding Sword",
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            "Warding Sword",
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:warding_sword"
+            }
+          ]
+        },
         "minecraft:attribute_modifiers": [
           {
             "type": "minecraft:attack_damage",
@@ -40,10 +49,7 @@
           ]
         },
         "minecraft:enchantment_glint_override": true,
-        "minecraft:item_model": "minecraft:warding_sword",
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "warding_sword"
-        }
+        "minecraft:item_model": "minecraft:warding_sword"
       }
     },
     "modifier": {
@@ -93,16 +99,23 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:stone_sword",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "warding_sword"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            "Warding Sword",
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:warding_sword"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": "Warding Sword"
       }
     }
   }

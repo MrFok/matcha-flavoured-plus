@@ -51,13 +51,19 @@
           ]
         },
         "minecraft:item_name": {
-          "translate": "item.kleispack.adamant_mattock",
-          "color": "gold"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.adamant_mattock",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_mattock"
+            }
+          ]
         },
-        "minecraft:item_model": "minecraft:adamant_mattock",
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_mattock"
-        }
+        "minecraft:item_model": "minecraft:adamant_mattock"
       }
     },
     "modifier": {
@@ -155,13 +161,19 @@
           ]
         },
         "minecraft:item_name": {
-          "translate": "item.kleispack.adamant_mattock",
-          "color": "gold"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.adamant_mattock",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_mattock"
+            }
+          ]
         },
-        "minecraft:item_model": "minecraft:adamant_mattock",
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_mattock"
-        }
+        "minecraft:item_model": "minecraft:adamant_mattock"
       }
     },
     "modifier": {
@@ -231,16 +243,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:netherite_hoe",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_mattock"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.adamant_mattock",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_mattock"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.kleispack.adamant_mattock",
+          "color": "gold"
+        }
       }
     }
   }

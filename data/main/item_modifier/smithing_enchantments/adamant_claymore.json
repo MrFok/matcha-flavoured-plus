@@ -6,8 +6,17 @@
       "components": {
         "minecraft:max_damage": 5000,
         "minecraft:item_name": {
-          "translate": "item.kleispack.adamant_claymore",
-          "color": "gold"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.adamant_claymore",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_claymore"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:adamant_claymore",
         "minecraft:lore": [
@@ -93,10 +102,7 @@
             "operation": "add_value",
             "slot": "mainhand"
           }
-        ],
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_claymore"
-        }
+        ]
       }
     },
     "modifier": {
@@ -149,8 +155,17 @@
       "components": {
         "minecraft:max_damage": 5000,
         "minecraft:item_name": {
-          "translate": "item.kleispack.adamant_claymore",
-          "color": "gold"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.adamant_claymore",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_claymore"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:adamant_claymore",
         "minecraft:lore": [
@@ -236,10 +251,7 @@
             "operation": "add_value",
             "slot": "mainhand"
           }
-        ],
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_claymore"
-        }
+        ]
       }
     },
     "modifier": {
@@ -309,16 +321,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:netherite_sword",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_claymore"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.adamant_claymore",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_claymore"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.kleispack.adamant_claymore",
+          "color": "gold"
+        }
       }
     }
   }

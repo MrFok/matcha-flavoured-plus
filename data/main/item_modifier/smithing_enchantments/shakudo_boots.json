@@ -18,8 +18,17 @@
           }
         ],
         "minecraft:item_name": {
-          "translate": "item.kleispack.shakudo_boots",
-          "color": "#c96691"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.shakudo_boots",
+              "color": "#c96691"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:shakudo_boots"
+            }
+          ]
         },
         "minecraft:attribute_modifiers": [
           {
@@ -40,9 +49,6 @@
         "minecraft:equippable": {
           "slot": "feet",
           "asset_id": "minecraft:shakudo"
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "shakudo_boots"
         }
       }
     },
@@ -93,16 +99,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:copper_boots",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "shakudo_boots"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.shakudo_boots",
+              "color": "#c96691"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:shakudo_boots"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_boots",
+          "color": "#c96691"
+        }
       }
     }
   }

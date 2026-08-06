@@ -66,15 +66,19 @@ class UpstreamFixParityTests(unittest.TestCase):
                     )
                 )
                 self.assertEqual(
-                    recipe["result"]["components"]["minecraft:custom_data"][
-                        "matcha_smithing_pending"
-                    ],
-                    name,
+                    recipe["result"]["components"]["minecraft:item_name"]["extra"][
+                        1
+                    ]["insertion"],
+                    f"matcha_smithing_pending:{name}",
+                )
+                self.assertNotIn(
+                    "matcha_smithing_pending",
+                    recipe["result"]["components"].get("minecraft:custom_data", {}),
                 )
                 modifier = (
                     ROOT / f"data/main/item_modifier/smithing_enchantments/{name}.json"
                 ).read_text(encoding="utf-8")
-                self.assertIn(f'"matcha_smithing_pending": "{name}"', modifier)
+                self.assertIn(f'"insertion": "matcha_smithing_pending:{name}"', modifier)
 
     def test_feather_falling_negates_ender_pearl_damage(self):
         damage_tag = json.loads(

@@ -47,11 +47,17 @@
 				]
 			},
 			"minecraft:item_name": {
-				"translate": "item.minecraft.netherite_hoe",
-				"color": "gold"
-			},
-			"minecraft:custom_data": {
-				"matcha_smithing_pending": "adamant_hoe"
+				"text": "",
+				"extra": [
+					{
+						"translate": "item.minecraft.netherite_hoe",
+						"color": "gold"
+					},
+					{
+						"text": "",
+						"insertion": "matcha_smithing_pending:adamant_hoe"
+					}
+				]
 			}
 		}
 	},

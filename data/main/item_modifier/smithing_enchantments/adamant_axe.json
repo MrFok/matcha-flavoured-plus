@@ -8,8 +8,7 @@
           "matcha": {
             "tier": "adamant",
             "tool": "axe"
-          },
-          "matcha_smithing_pending": "adamant_axe"
+          }
         },
         "minecraft:max_damage": 5000,
         "minecraft:tool": {
@@ -53,8 +52,17 @@
           ]
         },
         "minecraft:item_name": {
-          "translate": "item.minecraft.netherite_axe",
-          "color": "gold"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_axe",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_axe"
+            }
+          ]
         }
       }
     },
@@ -110,8 +118,7 @@
           "matcha": {
             "tier": "adamant",
             "tool": "axe"
-          },
-          "matcha_smithing_pending": "adamant_axe"
+          }
         },
         "minecraft:max_damage": 5000,
         "minecraft:tool": {
@@ -155,8 +162,17 @@
           ]
         },
         "minecraft:item_name": {
-          "translate": "item.minecraft.netherite_axe",
-          "color": "gold"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_axe",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_axe"
+            }
+          ]
         }
       }
     },
@@ -227,20 +243,28 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:netherite_axe",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_axe"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_axe",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_axe"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "minecraft:custom_data": {
-          "matcha": {
-            "tier": "adamant",
-            "tool": "axe"
-          }
+        "minecraft:item_name": {
+          "translate": "item.minecraft.netherite_axe",
+          "color": "gold"
         }
       }
     }

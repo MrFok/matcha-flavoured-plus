@@ -158,7 +158,19 @@ def validate_manifest_recipe(entry: dict[str, Any]) -> None:
         for key, value in components.items()
         if key != "minecraft:enchantments"
     }
-    if identity not in (entry["identity_components"], pending_identity_components(entry)):
+    normalized_identity = copy.deepcopy(identity)
+    custom_data = normalized_identity.get("minecraft:custom_data")
+    if (
+        isinstance(custom_data, dict)
+        and custom_data.get(PENDING_MARKER) == entry["recipe"]
+    ):
+        custom_data.pop(PENDING_MARKER)
+        if not custom_data:
+            normalized_identity.pop("minecraft:custom_data")
+    if normalized_identity not in (
+        entry["identity_components"],
+        pending_identity_components(entry),
+    ):
         raise ValueError(f"{path}: identity components no longer match the manifest")
     declared = components.get("minecraft:enchantments")
     if declared is not None and declared != entry["enchantments"]:
@@ -233,21 +245,37 @@ def remove_recipe_enchantments(entry: dict[str, Any]) -> str:
         components = recipe["result"].setdefault("components", {})
     if not entry["enchantments"]:
         return text
-    custom_data = components.setdefault("minecraft:custom_data", {})
-    if not isinstance(custom_data, dict):
-        raise ValueError(f"{path}: custom_data must be an object")
-    custom_data[PENDING_MARKER] = entry["recipe"]
+    custom_data = components.get("minecraft:custom_data")
+    if isinstance(custom_data, dict) and PENDING_MARKER in custom_data:
+        if custom_data.pop(PENDING_MARKER) != entry["recipe"]:
+            raise ValueError(f"{path}: unexpected pending marker")
+        if not custom_data:
+            components.pop("minecraft:custom_data")
+    components["minecraft:item_name"] = pending_item_name(entry)
     return render_recipe_json(recipe)
+
+
+def pending_item_name(entry: dict[str, Any]) -> dict[str, Any]:
+    original = entry["identity_components"].get("minecraft:item_name")
+    if original is None:
+        raise ValueError(f"{entry['recipe']}: item_name is required for output scoping")
+    return {
+        "text": "",
+        "extra": [
+            copy.deepcopy(original),
+            {
+                "text": "",
+                "insertion": f"{PENDING_MARKER}:{entry['recipe']}",
+            },
+        ],
+    }
 
 
 def pending_identity_components(entry: dict[str, Any]) -> dict[str, Any]:
     components = copy.deepcopy(entry["identity_components"])
     if not entry["enchantments"]:
         return components
-    custom_data = components.setdefault("minecraft:custom_data", {})
-    if not isinstance(custom_data, dict):
-        raise ValueError(f"{entry['recipe']}: custom_data must be an object")
-    custom_data[PENDING_MARKER] = entry["recipe"]
+    components["minecraft:item_name"] = pending_item_name(entry)
     return components
 
 
@@ -327,25 +355,20 @@ def guarded_material_modifier(
 
 
 def cleanup_pending_marker_modifier(entry: dict[str, Any]) -> dict[str, Any]:
-    original_custom_data = entry["identity_components"].get("minecraft:custom_data")
-    components = (
-        {"!minecraft:custom_data": {}}
-        if original_custom_data is None
-        else {"minecraft:custom_data": original_custom_data}
-    )
+    original_item_name = entry["identity_components"]["minecraft:item_name"]
     return {
         "function": "minecraft:filtered",
         "item_filter": {
             "items": entry["result_id"],
-            "predicates": {
-                "minecraft:custom_data": {
-                    PENDING_MARKER: entry["recipe"],
-                }
+            "components": {
+                "minecraft:item_name": pending_item_name(entry),
             },
         },
         "modifier": {
             "function": "minecraft:set_components",
-            "components": components,
+            "components": {
+                "minecraft:item_name": original_item_name,
+            },
         },
     }
 

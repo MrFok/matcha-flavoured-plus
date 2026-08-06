@@ -40,8 +40,17 @@
 				}
 			],
 			"minecraft:item_name": {
-				"translate": "item.kleispack.shakudo_mattock",
-				"color": "#c96691"
+				"text": "",
+				"extra": [
+					{
+						"translate": "item.kleispack.shakudo_mattock",
+						"color": "#c96691"
+					},
+					{
+						"text": "",
+						"insertion": "matcha_smithing_pending:shakudo_mattock"
+					}
+				]
 			},
 			"minecraft:item_model": "minecraft:shakudo_mattock",
 			"minecraft:enchantment_glint_override": false,
@@ -70,9 +79,6 @@
 				"items": [
 					"minecraft:copper_ingot"
 				]
-			},
-			"minecraft:custom_data": {
-				"matcha_smithing_pending": "shakudo_mattock"
 			}
 		}
 	},

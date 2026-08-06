@@ -6,8 +6,17 @@
       "components": {
         "minecraft:max_damage": 5000,
         "minecraft:item_name": {
-          "translate": "item.minecraft.netherite_sword",
-          "color": "gold"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_sword",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_sword"
+            }
+          ]
         },
         "minecraft:lore": [
           {
@@ -32,9 +41,6 @@
             "minecraft:gold_block",
             "minecraft:netherite_scrap"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_sword"
         }
       }
     },
@@ -88,8 +94,17 @@
       "components": {
         "minecraft:max_damage": 5000,
         "minecraft:item_name": {
-          "translate": "item.minecraft.netherite_sword",
-          "color": "gold"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_sword",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_sword"
+            }
+          ]
         },
         "minecraft:lore": [
           {
@@ -114,9 +129,6 @@
             "minecraft:gold_block",
             "minecraft:netherite_scrap"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_sword"
         }
       }
     },
@@ -187,16 +199,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:netherite_sword",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_sword"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_sword",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_sword"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.minecraft.netherite_sword",
+          "color": "gold"
+        }
       }
     }
   }

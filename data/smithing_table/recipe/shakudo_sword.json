@@ -7,8 +7,17 @@
 		"components": {
 			"minecraft:max_damage": 1000,
 			"minecraft:item_name": {
-				"translate": "item.kleispack.shakudo_sword",
-				"color": "#c96691"
+				"text": "",
+				"extra": [
+					{
+						"translate": "item.kleispack.shakudo_sword",
+						"color": "#c96691"
+					},
+					{
+						"text": "",
+						"insertion": "matcha_smithing_pending:shakudo_sword"
+					}
+				]
 			},
 			"minecraft:item_model": "minecraft:palatinate_sword",
 			"minecraft:attribute_modifiers": [
@@ -49,9 +58,6 @@
 				"items": [
 					"minecraft:copper_ingot"
 				]
-			},
-			"minecraft:custom_data": {
-				"matcha_smithing_pending": "shakudo_sword"
 			}
 		}
 	},

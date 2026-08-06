@@ -6,8 +6,17 @@
       "components": {
         "minecraft:max_damage": 3000,
         "minecraft:item_name": {
-          "translate": "item.kleispack.electrum_spear",
-          "color": "yellow"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_spear",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_spear"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:electrum_spear",
         "minecraft:attribute_modifiers": [
@@ -41,9 +50,6 @@
             "minecraft:gold_ingot",
             "minecraft:diamond"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_spear"
         }
       }
     },
@@ -207,8 +213,17 @@
       "components": {
         "minecraft:max_damage": 3000,
         "minecraft:item_name": {
-          "translate": "item.kleispack.electrum_spear",
-          "color": "yellow"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_spear",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_spear"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:electrum_spear",
         "minecraft:attribute_modifiers": [
@@ -242,9 +257,6 @@
             "minecraft:gold_ingot",
             "minecraft:diamond"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_spear"
         }
       }
     },
@@ -318,8 +330,17 @@
       "components": {
         "minecraft:max_damage": 3000,
         "minecraft:item_name": {
-          "translate": "item.kleispack.electrum_spear",
-          "color": "yellow"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_spear",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_spear"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:electrum_spear",
         "minecraft:attribute_modifiers": [
@@ -353,9 +374,6 @@
             "minecraft:gold_ingot",
             "minecraft:diamond"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_spear"
         }
       }
     },
@@ -406,16 +424,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:stone_spear",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_spear"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_spear",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_spear"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_spear",
+          "color": "yellow"
+        }
       }
     }
   }

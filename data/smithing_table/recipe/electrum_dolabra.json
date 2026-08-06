@@ -40,8 +40,17 @@
 				}
 			],
 			"minecraft:item_name": {
-				"translate": "item.kleispack.electrum_dolabra",
-				"color": "yellow"
+				"text": "",
+				"extra": [
+					{
+						"translate": "item.kleispack.electrum_dolabra",
+						"color": "yellow"
+					},
+					{
+						"text": "",
+						"insertion": "matcha_smithing_pending:electrum_dolabra"
+					}
+				]
 			},
 			"minecraft:item_model": "minecraft:electrum_dolabra",
 			"minecraft:attribute_modifiers": [
@@ -70,9 +79,6 @@
 					"minecraft:diamond",
 					"minecraft:gold_ingot"
 				]
-			},
-			"minecraft:custom_data": {
-				"matcha_smithing_pending": "electrum_dolabra"
 			}
 		}
 	},

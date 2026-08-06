@@ -46,11 +46,17 @@
           ]
         },
         "minecraft:item_name": {
-          "translate": "item.minecraft.netherite_hoe",
-          "color": "gold"
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_hoe"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_hoe",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_hoe"
+            }
+          ]
         }
       }
     },
@@ -144,11 +150,17 @@
           ]
         },
         "minecraft:item_name": {
-          "translate": "item.minecraft.netherite_hoe",
-          "color": "gold"
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_hoe"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_hoe",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_hoe"
+            }
+          ]
         }
       }
     },
@@ -219,16 +231,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:netherite_hoe",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_hoe"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_hoe",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_hoe"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.minecraft.netherite_hoe",
+          "color": "gold"
+        }
       }
     }
   }

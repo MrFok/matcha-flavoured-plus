@@ -17,8 +17,17 @@
           "damage_per_block": 1
         },
         "minecraft:item_name": {
-          "translate": "item.kleispack.shakudo_hoe",
-          "color": "#c96691"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.shakudo_hoe",
+              "color": "#c96691"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:shakudo_hoe"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:shakudo_hoe",
         "minecraft:lore": [
@@ -57,9 +66,6 @@
           "items": [
             "minecraft:copper_ingot"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "shakudo_hoe"
         }
       }
     },
@@ -125,16 +131,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:stone_hoe",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "shakudo_hoe"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.shakudo_hoe",
+              "color": "#c96691"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:shakudo_hoe"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_hoe",
+          "color": "#c96691"
+        }
       }
     }
   }

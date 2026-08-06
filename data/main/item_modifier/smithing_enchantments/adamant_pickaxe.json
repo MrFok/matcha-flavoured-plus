@@ -8,8 +8,7 @@
           "matcha": {
             "tier": "adamant",
             "tool": "pickaxe"
-          },
-          "matcha_smithing_pending": "adamant_pickaxe"
+          }
         },
         "minecraft:max_damage": 5000,
         "minecraft:tool": {
@@ -53,8 +52,17 @@
           ]
         },
         "minecraft:item_name": {
-          "translate": "item.minecraft.netherite_pickaxe",
-          "color": "gold"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_pickaxe",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_pickaxe"
+            }
+          ]
         }
       }
     },
@@ -110,8 +118,7 @@
           "matcha": {
             "tier": "adamant",
             "tool": "pickaxe"
-          },
-          "matcha_smithing_pending": "adamant_pickaxe"
+          }
         },
         "minecraft:max_damage": 5000,
         "minecraft:tool": {
@@ -155,8 +162,17 @@
           ]
         },
         "minecraft:item_name": {
-          "translate": "item.minecraft.netherite_pickaxe",
-          "color": "gold"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_pickaxe",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_pickaxe"
+            }
+          ]
         }
       }
     },
@@ -227,20 +243,28 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:netherite_pickaxe",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_pickaxe"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_pickaxe",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_pickaxe"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "minecraft:custom_data": {
-          "matcha": {
-            "tier": "adamant",
-            "tool": "pickaxe"
-          }
+        "minecraft:item_name": {
+          "translate": "item.minecraft.netherite_pickaxe",
+          "color": "gold"
         }
       }
     }

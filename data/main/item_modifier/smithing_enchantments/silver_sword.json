@@ -17,7 +17,16 @@
             "italic": false
           }
         ],
-        "minecraft:item_name": "Silver Sword",
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            "Silver Sword",
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:silver_sword"
+            }
+          ]
+        },
         "minecraft:attribute_modifiers": [
           {
             "type": "minecraft:attack_damage",
@@ -40,10 +49,7 @@
           ]
         },
         "minecraft:enchantment_glint_override": true,
-        "minecraft:item_model": "minecraft:silver_sword",
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "silver_sword"
-        }
+        "minecraft:item_model": "minecraft:silver_sword"
       }
     },
     "modifier": {
@@ -217,7 +223,16 @@
             "italic": false
           }
         ],
-        "minecraft:item_name": "Silver Sword",
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            "Silver Sword",
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:silver_sword"
+            }
+          ]
+        },
         "minecraft:attribute_modifiers": [
           {
             "type": "minecraft:attack_damage",
@@ -240,10 +255,7 @@
           ]
         },
         "minecraft:enchantment_glint_override": true,
-        "minecraft:item_model": "minecraft:silver_sword",
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "silver_sword"
-        }
+        "minecraft:item_model": "minecraft:silver_sword"
       }
     },
     "modifier": {
@@ -293,16 +305,23 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:stone_sword",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "silver_sword"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            "Silver Sword",
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:silver_sword"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": "Silver Sword"
       }
     }
   }

@@ -9,8 +9,7 @@
 				"matcha": {
 					"tier": "adamant",
 					"tool": "axe"
-				},
-				"matcha_smithing_pending": "adamant_axe"
+				}
 			},
 			"minecraft:max_damage": 5000,
 			"minecraft:tool": {
@@ -54,8 +53,17 @@
 				]
 			},
 			"minecraft:item_name": {
-				"translate": "item.minecraft.netherite_axe",
-				"color": "gold"
+				"text": "",
+				"extra": [
+					{
+						"translate": "item.minecraft.netherite_axe",
+						"color": "gold"
+					},
+					{
+						"text": "",
+						"insertion": "matcha_smithing_pending:adamant_axe"
+					}
+				]
 			}
 		}
 	},

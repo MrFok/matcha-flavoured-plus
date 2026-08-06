@@ -18,8 +18,17 @@
 				"damage_per_block": 1
 			},
 			"minecraft:item_name": {
-				"translate": "item.kleispack.shakudo_shovel",
-				"color": "#c96691"
+				"text": "",
+				"extra": [
+					{
+						"translate": "item.kleispack.shakudo_shovel",
+						"color": "#c96691"
+					},
+					{
+						"text": "",
+						"insertion": "matcha_smithing_pending:shakudo_shovel"
+					}
+				]
 			},
 			"minecraft:item_model": "minecraft:shakudo_shovel",
 			"minecraft:lore": [
@@ -65,9 +74,6 @@
 				"items": [
 					"minecraft:copper_ingot"
 				]
-			},
-			"minecraft:custom_data": {
-				"matcha_smithing_pending": "shakudo_shovel"
 			}
 		}
 	},
