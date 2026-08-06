@@ -5,6 +5,12 @@
 	"result": {
 		"id": "minecraft:netherite_axe",
 		"components": {
+			"minecraft:custom_data": {
+				"matcha": {
+					"tier": "adamant",
+					"tool": "axe"
+				}
+			},
 			"minecraft:max_damage": 5000,
 			"minecraft:tool": {
 				"rules": [
@@ -16,10 +22,6 @@
 				],
 				"default_mining_speed": 1,
 				"damage_per_block": 1
-			},
-			"minecraft:enchantments": {
-				"main:divinity": 1,
-				"minecraft:unbreaking": 2
 			},
 			"minecraft:lore": [
 				{

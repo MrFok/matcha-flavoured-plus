@@ -1,0 +1,236 @@
+[
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:netherite_axe",
+      "components": {
+        "minecraft:custom_data": {
+          "matcha": {
+            "tier": "adamant",
+            "tool": "dolabra"
+          }
+        },
+        "minecraft:max_damage": 5000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/pickaxe",
+              "speed": 13,
+              "correct_for_drops": true
+            },
+            {
+              "blocks": "#minecraft:mineable/axe",
+              "speed": 13,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:lore": [
+          {
+            "text": "⛏ 13",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 10",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block",
+            "minecraft:netherite_scrap"
+          ]
+        },
+        "minecraft:item_name": {
+          "translate": "item.kleispack.adamant_dolabra",
+          "color": "gold"
+        },
+        "minecraft:item_model": "minecraft:adamant_dolabra"
+      }
+    },
+    "modifier": {
+      "function": "minecraft:filtered",
+      "item_filter": {
+        "predicates": {
+          "minecraft:enchantments": [
+            {
+              "enchantments": "main:divinity",
+              "levels": {
+                "min": 1
+              }
+            }
+          ]
+        }
+      },
+      "on_fail": {
+        "function": "minecraft:filtered",
+        "item_filter": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "main:divinity",
+                "levels": 0
+              }
+            ]
+          }
+        },
+        "modifier": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "main:divinity": 1
+          },
+          "add": true
+        },
+        "on_fail": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "main:divinity": 1
+          },
+          "add": true
+        }
+      }
+    }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:netherite_axe",
+      "components": {
+        "minecraft:custom_data": {
+          "matcha": {
+            "tier": "adamant",
+            "tool": "dolabra"
+          }
+        },
+        "minecraft:max_damage": 5000,
+        "minecraft:tool": {
+          "rules": [
+            {
+              "blocks": "#minecraft:mineable/pickaxe",
+              "speed": 13,
+              "correct_for_drops": true
+            },
+            {
+              "blocks": "#minecraft:mineable/axe",
+              "speed": 13,
+              "correct_for_drops": true
+            }
+          ],
+          "default_mining_speed": 1,
+          "damage_per_block": 1
+        },
+        "minecraft:lore": [
+          {
+            "text": "⛏ 13",
+            "color": "blue",
+            "italic": false
+          },
+          {
+            "text": "🗡 10",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block",
+            "minecraft:netherite_scrap"
+          ]
+        },
+        "minecraft:item_name": {
+          "translate": "item.kleispack.adamant_dolabra",
+          "color": "gold"
+        },
+        "minecraft:item_model": "minecraft:adamant_dolabra"
+      }
+    },
+    "modifier": {
+      "function": "minecraft:filtered",
+      "item_filter": {
+        "predicates": {
+          "minecraft:enchantments": [
+            {
+              "enchantments": "minecraft:unbreaking",
+              "levels": {
+                "min": 2
+              }
+            }
+          ]
+        }
+      },
+      "on_fail": {
+        "function": "minecraft:filtered",
+        "item_filter": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "minecraft:unbreaking",
+                "levels": 0
+              }
+            ]
+          }
+        },
+        "modifier": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "minecraft:unbreaking": 2
+          },
+          "add": true
+        },
+        "on_fail": {
+          "function": "minecraft:filtered",
+          "item_filter": {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "minecraft:unbreaking",
+                  "levels": 1
+                }
+              ]
+            }
+          },
+          "modifier": {
+            "function": "minecraft:set_enchantments",
+            "enchantments": {
+              "minecraft:unbreaking": 1
+            },
+            "add": true
+          },
+          "on_fail": {
+            "function": "minecraft:set_enchantments",
+            "enchantments": {
+              "minecraft:unbreaking": 2
+            },
+            "add": true
+          }
+        }
+      }
+    }
+  }
+]

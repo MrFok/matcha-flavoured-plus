@@ -43,9 +43,6 @@
 					"minecraft:attribute_modifiers"
 				]
 			},
-			"minecraft:enchantments": {
-				"main:warding_armour": 1
-			},
 			"minecraft:item_model": "minecraft:electrum_leggings",
 			"minecraft:equippable": {
 				"slot": "legs",

@@ -55,9 +55,6 @@
 					"minecraft:attribute_modifiers"
 				]
 			},
-			"minecraft:enchantments": {
-				"minecraft:blast_protection": 2
-			},
 			"minecraft:enchantment_glint_override": false,
 			"minecraft:item_model": "minecraft:steel_helmet",
 			"minecraft:equippable": {

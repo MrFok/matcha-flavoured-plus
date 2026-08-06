@@ -49,9 +49,6 @@
 					"minecraft:attribute_modifiers"
 				]
 			},
-			"minecraft:enchantments": {
-				"minecraft:lunge": 3
-			},
 			"minecraft:repairable": {
 				"items": [
 					"minecraft:copper_ingot"

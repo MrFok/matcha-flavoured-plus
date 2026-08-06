@@ -43,11 +43,6 @@
 					"minecraft:attribute_modifiers"
 				]
 			},
-			"minecraft:enchantments": {
-				"minecraft:looting": 2,
-				"minecraft:smite": 2,
-				"main:warding2": 1
-			},
 			"minecraft:repairable": {
 				"items": [
 					"minecraft:diamond",

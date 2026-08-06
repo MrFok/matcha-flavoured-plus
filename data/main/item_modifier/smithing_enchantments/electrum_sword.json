@@ -1,0 +1,417 @@
+[
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:stone_sword",
+      "components": {
+        "minecraft:max_damage": 3000,
+        "minecraft:lore": [
+          {
+            "text": "🗡 7",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.9",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_sword",
+          "color": "yellow"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 6,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -2.1,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond",
+            "minecraft:gold_ingot"
+          ]
+        },
+        "minecraft:item_model": "minecraft:electrum_sword"
+      }
+    },
+    "modifier": {
+      "function": "minecraft:filtered",
+      "item_filter": {
+        "predicates": {
+          "minecraft:enchantments": [
+            {
+              "enchantments": "minecraft:looting",
+              "levels": {
+                "min": 2
+              }
+            }
+          ]
+        }
+      },
+      "on_fail": {
+        "function": "minecraft:filtered",
+        "item_filter": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "minecraft:looting",
+                "levels": 0
+              }
+            ]
+          }
+        },
+        "modifier": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "minecraft:looting": 2
+          },
+          "add": true
+        },
+        "on_fail": {
+          "function": "minecraft:filtered",
+          "item_filter": {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "minecraft:looting",
+                  "levels": 1
+                }
+              ]
+            }
+          },
+          "modifier": {
+            "function": "minecraft:set_enchantments",
+            "enchantments": {
+              "minecraft:looting": 1
+            },
+            "add": true
+          },
+          "on_fail": {
+            "function": "minecraft:set_enchantments",
+            "enchantments": {
+              "minecraft:looting": 2
+            },
+            "add": true
+          }
+        }
+      }
+    }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:stone_sword",
+      "components": {
+        "minecraft:max_damage": 3000,
+        "minecraft:lore": [
+          {
+            "text": "🗡 7",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.9",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_sword",
+          "color": "yellow"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 6,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -2.1,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond",
+            "minecraft:gold_ingot"
+          ]
+        },
+        "minecraft:item_model": "minecraft:electrum_sword"
+      }
+    },
+    "modifier": {
+      "function": "minecraft:filtered",
+      "item_filter": {
+        "predicates": {
+          "minecraft:enchantments": [
+            {
+              "enchantments": "minecraft:bane_of_arthropods",
+              "levels": {
+                "min": 1
+              }
+            }
+          ]
+        }
+      },
+      "on_fail": {
+        "function": "minecraft:filtered",
+        "item_filter": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "minecraft:breach",
+                "levels": {
+                  "min": 1
+                }
+              }
+            ]
+          }
+        },
+        "on_fail": {
+          "function": "minecraft:filtered",
+          "item_filter": {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "minecraft:density",
+                  "levels": {
+                    "min": 1
+                  }
+                }
+              ]
+            }
+          },
+          "on_fail": {
+            "function": "minecraft:filtered",
+            "item_filter": {
+              "predicates": {
+                "minecraft:enchantments": [
+                  {
+                    "enchantments": "minecraft:impaling",
+                    "levels": {
+                      "min": 1
+                    }
+                  }
+                ]
+              }
+            },
+            "on_fail": {
+              "function": "minecraft:filtered",
+              "item_filter": {
+                "predicates": {
+                  "minecraft:enchantments": [
+                    {
+                      "enchantments": "minecraft:sharpness",
+                      "levels": {
+                        "min": 1
+                      }
+                    }
+                  ]
+                }
+              },
+              "on_fail": {
+                "function": "minecraft:filtered",
+                "item_filter": {
+                  "predicates": {
+                    "minecraft:enchantments": [
+                      {
+                        "enchantments": "main:slaughter",
+                        "levels": {
+                          "min": 1
+                        }
+                      }
+                    ]
+                  }
+                },
+                "on_fail": {
+                  "function": "minecraft:filtered",
+                  "item_filter": {
+                    "predicates": {
+                      "minecraft:enchantments": [
+                        {
+                          "enchantments": "minecraft:smite",
+                          "levels": {
+                            "min": 2
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "on_fail": {
+                    "function": "minecraft:filtered",
+                    "item_filter": {
+                      "predicates": {
+                        "minecraft:enchantments": [
+                          {
+                            "enchantments": "minecraft:smite",
+                            "levels": 0
+                          }
+                        ]
+                      }
+                    },
+                    "modifier": {
+                      "function": "minecraft:set_enchantments",
+                      "enchantments": {
+                        "minecraft:smite": 2
+                      },
+                      "add": true
+                    },
+                    "on_fail": {
+                      "function": "minecraft:filtered",
+                      "item_filter": {
+                        "predicates": {
+                          "minecraft:enchantments": [
+                            {
+                              "enchantments": "minecraft:smite",
+                              "levels": 1
+                            }
+                          ]
+                        }
+                      },
+                      "modifier": {
+                        "function": "minecraft:set_enchantments",
+                        "enchantments": {
+                          "minecraft:smite": 1
+                        },
+                        "add": true
+                      },
+                      "on_fail": {
+                        "function": "minecraft:set_enchantments",
+                        "enchantments": {
+                          "minecraft:smite": 2
+                        },
+                        "add": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:stone_sword",
+      "components": {
+        "minecraft:max_damage": 3000,
+        "minecraft:lore": [
+          {
+            "text": "🗡 7",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.9",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_sword",
+          "color": "yellow"
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "attack_damage",
+            "amount": 6,
+            "operation": "add_value",
+            "slot": "mainhand"
+          },
+          {
+            "type": "minecraft:attack_speed",
+            "id": "attack_speed",
+            "amount": -2.1,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond",
+            "minecraft:gold_ingot"
+          ]
+        },
+        "minecraft:item_model": "minecraft:electrum_sword"
+      }
+    },
+    "modifier": {
+      "function": "minecraft:filtered",
+      "item_filter": {
+        "predicates": {
+          "minecraft:enchantments": [
+            {
+              "enchantments": "main:warding2",
+              "levels": {
+                "min": 1
+              }
+            }
+          ]
+        }
+      },
+      "on_fail": {
+        "function": "minecraft:filtered",
+        "item_filter": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "main:warding2",
+                "levels": 0
+              }
+            ]
+          }
+        },
+        "modifier": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "main:warding2": 1
+          },
+          "add": true
+        },
+        "on_fail": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "main:warding2": 1
+          },
+          "add": true
+        }
+      }
+    }
+  }
+]

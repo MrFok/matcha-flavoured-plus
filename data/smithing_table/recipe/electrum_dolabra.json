@@ -65,11 +65,6 @@
 					"minecraft:attribute_modifiers"
 				]
 			},
-			"minecraft:enchantments": {
-				"minecraft:fortune": 2,
-				"main:warding1": 1,
-				"minecraft:looting": 1
-			},
 			"minecraft:repairable": {
 				"items": [
 					"minecraft:diamond",
