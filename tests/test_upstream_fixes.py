@@ -113,6 +113,29 @@ class UpstreamFixTests(unittest.TestCase):
         self.assertEqual(berry["components"]["minecraft:lore"], berry_lore)
         self.assertNotIn("minecraft:consumable", berry["components"])
 
+    def test_feather_falling_negates_ender_pearl_damage(self):
+        damage_tag = json.loads(
+            (ROOT / "data/main/tags/damage_type/ender_pearl.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(damage_tag["values"], ["minecraft:ender_pearl"])
+
+        enchantment = json.loads(
+            (ROOT / "data/minecraft/enchantment/feather_falling.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertIn("minecraft:damage_protection", enchantment["effects"])
+        immunity = enchantment["effects"]["minecraft:damage_immunity"]
+        self.assertEqual(len(immunity), 1)
+        tags = immunity[0]["requirements"]["predicate"]["tags"]
+        self.assertIn({"expected": True, "id": "main:ender_pearl"}, tags)
+        self.assertIn(
+            {"expected": False, "id": "minecraft:bypasses_invulnerability"},
+            tags,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
