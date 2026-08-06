@@ -6,8 +6,6 @@ function main:mechanic/remove_xp
 function main:mechanic/hpdown
 function main:environmental/check_freezing_water_conditions
 function main:particle/divine_favour_falling
-function main:tyrael_elytra/boost
-function main:tyrael_elytra/trail
 function main:particle/riding_boat
 function main:stopwatches
 function main:environmental/village_eerie_sound

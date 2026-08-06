@@ -533,160 +533,40 @@ class DistributionTests(unittest.TestCase):
                 )
                 self.assertEqual(components["minecraft:tool"]["rules"][0]["speed"], mining_speed)
 
-    def test_tyrael_elytra_uses_rocket_free_upstream_effect(self):
-        recipe = json.loads(
-            (ROOT / "data/smithing_table/recipe/tyraels_elytra.json").read_text(encoding="utf-8")
-        )
-        self.assertEqual(recipe["template"], "minecraft:netherite_upgrade_smithing_template")
-        self.assertEqual(recipe["base"], "minecraft:elytra")
-        self.assertEqual(recipe["addition"]["base"], "minecraft:feather")
-        self.assertEqual(
-            recipe["addition"]["components"]["minecraft:custom_data"]["matcha"],
-            {"divine_fragment": True},
-        )
-        self.assertEqual(
-            recipe["result"]["components"]["minecraft:custom_data"]["matcha"],
-            {"tyrael_wings": True},
-        )
-        self.assertEqual(
-            recipe["result"]["components"]["minecraft:item_name"]["text"],
-            "Divine Elytra",
-        )
-        self.assertEqual(
-            recipe["result"]["components"]["minecraft:lore"][0]["text"],
-            "An ascent without rockets.",
-        )
-
-        self.assertFalse((ROOT / "data/main/enchantment/tyrael_wings.json").exists())
-        self.assertFalse((ROOT / "data/main/item_modifier/tyrael_elytra.json").exists())
-
-        attribution = (ROOT / "CREDITS.txt").read_text(encoding="utf-8")
-        self.assertIn("https://modrinth.com/datapack/elytra-boost", attribution)
-
-    def test_divine_elytra_has_a_glide_trail_and_direct_qa_kit(self):
-        trail = (ROOT / "data/main/function/tyrael_elytra/trail.mcfunction").read_text(
-            encoding="utf-8"
-        )
-        self.assertIn("FallFlying:1b", trail)
-        self.assertIn(
-            "armor.chest minecraft:elytra[minecraft:custom_data~{matcha:{tyrael_wings:true}}]",
-            trail,
-        )
-        self.assertIn("particle minecraft:end_rod", trail)
-
-        ticking = (ROOT / "data/main/function/setup/ticking_functions.mcfunction").read_text(
-            encoding="utf-8"
-        )
-        self.assertIn("function main:tyrael_elytra/trail", ticking)
-
-        qa = (ROOT / "data/main/function/qa/divine_elytra/setup.mcfunction").read_text(
-            encoding="utf-8"
-        )
-        self.assertNotIn("minecraft:enchantments", qa)
-        self.assertIn("Divine Elytra QA ready", qa)
-
-        boost = (ROOT / "data/main/function/tyrael_elytra/boost.mcfunction").read_text(
-            encoding="utf-8"
-        )
-        self.assertIn("FallFlying:1b", boost)
-        self.assertIn("armor.chest", boost)
-        self.assertIn("minecraft:custom_data~{matcha:{tyrael_wings:true}}", boost)
-        self.assertIn("main:tyrael_elytra/not_sneaking", boost)
-        self.assertIn("tp @s ^ ^ ^0.15", boost)
-        self.assertIn(
-            "function main:tyrael_elytra/boost",
-            ticking,
-        )
-
-    def test_tyrael_elytra_has_a_dedicated_angel_wing_visual(self):
-        recipe = json.loads(
-            (ROOT / "data/smithing_table/recipe/tyraels_elytra.json").read_text(encoding="utf-8")
-        )
-        components = recipe["result"]["components"]
-        self.assertEqual(components["minecraft:item_model"], "minecraft:tyraels_elytra")
-        self.assertEqual(
-            components["minecraft:equippable"]["asset_id"],
-            "minecraft:tyraels_elytra",
-        )
-
-        equipment = json.loads(
-            (ROOT / "assets/minecraft/equipment/tyraels_elytra.json").read_text(encoding="utf-8")
-        )
-        wing = equipment["layers"]["wings"][0]
-        self.assertEqual(wing["texture"], "minecraft:tyraels_elytra")
-        self.assertFalse(wing["use_player_texture"])
-
-        for path in (
+    def test_divine_elytra_is_not_shipped(self):
+        forbidden_paths = (
+            "data/smithing_table/recipe/tyraels_elytra.json",
             "data/main/advancement/end/obtain_tyraels_elytra.json",
-            "data/main/advancement/end/obtain_tyraels_wing_fragment.json",
-            "data/main/advancement/end/craft_divine_item.json",
+            "data/main/function/qa/divine_elytra/setup.mcfunction",
+            "data/main/function/tyrael_elytra/boost.mcfunction",
+            "data/main/function/tyrael_elytra/trail.mcfunction",
+            "data/main/predicate/tyrael_elytra/not_sneaking.json",
+            "assets/minecraft/equipment/tyraels_elytra.json",
             "assets/minecraft/items/tyraels_elytra.json",
             "assets/minecraft/models/item/tyraels_elytra.json",
             "assets/minecraft/models/item/tyraels_elytra_broken.json",
             "assets/minecraft/textures/entity/equipment/wings/tyraels_elytra.png",
             "assets/minecraft/textures/item/tyraels_elytra.png",
             "assets/minecraft/textures/item/tyraels_elytra_broken.png",
-        ):
-            self.assertTrue((ROOT / path).is_file(), path)
-
-        for path, dimensions in (
-            ("assets/minecraft/textures/entity/equipment/wings/tyraels_elytra.png", (64, 32)),
-            ("assets/minecraft/textures/item/tyraels_elytra.png", (16, 16)),
-            ("assets/minecraft/textures/item/tyraels_elytra_broken.png", (16, 16)),
-        ):
-            texture = (ROOT / path).read_bytes()
-            self.assertEqual(texture[:8], b"\x89PNG\r\n\x1a\n")
-            self.assertEqual(struct.unpack(">II", texture[16:24]), dimensions)
-
-        advancement = json.loads(
-            (ROOT / "data/main/advancement/end/obtain_tyraels_elytra.json").read_text(
-                encoding="utf-8"
-            )
         )
-        self.assertEqual(advancement["parent"], "main:end/elytra")
-        item = advancement["criteria"]["tyraels_elytra"]["conditions"]["items"][0]
-        self.assertEqual(item["items"], "minecraft:elytra")
-        self.assertEqual(item["components"]["minecraft:item_model"], "minecraft:tyraels_elytra")
-        self.assertEqual(advancement["display"]["title"]["text"], "Wings of Justice")
-        self.assertEqual(advancement["display"]["frame"], "goal")
+        for path in forbidden_paths:
+            with self.subTest(path=path):
+                self.assertFalse((ROOT / path).exists())
 
-        fragment_advancement = json.loads(
-            (ROOT / "data/main/advancement/end/obtain_tyraels_wing_fragment.json").read_text(
-                encoding="utf-8"
-            )
-        )
-        self.assertEqual(fragment_advancement["parent"], "main:tutorial/upgrade_mattock")
-        fragment_item = fragment_advancement["criteria"]["tyraels_wing_fragment"]["conditions"]["items"][0]
-        self.assertEqual(fragment_item["items"], "minecraft:feather")
-        self.assertEqual(
-            fragment_item["components"]["minecraft:item_model"],
-            "minecraft:fragment_of_tyraels_wings",
-        )
+        for artifact in self.artifacts.values():
+            names = set(self.names(artifact))
+            with self.subTest(artifact=artifact.name):
+                self.assertTrue(names.isdisjoint(forbidden_paths))
 
-        divine_advancement = json.loads(
-            (ROOT / "data/main/advancement/end/craft_divine_item.json").read_text(
-                encoding="utf-8"
-            )
+        ticking = (ROOT / "data/main/function/setup/ticking_functions.mcfunction").read_text(
+            encoding="utf-8"
         )
-        self.assertEqual(divine_advancement["parent"], "main:end/obtain_tyraels_wing_fragment")
-        self.assertEqual(divine_advancement["requirements"], [["divine_pickaxe", "divine_axe", "divine_dolabra"]])
-        self.assertEqual(
-            {
-                criterion["conditions"]["recipe_id"]
-                for criterion in divine_advancement["criteria"].values()
-            },
-            {
-                "smithing_table:divine_pickaxe",
-                "smithing_table:divine_axe",
-                "smithing_table:divine_dolabra",
-            },
+        self.assertNotIn("tyrael_elytra", ticking)
+        self.assertNotIn("Divine Elytra", (ROOT / "README.md").read_text(encoding="utf-8"))
+        self.assertNotIn(
+            "modrinth.com/datapack/elytra-boost",
+            (ROOT / "CREDITS.txt").read_text(encoding="utf-8"),
         )
-
-        self.assertFalse((ROOT / "data/main/advancement/end/divine_pickaxe.json").exists())
-
-        credits = (ROOT / "CREDITS.txt").read_text(encoding="utf-8")
-        self.assertIn("https://modrinth.com/datapack/elytra-boost", credits)
-        self.assertIn("https://creativecommons.org/licenses/by-nc/4.0/", credits)
 
     def test_divine_test_kit_is_shipped_with_the_datapack(self):
         test_kit = (
@@ -718,12 +598,6 @@ class DistributionTests(unittest.TestCase):
                     self.assertIn(f'"minecraft:efficiency":{level}', test_set)
                 self.assertNotIn('"minecraft:fortune":3', test_set)
                 self.assertNotIn('"minecraft:silk_touch":1', test_set)
-
-        for variant in builder.PACK_VARIANTS:
-            with self.subTest(variant=variant):
-                names = set(self.names(self.artifact(variant, "datapack")))
-                self.assertIn("data/main/function/qa/divine_elytra/setup.mcfunction", names)
-                self.assertIn("data/main/function/tyrael_elytra/trail.mcfunction", names)
 
     def test_divine_mining_test_wall_covers_target_blocks(self):
         wall = (

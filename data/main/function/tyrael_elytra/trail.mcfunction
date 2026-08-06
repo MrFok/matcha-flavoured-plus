@@ -1,1 +1,0 @@
-execute as @a[nbt={FallFlying:1b}] if items entity @s armor.chest minecraft:elytra[minecraft:custom_data~{matcha:{tyrael_wings:true}}] at @s run particle minecraft:end_rod ^0 ^0.35 ^-0.55 0.16 0.11 0.16 0.01 2 normal @a[distance=..48]
