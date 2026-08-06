@@ -1,12 +1,49 @@
 import json
 from pathlib import Path
+import tempfile
 import unittest
+import zipfile
+
+from tools import build_distribution
 
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 class UpstreamFixTests(unittest.TestCase):
+    def test_all_source_json_is_valid(self):
+        for directory_name in ("data", "assets"):
+            for path in (ROOT / directory_name).rglob("*.json"):
+                with self.subTest(path=path.relative_to(ROOT)):
+                    json.loads(path.read_text(encoding="utf-8"))
+
+    def test_combined_archive_is_loader_free_and_deterministic(self):
+        with tempfile.TemporaryDirectory() as first_dir, tempfile.TemporaryDirectory() as second_dir:
+            first = build_distribution.build(Path(first_dir))
+            second = build_distribution.build(Path(second_dir))
+            self.assertEqual(first.read_bytes(), second.read_bytes())
+            with zipfile.ZipFile(first) as archive:
+                names = set(archive.namelist())
+            self.assertIn("pack.mcmeta", names)
+            self.assertTrue(any(name.startswith("data/") for name in names))
+            self.assertTrue(any(name.startswith("assets/") for name in names))
+            self.assertNotIn("fabric.mod.json", names)
+            self.assertNotIn("quilt.mod.json", names)
+            self.assertNotIn("META-INF/mods.toml", names)
+            self.assertNotIn("META-INF/neoforge.mods.toml", names)
+
+    def test_plus_only_content_is_absent(self):
+        forbidden = (
+            "data/smithing_table/recipe/divine_pickaxe.json",
+            "data/smithing_table/recipe/divine_axe.json",
+            "data/smithing_table/recipe/divine_dolabra.json",
+            "data/smithing_table/recipe/tyraels_elytra.json",
+            "data/main/function/tyrael_elytra/boost.mcfunction",
+        )
+        for path in forbidden:
+            with self.subTest(path=path):
+                self.assertFalse((ROOT / path).exists())
+
     def test_sleep_objective_exists_before_constants_are_written(self):
         lines = (
             ROOT / "data/main/function/setup/scoreboard.mcfunction"
