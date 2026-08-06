@@ -41,6 +41,11 @@ def archive_name(kind: str) -> str:
 DEPRECATED_ARTIFACT_NAMES = (
     archive_name("datapack"),
     archive_name("mod"),
+    *(
+        archive_name(f"{variant}-{kind}")
+        for variant in PACK_VARIANTS
+        for kind in ("datapack", "mod")
+    ),
     archive_name("original-resource-pack"),
     archive_name("vanilla-resource-pack"),
 )

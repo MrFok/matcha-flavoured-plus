@@ -362,6 +362,11 @@ class DistributionTests(unittest.TestCase):
                     "vanilla-resource-pack",
                 )
             ]
+            deprecated.extend(
+                output / builder.archive_name(f"{variant}-{kind}")
+                for variant in builder.PACK_VARIANTS
+                for kind in ("mod",)
+            )
             unrelated = output / "keep-me.zip"
             for artifact in deprecated:
                 artifact.write_bytes(b"obsolete")
