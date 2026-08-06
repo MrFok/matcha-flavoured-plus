@@ -48,6 +48,9 @@
         "minecraft:item_name": {
           "translate": "item.minecraft.netherite_shovel",
           "color": "gold"
+        },
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "adamant_shovel"
         }
       }
     },
@@ -143,6 +146,9 @@
         "minecraft:item_name": {
           "translate": "item.minecraft.netherite_shovel",
           "color": "gold"
+        },
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "adamant_shovel"
         }
       }
     },

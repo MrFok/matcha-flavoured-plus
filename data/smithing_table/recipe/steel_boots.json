@@ -60,7 +60,10 @@
 				"slot": "feet",
 				"asset_id": "minecraft:steel"
 			},
-			"minecraft:item_model": "minecraft:steel_boots"
+			"minecraft:item_model": "minecraft:steel_boots",
+			"minecraft:custom_data": {
+				"matcha_smithing_pending": "steel_boots"
+			}
 		}
 	},
 	"template": "minecraft:iron_ingot"

@@ -41,7 +41,10 @@
             "minecraft:copper_ingot"
           ]
         },
-        "minecraft:enchantment_glint_override": false
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "shakudo_spear"
+        }
       }
     },
     "modifier": {

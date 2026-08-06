@@ -8,7 +8,8 @@
           "matcha": {
             "tier": "adamant",
             "tool": "axe"
-          }
+          },
+          "matcha_smithing_pending": "adamant_axe"
         },
         "minecraft:max_damage": 5000,
         "minecraft:tool": {
@@ -109,7 +110,8 @@
           "matcha": {
             "tier": "adamant",
             "tool": "axe"
-          }
+          },
+          "matcha_smithing_pending": "adamant_axe"
         },
         "minecraft:max_damage": 5000,
         "minecraft:tool": {

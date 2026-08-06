@@ -37,6 +37,9 @@
 			"minecraft:item_name": {
 				"translate": "item.minecraft.netherite_boots",
 				"color": "gold"
+			},
+			"minecraft:custom_data": {
+				"matcha_smithing_pending": "adamant_boots"
 			}
 		}
 	},

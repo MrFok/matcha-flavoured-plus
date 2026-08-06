@@ -60,6 +60,9 @@
 			"minecraft:equippable": {
 				"slot": "legs",
 				"asset_id": "minecraft:steel"
+			},
+			"minecraft:custom_data": {
+				"matcha_smithing_pending": "steel_leggings"
 			}
 		}
 	},

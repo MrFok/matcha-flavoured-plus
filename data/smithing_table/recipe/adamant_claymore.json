@@ -94,7 +94,10 @@
 					"operation": "add_value",
 					"slot": "mainhand"
 				}
-			]
+			],
+			"minecraft:custom_data": {
+				"matcha_smithing_pending": "adamant_claymore"
+			}
 		}
 	},
 	"template": "minecraft:netherite_upgrade_smithing_template"

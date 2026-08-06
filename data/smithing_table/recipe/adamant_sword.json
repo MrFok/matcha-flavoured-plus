@@ -33,6 +33,9 @@
 					"minecraft:gold_block",
 					"minecraft:netherite_scrap"
 				]
+			},
+			"minecraft:custom_data": {
+				"matcha_smithing_pending": "adamant_sword"
 			}
 		}
 	},

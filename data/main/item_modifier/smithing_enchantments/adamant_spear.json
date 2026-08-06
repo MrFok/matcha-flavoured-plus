@@ -33,7 +33,10 @@
             "minecraft:netherite_scrap"
           ]
         },
-        "minecraft:enchantment_glint_override": false
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "adamant_spear"
+        }
       }
     },
     "modifier": {
@@ -113,7 +116,10 @@
             "minecraft:netherite_scrap"
           ]
         },
-        "minecraft:enchantment_glint_override": false
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "adamant_spear"
+        }
       }
     },
     "modifier": {

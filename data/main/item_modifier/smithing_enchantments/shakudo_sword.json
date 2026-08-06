@@ -48,6 +48,9 @@
           "items": [
             "minecraft:copper_ingot"
           ]
+        },
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "shakudo_sword"
         }
       }
     },
@@ -143,6 +146,9 @@
           "items": [
             "minecraft:copper_ingot"
           ]
+        },
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "shakudo_sword"
         }
       }
     },

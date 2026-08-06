@@ -41,6 +41,9 @@
             "minecraft:gold_ingot",
             "minecraft:diamond"
           ]
+        },
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "electrum_spear"
         }
       }
     },
@@ -239,6 +242,9 @@
             "minecraft:gold_ingot",
             "minecraft:diamond"
           ]
+        },
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "electrum_spear"
         }
       }
     },
@@ -347,6 +353,9 @@
             "minecraft:gold_ingot",
             "minecraft:diamond"
           ]
+        },
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "electrum_spear"
         }
       }
     },

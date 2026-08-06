@@ -41,7 +41,10 @@
 				]
 			},
 			"minecraft:enchantment_glint_override": true,
-			"minecraft:item_model": "minecraft:silver_sword"
+			"minecraft:item_model": "minecraft:silver_sword",
+			"minecraft:custom_data": {
+				"matcha_smithing_pending": "silver_sword"
+			}
 		}
 	},
 	"template": "minecraft:prismarine_crystals"

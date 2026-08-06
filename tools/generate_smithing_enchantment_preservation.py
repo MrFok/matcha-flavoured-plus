@@ -19,6 +19,7 @@ contain their original enchantment result components.
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 from pathlib import Path
 import sys
@@ -33,6 +34,7 @@ MANIFEST_PATH = ROOT / "tools" / "smithing_enchantment_manifest.json"
 ADVANCEMENT_DIR = DATA_ROOT / "advancement" / "smithing_enchantments"
 FUNCTION_DIR = DATA_ROOT / "function" / "smithing_enchantments"
 MODIFIER_DIR = DATA_ROOT / "item_modifier" / "smithing_enchantments"
+PENDING_MARKER = "matcha_smithing_pending"
 
 # 26.2 vanilla exclusive-set memberships, plus Matcha's custom damage member.
 # A material enchantment is skipped whenever a different member of its set is
@@ -82,6 +84,10 @@ def read_json(path: Path) -> dict[str, Any]:
 
 def render_json(value: Any) -> str:
     return json.dumps(value, indent=2, ensure_ascii=False) + "\n"
+
+
+def render_recipe_json(value: Any) -> str:
+    return json.dumps(value, indent="\t", ensure_ascii=False) + "\n"
 
 
 def recipe_path(recipe_name: str) -> Path:
@@ -152,7 +158,7 @@ def validate_manifest_recipe(entry: dict[str, Any]) -> None:
         for key, value in components.items()
         if key != "minecraft:enchantments"
     }
-    if identity != entry["identity_components"]:
+    if identity not in (entry["identity_components"], pending_identity_components(entry)):
         raise ValueError(f"{path}: identity components no longer match the manifest")
     declared = components.get("minecraft:enchantments")
     if declared is not None and declared != entry["enchantments"]:
@@ -222,8 +228,27 @@ def remove_recipe_enchantments(entry: dict[str, Any]) -> str:
     if declared is not None:
         if declared != entry["enchantments"]:
             raise ValueError(f"{path}: refusing to remove unexpected enchantments")
-        return remove_enchantment_component_text(text)
-    return text
+        text = remove_enchantment_component_text(text)
+        recipe = json.loads(text)
+        components = recipe["result"].setdefault("components", {})
+    if not entry["enchantments"]:
+        return text
+    custom_data = components.setdefault("minecraft:custom_data", {})
+    if not isinstance(custom_data, dict):
+        raise ValueError(f"{path}: custom_data must be an object")
+    custom_data[PENDING_MARKER] = entry["recipe"]
+    return render_recipe_json(recipe)
+
+
+def pending_identity_components(entry: dict[str, Any]) -> dict[str, Any]:
+    components = copy.deepcopy(entry["identity_components"])
+    if not entry["enchantments"]:
+        return components
+    custom_data = components.setdefault("minecraft:custom_data", {})
+    if not isinstance(custom_data, dict):
+        raise ValueError(f"{entry['recipe']}: custom_data must be an object")
+    custom_data[PENDING_MARKER] = entry["recipe"]
+    return components
 
 
 def enchantment_predicate(enchantment: str, levels: int | dict[str, int]) -> dict[str, Any]:
@@ -279,7 +304,7 @@ def guarded_material_modifier(
     conflicts = EXCLUSIVE_CONFLICTS.get(enchantment, ())
     item_filter: dict[str, Any] = {
         "items": entry["result_id"],
-        "components": entry["identity_components"],
+        "components": pending_identity_components(entry),
     }
     modifier = min_level_modifier(enchantment, target_level)
 
