@@ -41,8 +41,8 @@ python tools/build_distribution.py
 
 The automated checks validate source JSON, player scoping, generated smithing
 handlers, archive contents, and deterministic builds. Player-dependent behavior
-should still be exercised with the supplied smithing regression kit and a
-multiplayer Minecraft test before release.
+must still pass the [manual test matrix](docs/manual-test-matrix.md) before a
+release is described as gameplay-verified.
 
 ## Attribution and license
 
