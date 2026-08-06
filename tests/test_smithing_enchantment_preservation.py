@@ -237,9 +237,9 @@ class SmithingEnchantmentPreservationTests(unittest.TestCase):
             modifier = read_json(
                 ROOT / f"data/main/item_modifier/smithing_enchantments/{name}.json"
             )
-            self.assertEqual(len(modifier), len(entry["enchantments"]))
+            self.assertEqual(len(modifier), len(entry["enchantments"]) + 1)
             by_enchantment = {}
-            for top_level in modifier:
+            for top_level in modifier[:-1]:
                 item_filter = top_level["item_filter"]
                 self.assertEqual(item_filter["items"], entry["result_id"])
                 self.assertEqual(
@@ -293,6 +293,34 @@ class SmithingEnchantmentPreservationTests(unittest.TestCase):
                         self.assertNotIn(enchantment, levels)
                         self.assertEqual(levels[conflict], 1)
                         self.assertEqual(levels["minecraft:unbreaking"], 3)
+
+            cleanup = modifier[-1]
+            self.assertEqual(
+                cleanup["item_filter"],
+                {
+                    "items": entry["result_id"],
+                    "predicates": {
+                        "minecraft:custom_data": {
+                            generator.PENDING_MARKER: name,
+                        }
+                    },
+                },
+            )
+            original_custom_data = entry["identity_components"].get(
+                "minecraft:custom_data"
+            )
+            expected_components = (
+                {"!minecraft:custom_data": {}}
+                if original_custom_data is None
+                else {"minecraft:custom_data": original_custom_data}
+            )
+            self.assertEqual(
+                cleanup["modifier"],
+                {
+                    "function": "minecraft:set_components",
+                    "components": expected_components,
+                },
+            )
 
     def test_conflict_policy_covers_current_exclusive_sets(self):
         self.assertEqual(

@@ -141,5 +141,22 @@
         }
       }
     }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:stone_spear",
+      "predicates": {
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "bronze_spear"
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:set_components",
+      "components": {
+        "!minecraft:custom_data": {}
+      }
+    }
   }
 ]

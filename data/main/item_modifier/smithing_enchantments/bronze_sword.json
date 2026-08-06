@@ -159,5 +159,22 @@
         }
       }
     }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:stone_sword",
+      "predicates": {
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "bronze_sword"
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:set_components",
+      "components": {
+        "!minecraft:custom_data": {}
+      }
+    }
   }
 ]

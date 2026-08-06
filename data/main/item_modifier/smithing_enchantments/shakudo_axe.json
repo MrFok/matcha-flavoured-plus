@@ -127,5 +127,22 @@
         }
       }
     }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:stone_axe",
+      "predicates": {
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "shakudo_axe"
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:set_components",
+      "components": {
+        "!minecraft:custom_data": {}
+      }
+    }
   }
 ]

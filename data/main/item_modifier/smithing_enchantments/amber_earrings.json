@@ -82,5 +82,22 @@
         }
       }
     }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:copper_helmet",
+      "predicates": {
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "amber_earrings"
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:set_components",
+      "components": {
+        "!minecraft:custom_data": {}
+      }
+    }
   }
 ]

@@ -326,11 +326,36 @@ def guarded_material_modifier(
     }
 
 
+def cleanup_pending_marker_modifier(entry: dict[str, Any]) -> dict[str, Any]:
+    original_custom_data = entry["identity_components"].get("minecraft:custom_data")
+    components = (
+        {"!minecraft:custom_data": {}}
+        if original_custom_data is None
+        else {"minecraft:custom_data": original_custom_data}
+    )
+    return {
+        "function": "minecraft:filtered",
+        "item_filter": {
+            "items": entry["result_id"],
+            "predicates": {
+                "minecraft:custom_data": {
+                    PENDING_MARKER: entry["recipe"],
+                }
+            },
+        },
+        "modifier": {
+            "function": "minecraft:set_components",
+            "components": components,
+        },
+    }
+
+
 def render_modifier(entry: dict[str, Any]) -> str:
     modifiers = [
         guarded_material_modifier(entry, enchantment, level)
         for enchantment, level in entry["enchantments"].items()
     ]
+    modifiers.append(cleanup_pending_marker_modifier(entry))
     return render_json(modifiers)
 
 

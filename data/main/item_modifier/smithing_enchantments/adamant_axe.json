@@ -222,5 +222,27 @@
         }
       }
     }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:netherite_axe",
+      "predicates": {
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "adamant_axe"
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:custom_data": {
+          "matcha": {
+            "tier": "adamant",
+            "tool": "axe"
+          }
+        }
+      }
+    }
   }
 ]
