@@ -24,7 +24,10 @@
 				"material": "minecraft:gold",
 				"pattern": "minecraft:silence"
 			},
-			"minecraft:item_name": "Gilded Leather Boots"
+			"minecraft:item_name": "Gilded Leather Boots",
+			"minecraft:custom_data": {
+				"matcha_smithing_pending": "gilded_leather_boots"
+			}
 		},
 		"count": 1,
 		"id": "minecraft:leather_boots"

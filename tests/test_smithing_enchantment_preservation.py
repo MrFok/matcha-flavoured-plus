@@ -152,6 +152,15 @@ class SmithingEnchantmentPreservationTests(unittest.TestCase):
                     "minecraft:enchantments",
                     recipe.get("result", {}).get("components", {}),
                 )
+                if path.stem in {
+                    entry["recipe"] for entry in self.entries if entry["enchantments"]
+                }:
+                    self.assertEqual(
+                        recipe["result"]["components"]["minecraft:custom_data"][
+                            generator.PENDING_MARKER
+                        ],
+                        path.stem,
+                    )
 
     def test_nonempty_material_maps_have_repeatable_craft_handlers(self):
         for entry in self.entries:
@@ -234,7 +243,14 @@ class SmithingEnchantmentPreservationTests(unittest.TestCase):
                 item_filter = top_level["item_filter"]
                 self.assertEqual(item_filter["items"], entry["result_id"])
                 self.assertEqual(
-                    item_filter["components"], entry["identity_components"]
+                    item_filter["components"],
+                    generator.pending_identity_components(entry),
+                )
+                self.assertEqual(
+                    item_filter["components"]["minecraft:custom_data"][
+                        generator.PENDING_MARKER
+                    ],
+                    name,
                 )
 
                 # The target enchantment is the first min-level check beneath

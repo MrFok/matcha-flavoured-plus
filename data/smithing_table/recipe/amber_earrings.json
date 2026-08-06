@@ -35,6 +35,9 @@
 			"minecraft:equippable": {
 				"slot": "head",
 				"asset_id": "minecraft:amber_earrings"
+			},
+			"minecraft:custom_data": {
+				"matcha_smithing_pending": "amber_earrings"
 			}
 		}
 	},

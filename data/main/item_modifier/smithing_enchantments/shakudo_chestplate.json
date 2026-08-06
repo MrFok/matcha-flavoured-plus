@@ -45,6 +45,9 @@
         "minecraft:equippable": {
           "slot": "chest",
           "asset_id": "minecraft:shakudo"
+        },
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "shakudo_chestplate"
         }
       }
     },

@@ -8,7 +8,8 @@
           "matcha": {
             "tier": "adamant",
             "tool": "pickaxe"
-          }
+          },
+          "matcha_smithing_pending": "adamant_pickaxe"
         },
         "minecraft:max_damage": 5000,
         "minecraft:tool": {
@@ -109,7 +110,8 @@
           "matcha": {
             "tier": "adamant",
             "tool": "pickaxe"
-          }
+          },
+          "matcha_smithing_pending": "adamant_pickaxe"
         },
         "minecraft:max_damage": 5000,
         "minecraft:tool": {

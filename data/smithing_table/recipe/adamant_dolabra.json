@@ -9,7 +9,8 @@
 				"matcha": {
 					"tier": "adamant",
 					"tool": "dolabra"
-				}
+				},
+				"matcha_smithing_pending": "adamant_dolabra"
 			},
 			"minecraft:max_damage": 5000,
 			"minecraft:tool": {

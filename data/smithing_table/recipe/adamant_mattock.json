@@ -55,7 +55,10 @@
 				"translate": "item.kleispack.adamant_mattock",
 				"color": "gold"
 			},
-			"minecraft:item_model": "minecraft:adamant_mattock"
+			"minecraft:item_model": "minecraft:adamant_mattock",
+			"minecraft:custom_data": {
+				"matcha_smithing_pending": "adamant_mattock"
+			}
 		}
 	},
 	"template": "minecraft:netherite_upgrade_smithing_template"

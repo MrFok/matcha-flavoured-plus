@@ -52,6 +52,9 @@
             "minecraft:diamond",
             "minecraft:gold_ingot"
           ]
+        },
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "electrum_helmet"
         }
       }
     },

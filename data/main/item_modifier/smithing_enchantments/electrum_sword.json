@@ -48,7 +48,10 @@
             "minecraft:gold_ingot"
           ]
         },
-        "minecraft:item_model": "minecraft:electrum_sword"
+        "minecraft:item_model": "minecraft:electrum_sword",
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "electrum_sword"
+        }
       }
     },
     "modifier": {
@@ -163,7 +166,10 @@
             "minecraft:gold_ingot"
           ]
         },
-        "minecraft:item_model": "minecraft:electrum_sword"
+        "minecraft:item_model": "minecraft:electrum_sword",
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "electrum_sword"
+        }
       }
     },
     "modifier": {
@@ -368,7 +374,10 @@
             "minecraft:gold_ingot"
           ]
         },
-        "minecraft:item_model": "minecraft:electrum_sword"
+        "minecraft:item_model": "minecraft:electrum_sword",
+        "minecraft:custom_data": {
+          "matcha_smithing_pending": "electrum_sword"
+        }
       }
     },
     "modifier": {

@@ -52,7 +52,10 @@
 					"minecraft:iron_ingot"
 				]
 			},
-			"minecraft:enchantment_glint_override": false
+			"minecraft:enchantment_glint_override": false,
+			"minecraft:custom_data": {
+				"matcha_smithing_pending": "butcher_knife"
+			}
 		}
 	},
 	"template": "minecraft:netherite_upgrade_smithing_template"
