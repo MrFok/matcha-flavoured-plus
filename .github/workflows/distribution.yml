@@ -20,8 +20,16 @@ jobs:
           distribution: 'temurin'
           java-version: '25'
       - run: python -m unittest discover -s tests -v
-      - run: python tools/build_distribution.py
+      - name: Build distribution
+        shell: bash
+        run: |
+          if [[ "${GITHUB_REF_NAME}" == "main" ]]; then
+            python tools/build_distribution.py --include-mod
+          else
+            python tools/build_distribution.py
+          fi
       - name: Start Fabric runtime smoke server
+        if: github.ref_name == 'main'
         shell: bash
         run: |
           set -euo pipefail
@@ -40,9 +48,10 @@ jobs:
             echo $! > server.pid
           )
       - name: Exercise Fabric runtime smoke test
+        if: github.ref_name == 'main'
         run: python tools/runtime_smoke.py --log .runtime-server/server.log --password matcha-runtime-smoke
       - name: Collect runtime server log
-        if: always()
+        if: ${{ always() && github.ref_name == 'main' }}
         shell: bash
         run: |
           if [[ -f .runtime-server/server.pid ]] && kill -0 "$(cat .runtime-server/server.pid)" 2>/dev/null; then

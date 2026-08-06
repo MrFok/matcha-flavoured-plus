@@ -63,7 +63,8 @@ The canonical vanilla installation artifacts are ZIP files: one gameplay
 datapack ZIP and one resource-pack ZIP. A `.jar` extension does not give a
 vanilla datapack new capabilities, so a JAR should not be advertised as the
 vanilla installation format. The JAR convenience belongs to the Fabric
-edition described below.
+edition described below. The distribution builder defaults to this Lite output;
+`--include-mod` is reserved for the full `main` release.
 
 Some behavior will intentionally differ between `lite` and `main`. For
 example, `lite` can remove the enchanting-table recipe and replace its block

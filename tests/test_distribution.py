@@ -21,7 +21,9 @@ class DistributionTests(unittest.TestCase):
     def setUpClass(cls):
         cls.temp = tempfile.TemporaryDirectory()
         cls.output = Path(cls.temp.name)
-        cls.artifacts = {path.name: path for path in builder.build(cls.output)}
+        cls.artifacts = {
+            path.name: path for path in builder.build(cls.output, include_mod=True)
+        }
 
     @classmethod
     def tearDownClass(cls):
@@ -160,6 +162,26 @@ class DistributionTests(unittest.TestCase):
             for name in self.names(artifact):
                 self.assertIn(name.split("/", 1)[0], allowed_roots, name)
                 self.assertFalse(name.startswith(("matcha_flavoured_plus/", "dist/", ".git/")))
+
+    def test_default_build_is_datapack_and_resource_pack_only(self):
+        with tempfile.TemporaryDirectory() as directory:
+            artifacts = builder.build(Path(directory))
+            names = {artifact.name for artifact in artifacts}
+            expected = {
+                builder.archive_name("resource-pack"),
+                *(
+                    builder.archive_name(f"{variant}-datapack")
+                    for variant in builder.PACK_VARIANTS
+                ),
+            }
+            self.assertEqual(names, expected)
+            self.assertFalse(any(name.endswith("-mod.jar") for name in names))
+            for artifact in artifacts:
+                with self.subTest(artifact=artifact.name), zipfile.ZipFile(artifact) as archive:
+                    names_in_archive = set(archive.namelist())
+                    if artifact.name.endswith("-datapack.zip"):
+                        self.assertFalse(any(name.startswith("assets/") for name in names_in_archive))
+                        self.assertNotIn("fabric.mod.json", names_in_archive)
 
     def test_content_boundaries(self):
         resource_pack = self.names(
@@ -759,7 +781,10 @@ class DistributionTests(unittest.TestCase):
     def test_rebuild_is_byte_deterministic(self):
         first = {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in self.artifacts.items()}
         second_dir = self.output / "again"
-        second = {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in builder.build(second_dir)}
+        second = {
+            path.name: hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in builder.build(second_dir, include_mod=True)
+        }
         self.assertEqual(first, second)
 
 

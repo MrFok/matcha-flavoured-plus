@@ -18,7 +18,9 @@ See [CREDITS.txt](CREDITS.txt) for the upstream attribution and acknowledgements
 
 ## Installation
 
-Build the distribution files with `python tools/build_distribution.py`. The generated files are in `dist/`.
+Build the Lite distribution with `python tools/build_distribution.py`. On the
+full `main` branch, add `--include-mod` to build the Fabric/mod JARs. Generated
+files are written to `dist/`.
 
 ### Full Fabric edition (`main`)
 

@@ -160,7 +160,7 @@ def write_archive(destination: Path, entries: dict[str, bytes]) -> None:
         raise RuntimeError(f"archive validation failed for {destination}: {corrupt_entry}")
 
 
-def build(output_dir: Path = DIST) -> list[Path]:
+def build(output_dir: Path = DIST, include_mod: bool = False) -> list[Path]:
     output_dir.mkdir(parents=True, exist_ok=True)
     for name in DEPRECATED_ARTIFACT_NAMES:
         deprecated = output_dir / name
@@ -173,27 +173,35 @@ def build(output_dir: Path = DIST) -> list[Path]:
     for variant in PACK_VARIANTS:
         root_overrides = {"pack.mcmeta": pack_metadata(variant)}
         datapack = source_entries(("data",), root_overrides=root_overrides)
-        mod = source_entries(("data", "assets"), root_overrides=root_overrides)
-        mod.update(
-            {
-                "fabric.mod.json": json_bytes(fabric_metadata()),
-                "quilt.mod.json": json_bytes(quilt_metadata()),
-                "META-INF/mods.toml": forge_metadata(False),
-                "META-INF/neoforge.mods.toml": forge_metadata(True),
-            }
-        )
-        for kind, entries in (("datapack", datapack), ("mod", mod)):
-            destination = output_dir / archive_name(f"{variant}-{kind}")
-            write_archive(destination, entries)
-            artifacts.append(destination)
+        datapack_destination = output_dir / archive_name(f"{variant}-datapack")
+        write_archive(datapack_destination, datapack)
+        artifacts.append(datapack_destination)
+        if include_mod:
+            mod = source_entries(("data", "assets"), root_overrides=root_overrides)
+            mod.update(
+                {
+                    "fabric.mod.json": json_bytes(fabric_metadata()),
+                    "quilt.mod.json": json_bytes(quilt_metadata()),
+                    "META-INF/mods.toml": forge_metadata(False),
+                    "META-INF/neoforge.mods.toml": forge_metadata(True),
+                }
+            )
+            mod_destination = output_dir / archive_name(f"{variant}-mod")
+            write_archive(mod_destination, mod)
+            artifacts.append(mod_destination)
     return artifacts
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=DIST, help="artifact directory (default: dist)")
+    parser.add_argument(
+        "--include-mod",
+        action="store_true",
+        help="also build the full-edition mod JARs (main branch/release only)",
+    )
     args = parser.parse_args()
-    for artifact in build(args.output):
+    for artifact in build(args.output, include_mod=args.include_mod):
         print(artifact)
 
 
