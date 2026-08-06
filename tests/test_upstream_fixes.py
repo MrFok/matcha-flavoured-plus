@@ -59,6 +59,60 @@ class UpstreamFixTests(unittest.TestCase):
             "minecraft:inventory_changed",
         )
 
+    def test_sweet_berry_behavior_is_item_id_driven(self):
+        advancement = json.loads(
+            (
+                ROOT / "data/main/advancement/mechanics/sweet_berries_eaten.json"
+            ).read_text(encoding="utf-8")
+        )
+        criterion = advancement["criteria"]["eat_sweet_berries"]
+        self.assertEqual(criterion["trigger"], "minecraft:consume_item")
+        self.assertEqual(
+            criterion["conditions"]["item"],
+            {"items": "minecraft:sweet_berries"},
+        )
+        self.assertEqual(
+            advancement["rewards"]["function"],
+            "main:effects/sweet_berry_regeneration",
+        )
+
+        effect = (
+            ROOT / "data/main/function/effects/sweet_berry_regeneration.mcfunction"
+        ).read_text(encoding="utf-8").splitlines()
+        self.assertEqual(
+            effect,
+            [
+                "effect give @s minecraft:regeneration 1 2 true",
+                "advancement revoke @s only main:mechanics/sweet_berries_eaten",
+            ],
+        )
+
+        berry_lore = [{"text": "❣", "color": "red", "italic": False}]
+        for source in (
+            "data/minecraft/loot_table/food/sweet_berries.json",
+            "data/minecraft/loot_table/harvest/sweet_berry_bush.json",
+            "data/minecraft/loot_table/blocks/sweet_berry_bush.json",
+        ):
+            with self.subTest(source=source):
+                loot_table = json.loads((ROOT / source).read_text(encoding="utf-8"))
+                serialized = json.dumps(loot_table)
+                self.assertNotIn("minecraft:consumable", serialized)
+                self.assertIn("minecraft:lore", serialized)
+
+        trade = json.loads(
+            (
+                ROOT
+                / "data/minecraft/villager_trade/farmer/1/exotic_seed_bundle.json"
+            ).read_text(encoding="utf-8")
+        )
+        berry = next(
+            item
+            for item in trade["gives"]["components"]["minecraft:bundle_contents"]
+            if item["id"] == "minecraft:sweet_berries"
+        )
+        self.assertEqual(berry["components"]["minecraft:lore"], berry_lore)
+        self.assertNotIn("minecraft:consumable", berry["components"])
+
 
 if __name__ == "__main__":
     unittest.main()
