@@ -24,6 +24,7 @@ PACK_VARIANTS = {
         "blocked_advancement_roots": (
             "advancement/adventure",
             "advancement/end",
+            "advancement/husbandry",
             "advancement/nether",
             "advancement/story",
         )
@@ -69,6 +70,19 @@ def source_entries(
 def pack_metadata(variant: str) -> bytes:
     metadata = json.loads((ROOT / "pack.mcmeta").read_text(encoding="utf-8"))
     blocked = metadata.setdefault("filter", {}).setdefault("block", [])
+    advancement_roots = {
+        path
+        for config in PACK_VARIANTS.values()
+        for path in config["blocked_advancement_roots"]
+    }
+    blocked[:] = [
+        entry
+        for entry in blocked
+        if not (
+            entry.get("namespace") == "minecraft"
+            and entry.get("path") in advancement_roots
+        )
+    ]
     for path in PACK_VARIANTS[variant]["blocked_advancement_roots"]:
         blocked.append({"namespace": "minecraft", "path": path})
     return json_bytes(metadata)

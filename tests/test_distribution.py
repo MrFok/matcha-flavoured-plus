@@ -84,6 +84,12 @@ class DistributionTests(unittest.TestCase):
         process = (ROOT / "data/main/function/mechanic/process_heart_container.mcfunction").read_text(
             encoding="utf-8"
         )
+        hpdown = (ROOT / "data/main/function/mechanic/hpdown.mcfunction").read_text(
+            encoding="utf-8"
+        )
+        ticking = (ROOT / "data/main/function/setup/ticking_functions.mcfunction").read_text(
+            encoding="utf-8"
+        )
 
         self.assertIn("minecraft:consumable", recipe["result"]["components"])
         self.assertTrue(recipe["result"]["components"]["minecraft:food"]["can_always_eat"])
@@ -97,6 +103,16 @@ class DistributionTests(unittest.TestCase):
         self.assertNotIn("minecraft:inventory_changed", json.dumps(advancement))
         self.assertIn("execute if score @s Hearts matches ..58 run scoreboard players add @s Hearts 2", process)
         self.assertIn("execute if score @s Hearts matches 60.. run loot give @s loot minecraft:kleis_items/crystal_heart", process)
+        initializer = "execute unless score @s Hearts matches 10..60 run scoreboard players set @s Hearts 20"
+        self.assertIn(initializer, process)
+        self.assertIn(
+            "execute as @a unless score @s Hearts matches 10..60 run scoreboard players set @s Hearts 20",
+            ticking,
+        )
+        self.assertIn(
+            "execute as @a[scores={deaths=1..}] unless score @s Hearts matches 10..60 run scoreboard players set @s Hearts 20",
+            hpdown,
+        )
         self.assertNotIn("container.*", process)
         self.assertFalse((ROOT / "data/main/function/mechanic/clear_heart_container.mcfunction").exists())
 
@@ -356,13 +372,7 @@ class DistributionTests(unittest.TestCase):
         )
         self.assertEqual(
             filtered_roots(compatible),
-            {
-                "advancement/adventure",
-                "advancement/end",
-                "advancement/husbandry",
-                "advancement/nether",
-                "advancement/story",
-            },
+            set(),
         )
 
     def test_generated_archive_paths_are_relative(self):
