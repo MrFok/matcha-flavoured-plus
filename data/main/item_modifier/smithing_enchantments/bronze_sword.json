@@ -6,8 +6,17 @@
       "components": {
         "minecraft:max_damage": 1000,
         "minecraft:item_name": {
-          "translate": "item.kleispack.bronze_sword",
-          "color": "#ac7b5c"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.bronze_sword",
+              "color": "#ac7b5c"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:bronze_sword"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:bronze_sword",
         "minecraft:attribute_modifiers": [
@@ -111,10 +120,7 @@
             "minecraft:copper_ingot"
           ]
         },
-        "minecraft:enchantment_glint_override": false,
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "bronze_sword"
-        }
+        "minecraft:enchantment_glint_override": false
       }
     },
     "modifier": {
@@ -164,16 +170,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:stone_sword",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "bronze_sword"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.bronze_sword",
+              "color": "#ac7b5c"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:bronze_sword"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.kleispack.bronze_sword",
+          "color": "#ac7b5c"
+        }
       }
     }
   }

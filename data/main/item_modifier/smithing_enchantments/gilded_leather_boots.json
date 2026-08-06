@@ -23,9 +23,15 @@
           "material": "minecraft:gold",
           "pattern": "minecraft:silence"
         },
-        "minecraft:item_name": "Gilded Leather Boots",
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "gilded_leather_boots"
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            "Gilded Leather Boots",
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:gilded_leather_boots"
+            }
+          ]
         }
       }
     },
@@ -96,9 +102,15 @@
           "material": "minecraft:gold",
           "pattern": "minecraft:silence"
         },
-        "minecraft:item_name": "Gilded Leather Boots",
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "gilded_leather_boots"
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            "Gilded Leather Boots",
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:gilded_leather_boots"
+            }
+          ]
         }
       }
     },
@@ -194,16 +206,23 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:leather_boots",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "gilded_leather_boots"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            "Gilded Leather Boots",
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:gilded_leather_boots"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": "Gilded Leather Boots"
       }
     }
   }

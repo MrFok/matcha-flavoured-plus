@@ -34,8 +34,17 @@
           }
         ],
         "minecraft:item_name": {
-          "translate": "item.kleispack.electrum_hoe",
-          "color": "yellow"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_hoe",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_hoe"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:electrum_hoe",
         "minecraft:attribute_modifiers": [
@@ -64,9 +73,6 @@
             "minecraft:diamond",
             "minecraft:gold_ingot"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_hoe"
         }
       }
     },
@@ -203,8 +209,17 @@
           }
         ],
         "minecraft:item_name": {
-          "translate": "item.kleispack.electrum_hoe",
-          "color": "yellow"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_hoe",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_hoe"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:electrum_hoe",
         "minecraft:attribute_modifiers": [
@@ -233,9 +248,6 @@
             "minecraft:diamond",
             "minecraft:gold_ingot"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_hoe"
         }
       }
     },
@@ -286,16 +298,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:stone_hoe",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_hoe"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_hoe",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_hoe"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_hoe",
+          "color": "yellow"
+        }
       }
     }
   }

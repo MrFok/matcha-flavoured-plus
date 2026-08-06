@@ -35,11 +35,17 @@
 				]
 			},
 			"minecraft:item_name": {
-				"translate": "item.minecraft.netherite_chestplate",
-				"color": "gold"
-			},
-			"minecraft:custom_data": {
-				"matcha_smithing_pending": "adamant_chestplate"
+				"text": "",
+				"extra": [
+					{
+						"translate": "item.minecraft.netherite_chestplate",
+						"color": "gold"
+					},
+					{
+						"text": "",
+						"insertion": "matcha_smithing_pending:adamant_chestplate"
+					}
+				]
 			}
 		}
 	},

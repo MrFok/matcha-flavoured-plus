@@ -34,11 +34,17 @@
           ]
         },
         "minecraft:item_name": {
-          "translate": "item.minecraft.netherite_boots",
-          "color": "gold"
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_boots"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_boots",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_boots"
+            }
+          ]
         }
       }
     },
@@ -120,11 +126,17 @@
           ]
         },
         "minecraft:item_name": {
-          "translate": "item.minecraft.netherite_boots",
-          "color": "gold"
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_boots"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_boots",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_boots"
+            }
+          ]
         }
       }
     },
@@ -226,11 +238,17 @@
           ]
         },
         "minecraft:item_name": {
-          "translate": "item.minecraft.netherite_boots",
-          "color": "gold"
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_boots"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_boots",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_boots"
+            }
+          ]
         }
       }
     },
@@ -281,16 +299,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:netherite_boots",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "adamant_boots"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_boots",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_boots"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.minecraft.netherite_boots",
+          "color": "gold"
+        }
       }
     }
   }

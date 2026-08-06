@@ -23,8 +23,17 @@
           }
         ],
         "minecraft:item_name": {
-          "translate": "item.kleispack.steel_boots",
-          "color": "white"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.steel_boots",
+              "color": "white"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:steel_boots"
+            }
+          ]
         },
         "minecraft:attribute_modifiers": [
           {
@@ -59,10 +68,7 @@
           "slot": "feet",
           "asset_id": "minecraft:steel"
         },
-        "minecraft:item_model": "minecraft:steel_boots",
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "steel_boots"
-        }
+        "minecraft:item_model": "minecraft:steel_boots"
       }
     },
     "modifier": {
@@ -177,16 +183,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:iron_boots",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "steel_boots"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.steel_boots",
+              "color": "white"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:steel_boots"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.kleispack.steel_boots",
+          "color": "white"
+        }
       }
     }
   }

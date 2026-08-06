@@ -36,9 +36,15 @@
 					"minecraft:banner_patterns"
 				]
 			},
-			"minecraft:item_name": "Warding Shield",
-			"minecraft:custom_data": {
-				"matcha_smithing_pending": "warding_shield"
+			"minecraft:item_name": {
+				"text": "",
+				"extra": [
+					"Warding Shield",
+					{
+						"text": "",
+						"insertion": "matcha_smithing_pending:warding_shield"
+					}
+				]
 			}
 		}
 	},

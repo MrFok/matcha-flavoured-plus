@@ -23,8 +23,17 @@
           }
         ],
         "minecraft:item_name": {
-          "translate": "item.kleispack.steel_helmet",
-          "color": "white"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.steel_helmet",
+              "color": "white"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:steel_helmet"
+            }
+          ]
         },
         "minecraft:attribute_modifiers": [
           {
@@ -59,9 +68,6 @@
         "minecraft:equippable": {
           "slot": "head",
           "asset_id": "minecraft:steel"
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "steel_helmet"
         }
       }
     },
@@ -177,16 +183,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:iron_helmet",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "steel_helmet"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.steel_helmet",
+              "color": "white"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:steel_helmet"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.kleispack.steel_helmet",
+          "color": "white"
+        }
       }
     }
   }

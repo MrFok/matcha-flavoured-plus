@@ -9,8 +9,7 @@
 				"matcha": {
 					"tier": "adamant",
 					"tool": "dolabra"
-				},
-				"matcha_smithing_pending": "adamant_dolabra"
+				}
 			},
 			"minecraft:max_damage": 5000,
 			"minecraft:tool": {
@@ -59,8 +58,17 @@
 				]
 			},
 			"minecraft:item_name": {
-				"translate": "item.kleispack.adamant_dolabra",
-				"color": "gold"
+				"text": "",
+				"extra": [
+					{
+						"translate": "item.kleispack.adamant_dolabra",
+						"color": "gold"
+					},
+					{
+						"text": "",
+						"insertion": "matcha_smithing_pending:adamant_dolabra"
+					}
+				]
 			},
 			"minecraft:item_model": "minecraft:adamant_dolabra"
 		}

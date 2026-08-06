@@ -4,7 +4,16 @@
     "item_filter": {
       "items": "minecraft:stone_sword",
       "components": {
-        "minecraft:item_name": "Butcher's Knife",
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            "Butcher's Knife",
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:butcher_knife"
+            }
+          ]
+        },
         "minecraft:max_damage": 1500,
         "minecraft:attribute_modifiers": [
           {
@@ -51,10 +60,7 @@
             "minecraft:iron_ingot"
           ]
         },
-        "minecraft:enchantment_glint_override": false,
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "butcher_knife"
-        }
+        "minecraft:enchantment_glint_override": false
       }
     },
     "modifier": {
@@ -105,7 +111,16 @@
     "item_filter": {
       "items": "minecraft:stone_sword",
       "components": {
-        "minecraft:item_name": "Butcher's Knife",
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            "Butcher's Knife",
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:butcher_knife"
+            }
+          ]
+        },
         "minecraft:max_damage": 1500,
         "minecraft:attribute_modifiers": [
           {
@@ -152,10 +167,7 @@
             "minecraft:iron_ingot"
           ]
         },
-        "minecraft:enchantment_glint_override": false,
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "butcher_knife"
-        }
+        "minecraft:enchantment_glint_override": false
       }
     },
     "modifier": {
@@ -225,16 +237,23 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:stone_sword",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "butcher_knife"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            "Butcher's Knife",
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:butcher_knife"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": "Butcher's Knife"
       }
     }
   }

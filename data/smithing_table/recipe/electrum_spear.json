@@ -7,8 +7,17 @@
 		"components": {
 			"minecraft:max_damage": 3000,
 			"minecraft:item_name": {
-				"translate": "item.kleispack.electrum_spear",
-				"color": "yellow"
+				"text": "",
+				"extra": [
+					{
+						"translate": "item.kleispack.electrum_spear",
+						"color": "yellow"
+					},
+					{
+						"text": "",
+						"insertion": "matcha_smithing_pending:electrum_spear"
+					}
+				]
 			},
 			"minecraft:item_model": "minecraft:electrum_spear",
 			"minecraft:attribute_modifiers": [
@@ -42,9 +51,6 @@
 					"minecraft:gold_ingot",
 					"minecraft:diamond"
 				]
-			},
-			"minecraft:custom_data": {
-				"matcha_smithing_pending": "electrum_spear"
 			}
 		}
 	},

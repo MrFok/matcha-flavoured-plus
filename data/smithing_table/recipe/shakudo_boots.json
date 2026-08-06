@@ -19,8 +19,17 @@
 				}
 			],
 			"minecraft:item_name": {
-				"translate": "item.kleispack.shakudo_boots",
-				"color": "#c96691"
+				"text": "",
+				"extra": [
+					{
+						"translate": "item.kleispack.shakudo_boots",
+						"color": "#c96691"
+					},
+					{
+						"text": "",
+						"insertion": "matcha_smithing_pending:shakudo_boots"
+					}
+				]
 			},
 			"minecraft:attribute_modifiers": [
 				{
@@ -41,9 +50,6 @@
 			"minecraft:equippable": {
 				"slot": "feet",
 				"asset_id": "minecraft:shakudo"
-			},
-			"minecraft:custom_data": {
-				"matcha_smithing_pending": "shakudo_boots"
 			}
 		}
 	},

@@ -40,8 +40,17 @@
 				}
 			],
 			"minecraft:item_name": {
-				"translate": "item.kleispack.electrum_mattock",
-				"color": "yellow"
+				"text": "",
+				"extra": [
+					{
+						"translate": "item.kleispack.electrum_mattock",
+						"color": "yellow"
+					},
+					{
+						"text": "",
+						"insertion": "matcha_smithing_pending:electrum_mattock"
+					}
+				]
 			},
 			"minecraft:item_model": "minecraft:electrum_mattock",
 			"minecraft:attribute_modifiers": [
@@ -70,9 +79,6 @@
 					"minecraft:diamond",
 					"minecraft:gold_ingot"
 				]
-			},
-			"minecraft:custom_data": {
-				"matcha_smithing_pending": "electrum_mattock"
 			}
 		}
 	},

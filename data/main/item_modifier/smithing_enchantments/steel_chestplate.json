@@ -23,8 +23,17 @@
           }
         ],
         "minecraft:item_name": {
-          "translate": "item.kleispack.steel_chestplate",
-          "color": "white"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.steel_chestplate",
+              "color": "white"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:steel_chestplate"
+            }
+          ]
         },
         "minecraft:attribute_modifiers": [
           {
@@ -59,10 +68,7 @@
           "slot": "chest",
           "asset_id": "minecraft:steel"
         },
-        "minecraft:item_model": "minecraft:steel_chestplate",
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "steel_chestplate"
-        }
+        "minecraft:item_model": "minecraft:steel_chestplate"
       }
     },
     "modifier": {
@@ -217,16 +223,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:iron_chestplate",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "steel_chestplate"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.steel_chestplate",
+              "color": "white"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:steel_chestplate"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.kleispack.steel_chestplate",
+          "color": "white"
+        }
       }
     }
   }

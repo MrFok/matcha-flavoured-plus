@@ -34,8 +34,17 @@
           }
         ],
         "minecraft:item_name": {
-          "translate": "item.kleispack.electrum_axe",
-          "color": "yellow"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_axe",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_axe"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:electrum_axe",
         "minecraft:attribute_modifiers": [
@@ -64,9 +73,6 @@
             "minecraft:diamond",
             "minecraft:gold_ingot"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_axe"
         }
       }
     },
@@ -183,8 +189,17 @@
           }
         ],
         "minecraft:item_name": {
-          "translate": "item.kleispack.electrum_axe",
-          "color": "yellow"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_axe",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_axe"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:electrum_axe",
         "minecraft:attribute_modifiers": [
@@ -213,9 +228,6 @@
             "minecraft:diamond",
             "minecraft:gold_ingot"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_axe"
         }
       }
     },
@@ -317,8 +329,17 @@
           }
         ],
         "minecraft:item_name": {
-          "translate": "item.kleispack.electrum_axe",
-          "color": "yellow"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_axe",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_axe"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:electrum_axe",
         "minecraft:attribute_modifiers": [
@@ -347,9 +368,6 @@
             "minecraft:diamond",
             "minecraft:gold_ingot"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_axe"
         }
       }
     },
@@ -541,8 +559,17 @@
           }
         ],
         "minecraft:item_name": {
-          "translate": "item.kleispack.electrum_axe",
-          "color": "yellow"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_axe",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_axe"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:electrum_axe",
         "minecraft:attribute_modifiers": [
@@ -571,9 +598,6 @@
             "minecraft:diamond",
             "minecraft:gold_ingot"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_axe"
         }
       }
     },
@@ -624,16 +648,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:diamond_axe",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_axe"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_axe",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_axe"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_axe",
+          "color": "yellow"
+        }
       }
     }
   }

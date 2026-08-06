@@ -155,11 +155,16 @@ class SmithingEnchantmentPreservationTests(unittest.TestCase):
                 if path.stem in {
                     entry["recipe"] for entry in self.entries if entry["enchantments"]
                 }:
+                    entry = self.by_name[path.stem]
                     self.assertEqual(
-                        recipe["result"]["components"]["minecraft:custom_data"][
-                            generator.PENDING_MARKER
-                        ],
-                        path.stem,
+                        recipe["result"]["components"]["minecraft:item_name"],
+                        generator.pending_item_name(entry),
+                    )
+                    self.assertNotIn(
+                        generator.PENDING_MARKER,
+                        recipe["result"]["components"].get(
+                            "minecraft:custom_data", {}
+                        ),
                     )
 
     def test_nonempty_material_maps_have_repeatable_craft_handlers(self):
@@ -247,10 +252,8 @@ class SmithingEnchantmentPreservationTests(unittest.TestCase):
                     generator.pending_identity_components(entry),
                 )
                 self.assertEqual(
-                    item_filter["components"]["minecraft:custom_data"][
-                        generator.PENDING_MARKER
-                    ],
-                    name,
+                    item_filter["components"]["minecraft:item_name"],
+                    generator.pending_item_name(entry),
                 )
 
                 # The target enchantment is the first min-level check beneath
@@ -299,26 +302,20 @@ class SmithingEnchantmentPreservationTests(unittest.TestCase):
                 cleanup["item_filter"],
                 {
                     "items": entry["result_id"],
-                    "predicates": {
-                        "minecraft:custom_data": {
-                            generator.PENDING_MARKER: name,
-                        }
+                    "components": {
+                        "minecraft:item_name": generator.pending_item_name(entry),
                     },
                 },
-            )
-            original_custom_data = entry["identity_components"].get(
-                "minecraft:custom_data"
-            )
-            expected_components = (
-                {"!minecraft:custom_data": {}}
-                if original_custom_data is None
-                else {"minecraft:custom_data": original_custom_data}
             )
             self.assertEqual(
                 cleanup["modifier"],
                 {
                     "function": "minecraft:set_components",
-                    "components": expected_components,
+                    "components": {
+                        "minecraft:item_name": entry["identity_components"][
+                            "minecraft:item_name"
+                        ],
+                    },
                 },
             )
 

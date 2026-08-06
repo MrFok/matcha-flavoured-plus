@@ -39,8 +39,17 @@
           }
         ],
         "minecraft:item_name": {
-          "translate": "item.kleispack.electrum_dolabra",
-          "color": "yellow"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_dolabra",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_dolabra"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:electrum_dolabra",
         "minecraft:attribute_modifiers": [
@@ -69,9 +78,6 @@
             "minecraft:diamond",
             "minecraft:gold_ingot"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_dolabra"
         }
       }
     },
@@ -193,8 +199,17 @@
           }
         ],
         "minecraft:item_name": {
-          "translate": "item.kleispack.electrum_dolabra",
-          "color": "yellow"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_dolabra",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_dolabra"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:electrum_dolabra",
         "minecraft:attribute_modifiers": [
@@ -223,9 +238,6 @@
             "minecraft:diamond",
             "minecraft:gold_ingot"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_dolabra"
         }
       }
     },
@@ -312,8 +324,17 @@
           }
         ],
         "minecraft:item_name": {
-          "translate": "item.kleispack.electrum_dolabra",
-          "color": "yellow"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_dolabra",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_dolabra"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:electrum_dolabra",
         "minecraft:attribute_modifiers": [
@@ -342,9 +363,6 @@
             "minecraft:diamond",
             "minecraft:gold_ingot"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_dolabra"
         }
       }
     },
@@ -395,16 +413,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:stone_axe",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_dolabra"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_dolabra",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_dolabra"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_dolabra",
+          "color": "yellow"
+        }
       }
     }
   }

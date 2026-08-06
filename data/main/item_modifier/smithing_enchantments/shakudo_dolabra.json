@@ -22,8 +22,17 @@
           "damage_per_block": 1
         },
         "minecraft:item_name": {
-          "translate": "item.kleispack.shakudo_dolabra",
-          "color": "#c96691"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.shakudo_dolabra",
+              "color": "#c96691"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:shakudo_dolabra"
+            }
+          ]
         },
         "minecraft:item_model": "minecraft:shakudo_dolabra",
         "minecraft:lore": [
@@ -67,9 +76,6 @@
           "items": [
             "minecraft:copper_ingot"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "shakudo_dolabra"
         }
       }
     },
@@ -135,16 +141,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:stone_axe",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "shakudo_dolabra"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.shakudo_dolabra",
+              "color": "#c96691"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:shakudo_dolabra"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_dolabra",
+          "color": "#c96691"
+        }
       }
     }
   }

@@ -18,8 +18,17 @@
           }
         ],
         "minecraft:item_name": {
-          "translate": "item.kleispack.electrum_helmet",
-          "color": "yellow"
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_helmet",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_helmet"
+            }
+          ]
         },
         "minecraft:attribute_modifiers": [
           {
@@ -52,9 +61,6 @@
             "minecraft:diamond",
             "minecraft:gold_ingot"
           ]
-        },
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_helmet"
         }
       }
     },
@@ -105,16 +111,29 @@
     "function": "minecraft:filtered",
     "item_filter": {
       "items": "minecraft:diamond_helmet",
-      "predicates": {
-        "minecraft:custom_data": {
-          "matcha_smithing_pending": "electrum_helmet"
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.electrum_helmet",
+              "color": "yellow"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:electrum_helmet"
+            }
+          ]
         }
       }
     },
     "modifier": {
       "function": "minecraft:set_components",
       "components": {
-        "!minecraft:custom_data": {}
+        "minecraft:item_name": {
+          "translate": "item.kleispack.electrum_helmet",
+          "color": "yellow"
+        }
       }
     }
   }
