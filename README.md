@@ -4,6 +4,9 @@ A preference-driven derivative of [Matcha Flavoured](https://modrinth.com/datapa
 
 The goal of this repository is to build on the original datapack while making deliberate balance, usability, compatibility, and quality-of-life changes. The original Matcha textures are the recommended texture choice; planned deviations and verified defects are tracked as GitHub issues before implementation.
 
+See [BRANCHES.md](BRANCHES.md) for the boundary between the pure
+`upstream-fixes` release and this customized `main` branch.
+
 ## Upstream
 
 - Original project: [Matcha Flavoured on Modrinth](https://modrinth.com/datapack/matcha-flavoured)
