@@ -1,78 +1,86 @@
-# Matcha Flavoured Plus
+# Matcha Flavoured Plus Lite
 
-A preference-driven derivative of [Matcha Flavoured](https://modrinth.com/datapack/matcha-flavoured) for Minecraft: Java Edition.
+The vanilla, datapack-only edition of [Matcha Flavoured Plus](https://github.com/MrFok/matcha-flavoured-plus).
+It targets Minecraft Java Edition 26.2 and requires no Fabric, Quilt, Forge,
+NeoForge, or other mod loader.
 
-The goal of this repository is to build on the original datapack while making deliberate balance, usability, compatibility, and quality-of-life changes. The original Matcha textures are the recommended texture choice; planned deviations and verified defects are tracked as GitHub issues before implementation.
+Lite contains the Plus gameplay changes that can be implemented with a
+datapack, plus a separate resource-pack archive for the custom visuals. It
+does not contain Java entrypoints or loader-only behavior. See
+[BRANCHES.md](BRANCHES.md) for the relationship with `upstream-fixes` and the
+full Fabric edition on `main`.
 
-See [BRANCHES.md](BRANCHES.md) for the boundary between the
-`upstream-fixes`, datapack-only `lite`, and full Fabric `main` branches. The
-short capability map is in [docs/capability-matrix.md](docs/capability-matrix.md).
+## Install
 
-## Upstream
+Build the distribution:
 
-- Original project: [Matcha Flavoured on Modrinth](https://modrinth.com/datapack/matcha-flavoured)
-- Original creator: Klei Wright (`klei_wright`)
-- Baseline represented here: Matcha Flavoured 1.03 for Minecraft 26.2
+```powershell
+python tools/build_distribution.py
+```
 
-See [CREDITS.txt](CREDITS.txt) for the upstream attribution and acknowledgements included with the pack.
+The build produces:
 
-## Installation
+- `matcha_flavoured_plus-1.0.0-clean-tabs-datapack.zip`
+- `matcha_flavoured_plus-1.0.0-dungeons-and-taverns-compatible-datapack.zip`
+- `matcha_flavoured_plus-1.0.0-resource-pack.zip`
 
-Build the Lite distribution with `python tools/build_distribution.py`. On the
-full `main` branch, add `--include-mod` to build the Fabric/mod JARs. Generated
-files are written to `dist/`.
+Install exactly one gameplay archive in the target world's `datapacks`
+folder. Use the Dungeons & Taverns-compatible archive when that datapack is
+installed; otherwise use `clean-tabs`. Do not unzip the archive.
 
-### Full Fabric edition (`main`)
+Install the resource-pack archive in the client's `resourcepacks` folder and
+enable it in Minecraft. Every multiplayer client should enable it to see the
+custom names, models, textures, sounds, and UI assets.
 
-Choose exactly one mod JAR for the profile. Both include the gameplay datapack
-and the Original Matcha resource assets, including Divine tool visuals:
+For a dedicated server, place the gameplay archive in
+`<server>/<world>/datapacks/`, then restart the server or run:
 
-- `matcha_flavoured_plus-1.0.0-clean-tabs-mod.jar` hides vanilla advancement tabs.
-- `matcha_flavoured_plus-1.0.0-dungeons-and-taverns-compatible-mod.jar` keeps the vanilla roots Dungeons & Taverns uses visible.
+```mcfunction
+/reload
+/datapack list enabled
+```
 
-Fabric 26.2 with Fabric API is runtime-verified. Quilt, Forge, and NeoForge
-metadata is included, but those launch paths remain experimental until they are
-tested in-game.
+The datapack should appear in the enabled list. Lite is not installed in a
+`mods` folder.
 
-### Datapack-only edition (`lite`)
+## Included behavior
 
-Install the gameplay archive and texture archive manually:
+- Managed extended-day sleep, including an all-players-in-bed multiplayer
+  quorum.
+- Instant Crystal Heart consumption and the permanent-heart death penalty.
+- Reworked hunger, food, cooking, Estus, progression, alloys, equipment,
+  repairs, trades, fishing, mobs, worldgen, and tutorials.
+- Crafted/blessing-based custom enchantments rather than normal XP/table
+  enchanting.
+- An enchanting table recipe filter and 2–5 random enchanted books when a
+  table is broken.
+- The Tyrael's Wings survival recipe is intentionally removed and reserved
+  for later design work.
 
-1. Put exactly one gameplay archive in the target world's `datapacks` folder: `matcha_flavoured_plus-1.0.0-clean-tabs-datapack.zip` or `matcha_flavoured_plus-1.0.0-dungeons-and-taverns-compatible-datapack.zip`.
-2. Put `matcha_flavoured_plus-1.0.0-resource-pack.zip` in the client's `resourcepacks` folder.
-3. Enable **Matcha Flavoured Plus**.
+## Known Lite boundaries
 
-The standalone archives are the vanilla installation format. A JAR is a
-convenience package for the Fabric edition, not a way to make a vanilla
-datapack load automatically; vanilla still requires the gameplay ZIP in the
-world's `datapacks` directory.
-
-## Textures
-
-The repository's root `assets/` tree is the only built texture source. The mod JAR
-and standalone resource pack contain the same Original Matcha assets. There is no
-Original/Vanilla style selector or generated Vanilla Flavoured pack.
+The vanilla enchanting-table screen still opens when the block is right-clicked;
+cancelling that interaction requires the Fabric edition. Deterministic
+percentage-based death loss through nested containers, spawner-origin loot
+suppression, and client HUD rendering changes are also outside datapack-only
+scope. See [docs/capability-matrix.md](docs/capability-matrix.md).
 
 ## Verification
-
-The distribution builder uses only Python's standard library. Run:
 
 ```powershell
 python -m unittest discover -s tests -v
 python tools/build_distribution.py
 ```
 
-Tests validate archive layout, content boundaries, metadata, JSON, exclusions, and deterministic rebuild hashes. They do not replace in-game Minecraft testing of gameplay behavior.
+The automated tests validate JSON, archive boundaries, model references,
+recipes, loot tables, smithing preservation, deterministic rebuilds, and other
+static contracts. They complement—rather than replace—manual Minecraft
+multiplayer testing.
 
-## Compatibility notes
+## Upstream and license
 
-- Use the **D&T-compatible** archive when Dungeons & Taverns is enabled. Use **clean-tabs** otherwise to hide vanilla advancement tabs.
-- The experience-bar background keeps its vanilla visual, so it remains visible above the hotbar.
+The upstream project is [Matcha Flavoured](https://modrinth.com/datapack/matcha-flavoured)
+by Klei Wright (`klei_wright`). See [CREDITS.txt](CREDITS.txt) for attribution.
 
-## License
-
-This derivative is shared under the same
-[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-license as the upstream project.
-
-You must provide attribution, may not use the work commercially, and must distribute adaptations under the same license.
+This derivative is shared under
+[CC-BY-NC-SA-4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
