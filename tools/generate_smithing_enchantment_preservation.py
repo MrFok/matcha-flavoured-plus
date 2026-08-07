@@ -444,11 +444,11 @@ def generated_files(entry: dict[str, Any]) -> dict[Path, str]:
         return files
     files.update(
         {
-        ADVANCEMENT_DIR / f"{name}.json": render_advancement(entry),
-        FUNCTION_DIR / f"{name}.mcfunction": render_reward_function(entry),
-        FUNCTION_DIR / "apply" / f"{name}.mcfunction": render_apply_function(entry),
-        FUNCTION_DIR / "apply_player" / f"{name}.mcfunction": render_apply_player_function(entry),
-        MODIFIER_DIR / f"{name}.json": render_modifier(entry),
+            ADVANCEMENT_DIR / f"{name}.json": render_advancement(entry),
+            FUNCTION_DIR / f"{name}.mcfunction": render_reward_function(entry),
+            FUNCTION_DIR / "apply" / f"{name}.mcfunction": render_apply_function(entry),
+            FUNCTION_DIR / "apply_player" / f"{name}.mcfunction": render_apply_player_function(entry),
+            MODIFIER_DIR / f"{name}.json": render_modifier(entry),
         }
     )
     return files
