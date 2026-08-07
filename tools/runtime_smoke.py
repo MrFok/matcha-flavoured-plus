@@ -114,6 +114,9 @@ def assert_clean_matcha_log(log_path: Path) -> None:
         "Invalid path in pack:",
         "Couldn't parse data file",
         "Failed to parse data file",
+        "Failed to load function",
+        "Unknown or incomplete command",
+        "Unknown scoreboard objective",
     )
     failures = [line for line in log.splitlines() if any(token in line for token in prohibited)]
     if failures:
@@ -135,7 +138,23 @@ def main() -> None:
         if "matcha_flavoured_plus" not in enabled_packs:
             raise RconError(f"Matcha data pack is not enabled: {enabled_packs}")
 
+        initial_objectives = rcon.command("scoreboard objectives list")
+        if "sleepTimerScore" not in initial_objectives:
+            raise RconError(
+                "Matcha load function did not create sleepTimerScore: "
+                f"{initial_objectives}"
+            )
+        keep_inventory = rcon.command("gamerule keep_inventory")
+        if "true" not in keep_inventory.lower():
+            raise RconError(f"Matcha gamerule setup did not enable keepInventory: {keep_inventory}")
+
         rcon.command("reload")
+        reloaded_objectives = rcon.command("scoreboard objectives list")
+        if "sleepTimerScore" not in reloaded_objectives:
+            raise RconError(
+                "sleepTimerScore disappeared after /reload: "
+                f"{reloaded_objectives}"
+            )
         rcon.command("scoreboard objectives remove sleepTimerScore")
         rcon.command("function main:setup/scoreboard")
         sleep_timer = rcon.command("scoreboard players get 1 sleepTimerScore")

@@ -23,13 +23,13 @@ jobs:
       - name: Build distribution
         shell: bash
         run: |
-          if [[ "${GITHUB_REF_NAME}" == "main" ]]; then
+          if [[ "${GITHUB_REF_NAME}" == "main" || "${GITHUB_BASE_REF}" == "main" ]]; then
             python tools/build_distribution.py --include-mod
           else
             python tools/build_distribution.py
           fi
       - name: Start Fabric runtime smoke server
-        if: github.ref_name == 'main'
+        if: ${{ github.ref_name == 'main' || github.base_ref == 'main' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -48,17 +48,68 @@ jobs:
             echo $! > server.pid
           )
       - name: Exercise Fabric runtime smoke test
-        if: github.ref_name == 'main'
+        if: ${{ github.ref_name == 'main' || github.base_ref == 'main' }}
         run: python tools/runtime_smoke.py --log .runtime-server/server.log --password matcha-runtime-smoke
       - name: Collect runtime server log
-        if: ${{ always() && github.ref_name == 'main' }}
+        if: ${{ always() && (github.ref_name == 'main' || github.base_ref == 'main') }}
         shell: bash
         run: |
           if [[ -f .runtime-server/server.pid ]] && kill -0 "$(cat .runtime-server/server.pid)" 2>/dev/null; then
             kill "$(cat .runtime-server/server.pid)"
           fi
           cat .runtime-server/server.log
+      - name: Start Vanilla Lite runtime smoke server
+        if: ${{ github.ref_name == 'lite' || github.base_ref == 'lite' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          runtime_dir=.runtime-lite-server
+          mkdir -p "$runtime_dir/world/datapacks"
+          version_manifest_url=$(curl --fail --location --silent --show-error "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json")
+          version_url=$(printf '%s' "$version_manifest_url" | jq -r '.versions[] | select(.id == "26.2") | .url' | head -n 1)
+          test -n "$version_url" && test "$version_url" != "null"
+          version_manifest=$(curl --fail --location --silent --show-error "$version_url")
+          server_url=$(printf '%s' "$version_manifest" | jq -r '.downloads.server.url')
+          test -n "$server_url" && test "$server_url" != "null"
+          curl --fail --location --silent --show-error --output "$runtime_dir/server.jar" "$server_url"
+          cp dist/matcha_flavoured_plus-1.0.0-clean-tabs-datapack.zip "$runtime_dir/world/datapacks/"
+          printf '%s\n' 'eula=true' > "$runtime_dir/eula.txt"
+          printf '%s\n' \
+            'server-ip=127.0.0.1' \
+            'server-port=25566' \
+            'enable-rcon=true' \
+            'rcon.password=matcha-runtime-smoke' \
+            'rcon.port=25576' \
+            'online-mode=false' \
+            'level-name=world' \
+            'level-seed=matcha-runtime-smoke' \
+            'spawn-protection=0' \
+            'view-distance=2' \
+            'simulation-distance=2' \
+            'pause-when-empty-seconds=600' > "$runtime_dir/server.properties"
+          (
+            cd "$runtime_dir"
+            java -Xmx1G -jar server.jar nogui > server.log 2>&1 &
+            echo $! > server.pid
+          )
+      - name: Exercise Vanilla Lite runtime smoke test
+        if: ${{ github.ref_name == 'lite' || github.base_ref == 'lite' }}
+        run: python tools/runtime_smoke.py --log .runtime-lite-server/server.log --port 25576 --password matcha-runtime-smoke
+      - name: Collect Vanilla Lite runtime server log
+        if: ${{ always() && (github.ref_name == 'lite' || github.base_ref == 'lite') }}
+        shell: bash
+        run: |
+          if [[ -f .runtime-lite-server/server.pid ]] && kill -0 "$(cat .runtime-lite-server/server.pid)" 2>/dev/null; then
+            kill "$(cat .runtime-lite-server/server.pid)"
+          fi
+          if [[ -f .runtime-lite-server/server.log ]]; then
+            cat .runtime-lite-server/server.log
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: matcha-flavoured-plus-distribution
-          path: dist/
+          path: |
+            dist/
+            .runtime-server/server.log
+            .runtime-lite-server/server.log
+          if-no-files-found: ignore
