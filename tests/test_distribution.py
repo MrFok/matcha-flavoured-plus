@@ -520,49 +520,15 @@ class DistributionTests(unittest.TestCase):
             ).exists()
         )
 
-        expected = {
-            "divine_pickaxe": (
-                "minecraft:netherite_pickaxe",
-                "pickaxe",
-                ["#minecraft:mineable/pickaxe"],
-                71,
-            ),
-            "divine_axe": ("minecraft:netherite_axe", "axe", ["#minecraft:mineable/axe"], 45),
-            "divine_dolabra": (
-                "minecraft:netherite_axe",
-                "dolabra",
-                ["#minecraft:mineable/pickaxe", "#minecraft:mineable/axe"],
-                71,
-            ),
-        }
-        for recipe_name, (item_id, tool, block_tags, mining_speed) in expected.items():
+        # These upgrades require Fabric's component-aware ingredient predicate.
+        # Keeping them in Lite would make a vanilla server reject the datapack
+        # during load, so the recipes are intentionally reserved for main.
+        for recipe_name in ("divine_pickaxe", "divine_axe", "divine_dolabra"):
             with self.subTest(recipe=recipe_name):
-                recipe = json.loads(
-                    (ROOT / f"data/smithing_table/recipe/{recipe_name}.json").read_text(encoding="utf-8")
+                self.assertFalse(
+                    (ROOT / f"data/smithing_table/recipe/{recipe_name}.json").exists()
                 )
-                self.assertEqual(recipe["template"], "minecraft:netherite_upgrade_smithing_template")
-                self.assertEqual(recipe["base"]["fabric:type"], "fabric:components")
-                self.assertEqual(recipe["base"]["base"], item_id)
-                self.assertEqual(
-                    recipe["base"]["components"]["minecraft:custom_data"],
-                    {"matcha": {"tier": "adamant", "tool": tool}},
-                )
-                self.assertFalse(recipe["base"]["strict"])
-                self.assertEqual(recipe["addition"]["fabric:type"], "fabric:components")
-                self.assertEqual(recipe["addition"]["base"], "minecraft:feather")
-                self.assertFalse(recipe["addition"]["strict"])
-                self.assertEqual(
-                    recipe["addition"]["components"]["minecraft:custom_data"]["matcha"],
-                    {"divine_fragment": True},
-                )
-                components = recipe["result"]["components"]
-                self.assertEqual(components["minecraft:custom_data"]["matcha"]["tier"], "divine")
-                self.assertEqual(components["minecraft:custom_data"]["matcha"]["tool"], tool)
-                self.assertNotIn("mode", components["minecraft:custom_data"]["matcha"])
-                self.assertEqual(
-                    [rule["blocks"] for rule in components["minecraft:tool"]["rules"]], block_tags
-                )
-                self.assertEqual(components["minecraft:tool"]["rules"][0]["speed"], mining_speed)
+        self.assertFalse((ROOT / "data/main/advancement/end/craft_divine_item.json").exists())
 
     def test_divine_elytra_is_not_shipped(self):
         forbidden_paths = (

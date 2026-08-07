@@ -10,6 +10,7 @@ datapack-only implementation would be unreliable or impossible.
 | Remove the vanilla enchanting-table recipe | `DATAPACK` | Implemented with the pack filter. |
 | Drop 2–5 random enchanted books when the table is broken | `DATAPACK` | Implemented in the table loot table. |
 | Prevent the enchanting-table screen from opening | `FABRIC` | Deferred; planned for a later `main`-only implementation. |
+| Component-restricted Divine tool smithing upgrades | `FABRIC` | Reserved for `main`; vanilla smithing cannot inspect the required custom item data, so the recipes are omitted from `lite`. |
 | Spawner-only loot suppression | `NOT-DATAPACK` / `FABRIC` | Not implemented; needs a spawn event that exposes the creation reason. |
 | Deterministic death loss including nested storage | `FABRIC` | Design only; a datapack cannot safely account for every nested container. |
 | Status-duration HUD flicker | `NOT-DATAPACK` | Client rendering change; outside the current vanilla resource-pack scope. |

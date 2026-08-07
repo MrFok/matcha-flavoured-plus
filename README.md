@@ -63,7 +63,9 @@ The vanilla enchanting-table screen still opens when the block is right-clicked;
 cancelling that interaction requires the Fabric edition. Deterministic
 percentage-based death loss through nested containers, spawner-origin loot
 suppression, and client HUD rendering changes are also outside datapack-only
-scope. See [docs/capability-matrix.md](docs/capability-matrix.md).
+scope. Component-restricted Divine tool upgrades are reserved for the Fabric
+edition because vanilla smithing recipes cannot inspect the required custom
+item data. See [docs/capability-matrix.md](docs/capability-matrix.md).
 
 ## Verification
 
