@@ -1,78 +1,80 @@
-# Matcha Flavoured Plus
+# Matcha Flavoured Plus - Fabric Edition
 
-A preference-driven derivative of [Matcha Flavoured](https://modrinth.com/datapack/matcha-flavoured) for Minecraft: Java Edition.
+This is the full mod-oriented edition of [Matcha Flavoured Plus](https://github.com/MrFok/matcha-flavoured-plus), intended for Fabric servers and the clients that join them.
 
-The goal of this repository is to build on the original datapack while making deliberate balance, usability, compatibility, and quality-of-life changes. The original Matcha textures are the recommended texture choice; planned deviations and verified defects are tracked as GitHub issues before implementation.
+The `main` branch consumes the datapack-safe work from `lite` and is the home
+for features that need Java, Fabric events, or client/server hooks. The current
+distribution JAR packages the shared Matcha gameplay data and resource assets
+into a loader-installable artifact. See [BRANCHES.md](BRANCHES.md) for the
+three-branch flow.
 
-See [BRANCHES.md](BRANCHES.md) for the boundary between the
-`upstream-fixes`, datapack-only `lite`, and full Fabric `main` branches. The
-short capability map is in [docs/capability-matrix.md](docs/capability-matrix.md).
+## Requirements
 
-## Upstream
+- Minecraft Java Edition 26.2.
+- Fabric Loader.
+- Fabric API, including the Fabric resource loader.
+- The same Matcha Flavoured Plus mod JAR on the dedicated server and every
+  client that joins it.
 
-- Original project: [Matcha Flavoured on Modrinth](https://modrinth.com/datapack/matcha-flavoured)
-- Original creator: Klei Wright (`klei_wright`)
-- Baseline represented here: Matcha Flavoured 1.03 for Minecraft 26.2
+Quilt, Forge, and NeoForge metadata is included for future compatibility, but
+those loaders are not currently runtime-supported.
 
-See [CREDITS.txt](CREDITS.txt) for the upstream attribution and acknowledgements included with the pack.
+## Build
 
-## Installation
+```powershell
+python tools/build_distribution.py --include-mod
+```
 
-Build the Lite distribution with `python tools/build_distribution.py`. On the
-full `main` branch, add `--include-mod` to build the Fabric/mod JARs. Generated
-files are written to `dist/`.
+The build produces two full mod JAR variants:
 
-### Full Fabric edition (`main`)
+- `matcha_flavoured_plus-1.0.0-clean-tabs-mod.jar` hides the vanilla
+  advancement tabs.
+- `matcha_flavoured_plus-1.0.0-dungeons-and-taverns-compatible-mod.jar` keeps
+  the vanilla advancement roots required by Dungeons & Taverns visible.
 
-Choose exactly one mod JAR for the profile. Both include the gameplay datapack
-and the Original Matcha resource assets, including Divine tool visuals:
+Choose exactly one variant for a profile.
 
-- `matcha_flavoured_plus-1.0.0-clean-tabs-mod.jar` hides vanilla advancement tabs.
-- `matcha_flavoured_plus-1.0.0-dungeons-and-taverns-compatible-mod.jar` keeps the vanilla roots Dungeons & Taverns uses visible.
+## Install on a server
 
-Fabric 26.2 with Fabric API is runtime-verified. Quilt, Forge, and NeoForge
-metadata is included, but those launch paths remain experimental until they are
-tested in-game.
+1. Install Fabric Loader and Fabric API for Minecraft 26.2.
+2. Stop the server.
+3. Copy exactly one Matcha mod JAR into the server's `mods` folder.
+4. Start the server.
+5. Install the same Matcha mod JAR, Fabric Loader, and Fabric API on each
+   client.
 
-### Datapack-only edition (`lite`)
+The JAR contains both the gameplay datapack and the resource assets. Do not
+also install the Lite datapack in the same world; that would load the gameplay
+content twice.
 
-Install the gameplay archive and texture archive manually:
+## Shared gameplay
 
-1. Put exactly one gameplay archive in the target world's `datapacks` folder: `matcha_flavoured_plus-1.0.0-clean-tabs-datapack.zip` or `matcha_flavoured_plus-1.0.0-dungeons-and-taverns-compatible-datapack.zip`.
-2. Put `matcha_flavoured_plus-1.0.0-resource-pack.zip` in the client's `resourcepacks` folder.
-3. Enable **Matcha Flavoured Plus**.
+The Fabric edition includes the Lite behavior: managed multiplayer sleep,
+instant Crystal Hearts, reworked food and hunger, custom progression and
+equipment, blessing-based enchantments, enchanting-table book drops, fishing,
+trades, mob changes, worldgen, and tutorials.
 
-The standalone archives are the vanilla installation format. A JAR is a
-convenience package for the Fabric edition, not a way to make a vanilla
-datapack load automatically; vanilla still requires the gameplay ZIP in the
-world's `datapacks` directory.
-
-## Textures
-
-The repository's root `assets/` tree is the only built texture source. The mod JAR
-and standalone resource pack contain the same Original Matcha assets. There is no
-Original/Vanilla style selector or generated Vanilla Flavoured pack.
+Loader-only work belongs here, including reliable interaction cancellation,
+spawn-reason handling, and inventory/death-event handling when those features
+are approved and implemented. A capability marked `FABRIC` in
+[docs/capability-matrix.md](docs/capability-matrix.md) should not be advertised
+as supported by Lite.
 
 ## Verification
 
-The distribution builder uses only Python's standard library. Run:
-
 ```powershell
 python -m unittest discover -s tests -v
-python tools/build_distribution.py
+python tools/build_distribution.py --include-mod
 ```
 
-Tests validate archive layout, content boundaries, metadata, JSON, exclusions, and deterministic rebuild hashes. They do not replace in-game Minecraft testing of gameplay behavior.
+GitHub Actions also performs a Fabric runtime smoke test on `main`. Gameplay
+and client rendering still need manual multiplayer verification before a
+release is called fully gameplay-tested.
 
-## Compatibility notes
+## Upstream and license
 
-- Use the **D&T-compatible** archive when Dungeons & Taverns is enabled. Use **clean-tabs** otherwise to hide vanilla advancement tabs.
-- The experience-bar background keeps its vanilla visual, so it remains visible above the hotbar.
+The upstream project is [Matcha Flavoured](https://modrinth.com/datapack/matcha-flavoured)
+by Klei Wright (`klei_wright`). See [CREDITS.txt](CREDITS.txt) for attribution.
 
-## License
-
-This derivative is shared under the same
-[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-license as the upstream project.
-
-You must provide attribution, may not use the work commercially, and must distribute adaptations under the same license.
+This derivative is shared under
+[CC-BY-NC-SA-4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
