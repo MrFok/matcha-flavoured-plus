@@ -11,7 +11,7 @@ tools, armour, progression items, or the storage items that hold resources.
 
 ## Rule
 
-For every item ID in the curated `main:death_valuables` item tag:
+For every item ID in the curated `matcha_flavoured_plus:main/death_valuables` item tag:
 
 1. Count every matching item held by the player, including items inside
    shulker boxes, bundles, and supported nested storage items.
@@ -40,7 +40,7 @@ treated as 80 diamonds, not as two independent 40-item penalties.
 
 ## Classification
 
-The eventual `main:death_valuables` tag should contain mined and processed
+The eventual `matcha_flavoured_plus:main/death_valuables` tag should contain mined and processed
 resources such as raw metals, ingots, nuggets, gems, dusts, ore drops, rare
 mob resources, and equivalent Matcha materials.
 

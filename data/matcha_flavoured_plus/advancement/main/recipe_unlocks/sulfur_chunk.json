@@ -1,0 +1,35 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_primary_material": {
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:gunpowder"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"has_the_recipe": {
+			"conditions": {
+				"recipe": "matcha_flavoured_plus:crafting/fire_charge"
+			},
+			"trigger": "minecraft:recipe_unlocked"
+		}
+	},
+	"requirements": [
+		[
+			"has_the_recipe",
+			"has_primary_material"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"matcha_flavoured_plus:crafting/fire_charge",
+			"matcha_flavoured_plus:crafting/green_dye_from_patina",
+			"matcha_flavoured_plus:crafting/sulfur_from_sulfur_chunk",
+			"matcha_flavoured_plus:crafting/potent_sulfur"
+		]
+	}
+}

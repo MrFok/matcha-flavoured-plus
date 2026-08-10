@@ -1,0 +1,25 @@
+{
+	"parent": "matcha_flavoured_plus:main/mechanics/root",
+	"criteria": {
+		"consumed_heart_container": {
+			"conditions": {
+				"items": [
+					{
+						"components": {
+							"minecraft:item_model": "minecraft:heart_container"
+						}
+					}
+				]
+			},
+			"trigger": "minecraft:consume_item"
+		}
+	},
+	"requirements": [
+		[
+			"consumed_heart_container"
+		]
+	],
+	"rewards": {
+		"function": "matcha_flavoured_plus:main/mechanic/process_heart_container"
+	}
+}

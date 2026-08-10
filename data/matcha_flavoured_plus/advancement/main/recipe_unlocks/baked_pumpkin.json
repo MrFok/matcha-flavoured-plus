@@ -1,0 +1,28 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"cooked_the_food": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"components": {
+							"minecraft:item_model": "breeze_rod"
+						}
+					}
+				]
+			}
+		}
+	},
+	"requirements": [
+		[
+			"cooked_the_food"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"matcha_flavoured_plus:food/pumpkin_jam",
+			"matcha_flavoured_plus:food/pumpkin_empanada"
+		]
+	}
+}

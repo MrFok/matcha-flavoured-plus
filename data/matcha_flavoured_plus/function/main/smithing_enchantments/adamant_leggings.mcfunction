@@ -1,0 +1,3 @@
+advancement revoke @s only matcha_flavoured_plus:main/smithing_enchantments/adamant_leggings
+tag @s add main.smithing_enchantments.adamant_leggings
+schedule function matcha_flavoured_plus:main/smithing_enchantments/apply/adamant_leggings 1t replace

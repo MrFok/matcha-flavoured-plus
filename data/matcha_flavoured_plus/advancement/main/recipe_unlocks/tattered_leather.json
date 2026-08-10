@@ -1,0 +1,28 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_primary_material": {
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:rabbit_hide"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"requirements": [
+		[
+			"has_primary_material"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"matcha_flavoured_plus:crafting/leather_boots",
+			"matcha_flavoured_plus:crafting/leather_chestplate",
+			"matcha_flavoured_plus:crafting/leather_pants",
+			"matcha_flavoured_plus:crafting/leather_helmet"
+		]
+	}
+}

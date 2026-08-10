@@ -1,0 +1,9 @@
+{
+  "advancement.create.diving_suit_lava.desc": "Attempt to take a dive in lava with your Adamant diving gear",
+  "block.create.netherite_backtank": "Adamant Backtank",
+  "item.create.netherite_backtank": "Adamant Backtank",
+  "item.create.netherite_backtank_placeable": "Adamant Backtank Placeable",
+  "item.create.netherite_diving_boots": "Adamant Diving Boots",
+  "item.create.netherite_diving_helmet": "Adamant Diving Helmet",
+  "item.create.netherite_diving_helmet.tooltip.summary": "Together with an _Adamant Backtank_, this can protect you from _extreme heat_. To be effective, _Legs and Feet_ have to be covered in _Adamant_, too."
+}

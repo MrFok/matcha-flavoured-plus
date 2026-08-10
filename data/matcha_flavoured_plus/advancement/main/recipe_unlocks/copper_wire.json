@@ -1,0 +1,51 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_primary_material": {
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:redstone"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"has_the_recipe": {
+			"conditions": {
+				"recipe": "matcha_flavoured_plus:crafting/copper_ingot_from_copper_wire"
+			},
+			"trigger": "minecraft:recipe_unlocked"
+		}
+	},
+	"requirements": [
+		[
+			"has_the_recipe",
+			"has_primary_material"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"matcha_flavoured_plus:crafting/redstone_torch",
+			"minecraft:repeater",
+			"minecraft:comparator",
+			"matcha_flavoured_plus:crafting/copper_ingot_from_copper_wire",
+			"matcha_flavoured_plus:crafting/redstone_block",
+			"matcha_flavoured_plus:crafting/copper_bulb",
+			"matcha_flavoured_plus:crafting/waxed_copper_bulb",
+			"matcha_flavoured_plus:crafting/weathered_copper_bulb",
+			"matcha_flavoured_plus:crafting/waxed_weathered_copper_bulb",
+			"matcha_flavoured_plus:crafting/exposed_copper_bulb",
+			"matcha_flavoured_plus:crafting/waxed_exposed_copper_bulb",
+			"matcha_flavoured_plus:crafting/oxidized_copper_bulb",
+			"matcha_flavoured_plus:crafting/waxed_oxidized_copper_bulb",
+			"minecraft:piston",
+			"minecraft:dropper",
+			"minecraft:dispenser",
+			"minecraft:crafter",
+			"minecraft:observer",
+			"matcha_flavoured_plus:crafting/target",
+			"matcha_flavoured_plus:crafting/copper_compass"
+		]
+	}
+}

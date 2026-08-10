@@ -1,0 +1,78 @@
+{
+	"type": "minecraft:smithing_transform",
+	"addition": "minecraft:netherite_ingot",
+	"base": {
+		"fabric:type": "fabric:components",
+		"base": "minecraft:diamond_axe",
+		"components": {
+			"minecraft:item_model": "minecraft:diamond_axe"
+		}
+	},
+	"result": {
+		"id": "minecraft:netherite_axe",
+		"components": {
+			"minecraft:item_model": "matcha_flavoured_plus:adamant_axe",
+			"minecraft:custom_data": {
+				"matcha": {
+					"tier": "adamant",
+					"tool": "axe"
+				}
+			},
+			"minecraft:max_damage": 5000,
+			"minecraft:tool": {
+				"rules": [
+					{
+						"blocks": "#minecraft:mineable/axe",
+						"speed": 15,
+						"correct_for_drops": true
+					}
+				],
+				"default_mining_speed": 1,
+				"damage_per_block": 1
+			},
+			"minecraft:lore": [
+				{
+					"text": "⛏ 15",
+					"color": "blue",
+					"italic": false
+				},
+				{
+					"text": "🗡 10",
+					"color": "dark_green",
+					"italic": false
+				},
+				{
+					"text": "🕒 1",
+					"color": "dark_green",
+					"italic": false
+				}
+			],
+			"minecraft:tooltip_display": {
+				"hidden_components": [
+					"minecraft:attribute_modifiers"
+				]
+			},
+			"minecraft:repairable": {
+				"items": [
+					"minecraft:diamond_block",
+					"minecraft:gold_block",
+					"minecraft:netherite_scrap"
+				]
+			},
+			"minecraft:item_name": {
+				"text": "",
+				"extra": [
+					{
+						"translate": "item.minecraft.netherite_axe",
+						"color": "gold"
+					},
+					{
+						"text": "",
+						"insertion": "matcha_smithing_pending:adamant_axe"
+					}
+				]
+			}
+		}
+	},
+	"template": "minecraft:diamond"
+}

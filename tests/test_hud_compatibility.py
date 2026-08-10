@@ -79,15 +79,29 @@ def read_rgba_png(path):
 
 
 class HudCompatibilityTests(unittest.TestCase):
-    def test_experience_bar_background_is_visible_and_sprites_are_dimensionally_valid(self):
+    def test_food_and_experience_hud_sprites_are_transparent_and_dimensionally_valid(self):
         background_width, background_height, background_rows = read_rgba_png(
             HUD / "experience_bar_background.png"
         )
         self.assertEqual((background_width, background_height), (182, 5))
-        self.assertTrue(any(channel != 0 for row in background_rows for channel in row[3::4]))
+        self.assertTrue(all(channel == 0 for row in background_rows for channel in row[3::4]))
 
-        progress_width, progress_height, _ = read_rgba_png(HUD / "experience_bar_progress.png")
+        progress_width, progress_height, progress_rows = read_rgba_png(HUD / "experience_bar_progress.png")
         self.assertEqual((progress_width, progress_height), (182, 5))
+        self.assertTrue(all(channel == 0 for row in progress_rows for channel in row[3::4]))
+
+        for name in (
+            "food_empty.png",
+            "food_empty_hunger.png",
+            "food_full.png",
+            "food_full_hunger.png",
+            "food_half.png",
+            "food_half_hunger.png",
+        ):
+            with self.subTest(sprite=name):
+                width, height, rows = read_rgba_png(HUD / name)
+                self.assertEqual((width, height), (9, 9))
+                self.assertTrue(all(channel == 0 for row in rows for channel in row[3::4]))
 
     def test_vanilla_progression_trees_remain_filtered(self):
         metadata = json.loads((ROOT / "pack.mcmeta").read_text(encoding="utf-8"))

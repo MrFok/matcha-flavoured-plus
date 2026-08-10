@@ -109,7 +109,7 @@
 						{
 							"function": "minecraft:set_components",
 							"components": {
-								"minecraft:jukebox_playable": "main:labyrinthine",
+								"minecraft:jukebox_playable": "matcha_flavoured_plus:main/labyrinthine",
 								"minecraft:item_model": "minecraft:music_disc_labyrinthine"
 							}
 						}

@@ -1,0 +1,129 @@
+[
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:stone_spear",
+      "components": {
+        "minecraft:max_damage": 1000,
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.shakudo_spear",
+              "color": "#c96691"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:shakudo_spear"
+            }
+          ]
+        },
+        "minecraft:item_model": "minecraft:shakudo_spear",
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:attack_damage",
+            "id": "damage",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "mainhand"
+          }
+        ],
+        "minecraft:lore": [
+          {
+            "text": "🗡 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "🕒 1.18",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:copper_ingot"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false
+      }
+    },
+    "modifier": {
+      "function": "minecraft:filtered",
+      "item_filter": {
+        "predicates": {
+          "minecraft:enchantments": [
+            {
+              "enchantments": "matcha_flavoured_plus:main/sanguine",
+              "levels": {
+                "min": 1
+              }
+            }
+          ]
+        }
+      },
+      "on_fail": {
+        "function": "minecraft:filtered",
+        "item_filter": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "matcha_flavoured_plus:main/sanguine",
+                "levels": 0
+              }
+            ]
+          }
+        },
+        "modifier": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "matcha_flavoured_plus:main/sanguine": 1
+          },
+          "add": true
+        },
+        "on_fail": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "matcha_flavoured_plus:main/sanguine": 1
+          },
+          "add": true
+        }
+      }
+    }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:stone_spear",
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.shakudo_spear",
+              "color": "#c96691"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:shakudo_spear"
+            }
+          ]
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_spear",
+          "color": "#c96691"
+        }
+      }
+    }
+  }
+]

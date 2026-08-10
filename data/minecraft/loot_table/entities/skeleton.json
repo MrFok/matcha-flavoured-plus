@@ -121,9 +121,14 @@
 					"condition": "minecraft:killed_by_player"
 				},
 				{
-					"condition": "minecraft:match_tool",
+					"condition": "minecraft:entity_properties",
+					"entity": "attacker",
 					"predicate": {
-						"items": "#minecraft:axes"
+						"equipment": {
+							"mainhand": {
+								"items": "#minecraft:axes"
+							}
+						}
 					}
 				}
 			]

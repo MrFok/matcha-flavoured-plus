@@ -59,7 +59,7 @@
 				}
 			],
 			"minecraft:enchantments": {
-				"main:bloodrage": 1
+				"matcha_flavoured_plus:main/bloodrage": 1
 			},
 			"minecraft:enchantment_glint_override": false
 		}

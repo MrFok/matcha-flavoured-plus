@@ -1,0 +1,49 @@
+{
+	"parent": "matcha_flavoured_plus:main/end/obtain_tyraels_wing_fragment",
+	"criteria": {
+		"divine_pickaxe": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:smithing_table/divine_pickaxe"
+			}
+		},
+		"divine_axe": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:smithing_table/divine_axe"
+			}
+		},
+		"divine_dolabra": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:smithing_table/divine_dolabra"
+			}
+		}
+	},
+	"display": {
+		"title": {
+			"text": "Divine Craftsmanship",
+			"color": "gold"
+		},
+		"description": {
+			"text": "Forge a Divine Item at a Smithing Table."
+		},
+		"icon": {
+			"id": "minecraft:netherite_pickaxe",
+			"components": {
+				"minecraft:item_model": "minecraft:divine_pickaxe"
+			}
+		},
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"requirements": [
+		[
+			"divine_pickaxe",
+			"divine_axe",
+			"divine_dolabra"
+		]
+	]
+}

@@ -1,1 +1,0 @@
-function main:setup/ticking_functions

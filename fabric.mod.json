@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "veinminer_enchantment",
+  "version": "2.11.2",
+  "name": "Veinminer Enchantment",
+  "description": "Addon for Veinminer to add an exclusive enchantment",
+  "authors": [
+    "Miraculixx"
+  ],
+  "license": "AGPL 3.0",
+  "icon": "assets/veinminer_enchantment/icon.png",
+  "contact": {
+    "homepage": "https://modrinth.com/mod/veinminer-enchantment",
+    "issues": "https://dc.mutils.net"
+  },
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "de.miraculixx.veinminerEnchant.fabric.VeinminerEnchantment"
+    ]
+  },
+  "mixins": [],
+  "custom": {
+    "modmenu": {
+      "parent": {
+        "id": "veinminer"
+      }
+    }
+  },
+  "suggests": {
+    "modmenu":"*"
+  },
+  "depends": {
+    "fabricloader": ">=0.19.0",
+    "minecraft": ">=1.21",
+    "java": ">=17",
+    "fabric-language-kotlin": "*",
+    "veinminer": "*"
+  }
+}

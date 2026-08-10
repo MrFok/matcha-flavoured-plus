@@ -1,0 +1,38 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_primary_material": {
+			"conditions": {
+				"items": [
+					{
+						"items": "#minecraft:planks"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"has_the_recipe": {
+			"conditions": {
+				"recipe": "matcha_flavoured_plus:crafting/wooden_pickaxe"
+			},
+			"trigger": "minecraft:recipe_unlocked"
+		}
+	},
+	"requirements": [
+		[
+			"has_the_recipe",
+			"has_primary_material"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"matcha_flavoured_plus:crafting/wooden_pickaxe",
+			"matcha_flavoured_plus:crafting/wooden_axe",
+			"matcha_flavoured_plus:crafting/wooden_shovel",
+			"matcha_flavoured_plus:crafting/wooden_hoe",
+			"matcha_flavoured_plus:crafting/wooden_sword",
+			"matcha_flavoured_plus:crafting/wooden_spear",
+			"matcha_flavoured_plus:crafting/vanilla_chest_from_planks"
+		]
+	}
+}

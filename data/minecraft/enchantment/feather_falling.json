@@ -40,7 +40,7 @@
             "tags": [
               {
                 "expected": true,
-                "id": "main:ender_pearl"
+                "id": "matcha_flavoured_plus:main/ender_pearl"
               },
               {
                 "expected": false,

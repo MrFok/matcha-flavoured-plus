@@ -1,0 +1,117 @@
+[
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:shield",
+      "components": {
+        "minecraft:banner_patterns": [
+          {
+            "color": "white",
+            "pattern": "minecraft:base"
+          },
+          {
+            "color": "light_blue",
+            "pattern": "minecraft:circle"
+          },
+          {
+            "color": "black",
+            "pattern": "minecraft:flower"
+          },
+          {
+            "color": "blue",
+            "pattern": "minecraft:curly_border"
+          },
+          {
+            "color": "blue",
+            "pattern": "minecraft:stripe_top"
+          },
+          {
+            "color": "blue",
+            "pattern": "minecraft:stripe_bottom"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:banner_patterns"
+          ]
+        },
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            "Warding Shield",
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:lesser_warding_shield"
+            }
+          ]
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:filtered",
+      "item_filter": {
+        "predicates": {
+          "minecraft:enchantments": [
+            {
+              "enchantments": "matcha_flavoured_plus:main/warding1",
+              "levels": {
+                "min": 1
+              }
+            }
+          ]
+        }
+      },
+      "on_fail": {
+        "function": "minecraft:filtered",
+        "item_filter": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "matcha_flavoured_plus:main/warding1",
+                "levels": 0
+              }
+            ]
+          }
+        },
+        "modifier": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "matcha_flavoured_plus:main/warding1": 1
+          },
+          "add": true
+        },
+        "on_fail": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "matcha_flavoured_plus:main/warding1": 1
+          },
+          "add": true
+        }
+      }
+    }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:shield",
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            "Warding Shield",
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:lesser_warding_shield"
+            }
+          ]
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:item_name": "Warding Shield"
+      }
+    }
+  }
+]

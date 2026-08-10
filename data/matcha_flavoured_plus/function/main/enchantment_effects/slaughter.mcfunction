@@ -1,0 +1,1 @@
+execute at @p run effect give @e[type=#matcha_flavoured_plus:main/livestock,distance=..3] minecraft:slowness 1 9 true

@@ -30,9 +30,23 @@ The build produces two full mod JAR variants:
 - `matcha_flavoured_plus-1.0.0-clean-tabs-mod.jar` hides the vanilla
   advancement tabs.
 - `matcha_flavoured_plus-1.0.0-dungeons-and-taverns-compatible-mod.jar` keeps
-  the vanilla advancement roots required by Dungeons & Taverns visible.
+  the vanilla advancement roots visible for broad mod compatibility.
+
+Both variants move Dungeons & Taverns' visible achievements into a separate
+`Dungeons & Taverns` tab. The overlay keeps
+D&T's original advancement IDs, criteria, rewards, and internal item IDs, so
+the D&T mod remains responsible for its gameplay while Matcha owns the player-
+facing progression layout.
 
 Choose exactly one variant for a profile.
+
+When updating Dungeons & Taverns, regenerate its small advancement overlay
+from the installed JAR before rebuilding:
+
+```powershell
+python tools/generate_dnt_advancement_overlay.py `
+  "$env:APPDATA\ModrinthApp\profiles\5IVE\mods\dungeons-and-taverns-5.3.0.jar"
+```
 
 ## Install on a server
 

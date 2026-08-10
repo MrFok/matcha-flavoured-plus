@@ -1,0 +1,2 @@
+schedule function matcha_flavoured_plus:main/mechanic/check_anvil_interaction_delayed 1t
+advancement revoke @p only matcha_flavoured_plus:main/mechanics/inventory_changed

@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.mrfok.matcha.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AbstractContainerMenuInvoker",
+    "BlockPlayerDestroyMixin",
+    "BlockItemMixin",
+    "EnchantmentMenuMixin",
+    "EnchantingTableBlockEntityMixin"
+  ],
+  "client": [
+    "client.HudMixin",
+    "client.ExperienceBarMixin",
+    "client.EnchantmentScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

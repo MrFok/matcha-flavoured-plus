@@ -1,0 +1,36 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_diamonds": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:diamond"
+					}
+				]
+			}
+		},
+		"has_nether_stars": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:nether_star"
+					}
+				]
+			}
+		}
+	},
+	"requirements": [
+		[
+			"has_diamonds",
+			"has_nether_stars"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"matcha_flavoured_plus:crafting/fragment_of_tyraels_wings"
+		]
+	}
+}

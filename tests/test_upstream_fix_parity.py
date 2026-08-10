@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class UpstreamFixParityTests(unittest.TestCase):
     def test_sleep_initialization_matches_upstream_contract(self):
         lines = (
-            ROOT / "data/main/function/setup/scoreboard.mcfunction"
+            ROOT / "data/matcha_flavoured_plus/function/main/setup/scoreboard.mcfunction"
         ).read_text(encoding="utf-8").splitlines()
         objective = lines.index("scoreboard objectives add sleepTimerScore dummy")
         self.assertLess(objective, lines.index("scoreboard players set 1 sleepTimerScore 1"))
@@ -17,7 +17,7 @@ class UpstreamFixParityTests(unittest.TestCase):
 
     def test_sleep_speedup_requires_a_single_all_player_quorum(self):
         sleep = (
-            ROOT / "data/main/function/mechanic/sleep.mcfunction"
+            ROOT / "data/matcha_flavoured_plus/function/main/mechanic/sleep.mcfunction"
         ).read_text(encoding="utf-8")
         self.assertIn(
             "execute as @a[gamemode=!spectator] run scoreboard players set @s sleepTimerScore 0",
@@ -39,7 +39,7 @@ class UpstreamFixParityTests(unittest.TestCase):
 
     def test_crystal_hearts_are_instant_consumables_from_all_sources(self):
         recipe = json.loads(
-            (ROOT / "data/crafting/recipe/crystal_heart.json").read_text(
+            (ROOT / "data/matcha_flavoured_plus/recipe/crafting/crystal_heart.json").read_text(
                 encoding="utf-8"
             )
         )
@@ -67,26 +67,42 @@ class UpstreamFixParityTests(unittest.TestCase):
             with self.subTest(consumable=consumable):
                 self.assertEqual(consumable["consume_seconds"], 0.0)
 
-    def test_tyraels_wings_recipe_is_reserved_for_later(self):
-        self.assertFalse(
-            (ROOT / "data/crafting/recipe/fragment_of_tyraels_wings.json").exists()
+    def test_tyraels_wings_recipe_is_gated_by_the_divine_materials(self):
+        recipe = json.loads(
+            (ROOT / "data/matcha_flavoured_plus/recipe/crafting/fragment_of_tyraels_wings.json").read_text(
+                encoding="utf-8"
+            )
         )
-        self.assertFalse(
+        self.assertEqual(recipe["type"], "minecraft:crafting_shaped")
+        self.assertEqual(recipe["pattern"], ["FDF", "DDD", "FDF"])
+        self.assertEqual(
+            recipe["key"],
+            {"D": "minecraft:diamond", "F": "minecraft:nether_star"},
+        )
+        self.assertEqual(
+            recipe["result"]["components"]["minecraft:item_model"],
+            "minecraft:fragment_of_tyraels_wings",
+        )
+        self.assertTrue(
+            recipe["result"]["components"]["minecraft:enchantment_glint_override"]
+        )
+        unlock = json.loads(
             (
                 ROOT
-                / "data/main/advancement/recipe_unlocks/fragment_of_tyraels_wings.json"
-            ).exists()
+                / "data/matcha_flavoured_plus/advancement/main/recipe_unlocks/fragment_of_tyraels_wings.json"
+            ).read_text(encoding="utf-8")
         )
+        self.assertEqual(unlock["requirements"], [["has_diamonds", "has_nether_stars"]])
 
     def test_heart_state_is_player_scoped_and_late_join_safe(self):
         process = (
-            ROOT / "data/main/function/mechanic/process_heart_container.mcfunction"
+            ROOT / "data/matcha_flavoured_plus/function/main/mechanic/process_heart_container.mcfunction"
         ).read_text(encoding="utf-8")
         hpdown = (
-            ROOT / "data/main/function/mechanic/hpdown.mcfunction"
+            ROOT / "data/matcha_flavoured_plus/function/main/mechanic/hpdown.mcfunction"
         ).read_text(encoding="utf-8")
         ticking = (
-            ROOT / "data/main/function/setup/ticking_functions.mcfunction"
+            ROOT / "data/matcha_flavoured_plus/function/main/setup/ticking_functions.mcfunction"
         ).read_text(encoding="utf-8")
         self.assertIn(
             "execute unless score @s Hearts matches 10..60 run scoreboard players set @s Hearts 20",
@@ -102,7 +118,7 @@ class UpstreamFixParityTests(unittest.TestCase):
     def test_sweet_berry_effect_is_item_id_driven(self):
         advancement = json.loads(
             (
-                ROOT / "data/main/advancement/mechanics/sweet_berries_eaten.json"
+                ROOT / "data/matcha_flavoured_plus/advancement/main/mechanics/sweet_berries_eaten.json"
             ).read_text(encoding="utf-8")
         )
         criterion = advancement["criteria"]["eat_sweet_berries"]
@@ -124,7 +140,7 @@ class UpstreamFixParityTests(unittest.TestCase):
             name = entry["recipe"]
             with self.subTest(recipe=name):
                 recipe = json.loads(
-                    (ROOT / f"data/smithing_table/recipe/{name}.json").read_text(
+                    (ROOT / f"data/matcha_flavoured_plus/recipe/smithing_table/{name}.json").read_text(
                         encoding="utf-8"
                     )
                 )
@@ -139,13 +155,13 @@ class UpstreamFixParityTests(unittest.TestCase):
                     recipe["result"]["components"].get("minecraft:custom_data", {}),
                 )
                 modifier = (
-                    ROOT / f"data/main/item_modifier/smithing_enchantments/{name}.json"
+                    ROOT / f"data/matcha_flavoured_plus/item_modifier/main/smithing_enchantments/{name}.json"
                 ).read_text(encoding="utf-8")
                 self.assertIn(f'"insertion": "matcha_smithing_pending:{name}"', modifier)
 
     def test_feather_falling_negates_ender_pearl_damage(self):
         damage_tag = json.loads(
-            (ROOT / "data/main/tags/damage_type/ender_pearl.json").read_text(
+            (ROOT / "data/matcha_flavoured_plus/tags/damage_type/main/ender_pearl.json").read_text(
                 encoding="utf-8"
             )
         )

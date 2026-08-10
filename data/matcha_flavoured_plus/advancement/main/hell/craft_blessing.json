@@ -1,0 +1,141 @@
+{
+	"parent": "matcha_flavoured_plus:main/hell/craft_hell_bound_book",
+	"criteria": {
+		"bane_of_arthopods": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/bane_of_arthopods"
+			}
+		},
+		"channeling_smite": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/channeling_smite"
+			}
+		},
+		"depth_strider_riptide_aqua_affinity_respiration": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/depth_strider_riptide_aqua_affinity_respiration"
+			}
+		},
+		"efficiency_unbreaking": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/efficiency_unbreaking"
+			}
+		},
+		"feather_falling": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/feather_falling"
+			}
+		},
+		"flame_fire_aspect_fire_protection": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/flame_fire_aspect_fire_protection"
+			}
+		},
+		"infinity": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/infinity"
+			}
+		},
+		"mending": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/mending"
+			}
+		},
+		"reach": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/reach"
+			}
+		},
+		"silk_touch": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/silk_touch"
+			}
+		},
+		"traversal": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/traversal"
+			}
+		},
+		"unbreaking": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/unbreaking"
+			}
+		},
+		"warding": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/warding"
+			}
+		},
+		"frost_walker_frost_protection": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/frost_walker_frost_protection"
+			}
+		},
+		"wind_burst_anemos": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/wind_burst_anemos"
+			}
+		},
+		"zephyr": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/zephyr"
+			}
+		}
+	},
+	"display": {
+		"description": {
+			"text": "Steal Prayers from a long-dead God"
+		},
+		"icon": {
+			"components": {
+				"minecraft:stored_enchantments": {
+					"minecraft:flame": 1
+				},
+				"minecraft:item_model": "minecraft:blessing_prometheus"
+			},
+			"count": 1,
+			"id": "minecraft:enchanted_book"
+		},
+		"title": {
+			"text": "Apocrypha"
+		},
+		"frame": "goal",
+		"hidden": false
+	},
+	"requirements": [
+		[
+			"bane_of_arthopods",
+			"channeling_smite",
+			"depth_strider_riptide_aqua_affinity_respiration",
+			"efficiency_unbreaking",
+			"feather_falling",
+			"flame_fire_aspect_fire_protection",
+			"frost_walker_frost_protection",
+			"infinity",
+			"mending",
+			"reach",
+			"silk_touch",
+			"traversal",
+			"unbreaking",
+			"warding",
+			"wind_burst_anemos",
+			"zephyr"
+		]
+	]
+}

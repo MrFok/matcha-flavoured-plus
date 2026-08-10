@@ -48,7 +48,7 @@
 				"asset_id": "minecraft:topaz_earrings"
 			},
 			"minecraft:enchantments": {
-				"main:haste": 1
+				"matcha_flavoured_plus:main/haste": 1
 			},
 			"minecraft:unbreakable": {}
 		},

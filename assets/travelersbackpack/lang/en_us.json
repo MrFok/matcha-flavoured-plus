@@ -1,0 +1,8 @@
+{
+  "tier.travelersbackpack.netherite": "§8Adamant",
+  "item.travelersbackpack.netherite_tier_upgrade": "§8Adamant Tier Upgrade",
+  "block.travelersbackpack.netherite": "Adamant Traveler's Backpack",
+  "travelersbackpack.configuration.netheriteTierBackpack": "Adamant Tier",
+  "advancements.travelersbackpack.netherite_upgrade.title": "Adamant Tier Upgrade",
+  "advancements.travelersbackpack.netherite_upgrade.description": "Combine Leather, Adamant Tier Upgrade, and Diamond Tier Backpack in Smithing Table to upgrade"
+}

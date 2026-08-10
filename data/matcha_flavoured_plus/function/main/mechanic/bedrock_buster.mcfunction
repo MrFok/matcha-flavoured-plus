@@ -1,0 +1,2 @@
+advancement revoke @a only matcha_flavoured_plus:main/mechanics/bedrock_buster
+schedule function matcha_flavoured_plus:main/mechanic/bedrock_buster_use 79t

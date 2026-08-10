@@ -1,0 +1,28 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"cooked_the_food": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"components": {
+							"minecraft:item_model": "grilled_tomatoes"
+						}
+					}
+				]
+			}
+		}
+	},
+	"requirements": [
+		[
+			"cooked_the_food"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"matcha_flavoured_plus:food/pickled_tomatoes",
+			"matcha_flavoured_plus:food/bruschetta"
+		]
+	}
+}

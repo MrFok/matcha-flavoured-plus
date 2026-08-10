@@ -1,4 +1,9 @@
 dist/
+.build/
+artifacts/
+logs/
+Matcha_Flavoured_1_03/
+Matcha_Flavoured_1_03.zip
 __pycache__/
 *.py[cod]
 matcha-vanilla-flavoured-*.zip
