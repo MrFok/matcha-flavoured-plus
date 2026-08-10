@@ -644,8 +644,10 @@ class DistributionTests(unittest.TestCase):
     def test_advancement_tab_variants_have_their_declared_filter_policy(self):
         with zipfile.ZipFile(self.artifact("clean-tabs", "datapack")) as archive:
             clean_tabs = json.loads(archive.read("pack.mcmeta"))
+            clean_tab_names = set(archive.namelist())
         with zipfile.ZipFile(self.artifact("dungeons-and-taverns-compatible", "datapack")) as archive:
             compatible = json.loads(archive.read("pack.mcmeta"))
+            compatible_names = set(archive.namelist())
 
         def filtered_roots(metadata):
             return {
@@ -668,6 +670,30 @@ class DistributionTests(unittest.TestCase):
             filtered_roots(compatible),
             set(),
         )
+        self.assertFalse(
+            any(name.startswith(builder.DNT_OVERLAY_PREFIX) for name in clean_tab_names)
+        )
+        self.assertTrue(
+            any(name.startswith(builder.DNT_OVERLAY_PREFIX) for name in compatible_names)
+        )
+
+        for kind in ("datapack", "mod"):
+            with zipfile.ZipFile(self.artifact("clean-tabs", kind)) as archive:
+                self.assertFalse(
+                    any(
+                        name.startswith(builder.DNT_OVERLAY_PREFIX)
+                        for name in archive.namelist()
+                    )
+                )
+            with zipfile.ZipFile(
+                self.artifact("dungeons-and-taverns-compatible", kind)
+            ) as archive:
+                self.assertTrue(
+                    any(
+                        name.startswith(builder.DNT_OVERLAY_PREFIX)
+                        for name in archive.namelist()
+                    )
+                )
 
     def test_generated_archive_paths_are_relative(self):
         for artifact in self.artifacts.values():

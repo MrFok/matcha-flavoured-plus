@@ -66,8 +66,10 @@ OWNED_LOOT_TABLE_PREFIX = "data/minecraft/loot_table/kleis_items/"
 OWNED_LOOT_TABLE_DESTINATION = "data/matcha_flavoured_plus/loot_table/main/"
 OWNED_LOOT_REFERENCE = b"minecraft:kleis_items"
 OWNED_LOOT_REPLACEMENT = b"matcha_flavoured_plus:main"
+DNT_OVERLAY_PREFIX = "data/nova_structures/"
 PACK_VARIANTS = {
     "clean-tabs": {
+        "include_dnt_overlay": False,
         "blocked_advancement_roots": (
             "advancement/adventure",
             "advancement/end",
@@ -76,7 +78,10 @@ PACK_VARIANTS = {
             "advancement/story",
         )
     },
-    "dungeons-and-taverns-compatible": {"blocked_advancement_roots": ()},
+    "dungeons-and-taverns-compatible": {
+        "include_dnt_overlay": True,
+        "blocked_advancement_roots": (),
+    },
 }
 
 
@@ -412,6 +417,16 @@ def move_owned_loot_tables(entries: dict[str, bytes]) -> dict[str, bytes]:
     return rewritten
 
 
+def variant_entries(entries: dict[str, bytes], variant: str) -> dict[str, bytes]:
+    if PACK_VARIANTS[variant]["include_dnt_overlay"]:
+        return entries
+    return {
+        name: payload
+        for name, payload in entries.items()
+        if not name.startswith(DNT_OVERLAY_PREFIX)
+    }
+
+
 def pack_metadata(variant: str) -> bytes:
     metadata = json.loads((ROOT / "pack.mcmeta").read_text(encoding="utf-8"))
     blocked = metadata.setdefault("filter", {}).setdefault("block", [])
@@ -523,13 +538,23 @@ def build(output_dir: Path = DIST, include_mod: bool = False) -> list[Path]:
     write_archive(artifacts[0], resource_pack)
     for variant in PACK_VARIANTS:
         root_overrides = {"pack.mcmeta": pack_metadata(variant)}
-        datapack = move_owned_loot_tables(source_entries(("data",), root_overrides=root_overrides))
+        datapack = move_owned_loot_tables(
+            variant_entries(
+                source_entries(("data",), root_overrides=root_overrides),
+                variant,
+            )
+        )
         datapack_destination = output_dir / archive_name(f"{variant}-datapack")
         write_archive(datapack_destination, datapack)
         artifacts.append(datapack_destination)
         if include_mod:
             mod = move_owned_loot_tables(
-                vanilla_first_assets(source_entries(("data", "assets"), root_overrides=root_overrides))
+                variant_entries(
+                    vanilla_first_assets(
+                        source_entries(("data", "assets"), root_overrides=root_overrides)
+                    ),
+                    variant,
+                )
             )
             mod.update(
                 {
