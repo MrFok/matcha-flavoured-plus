@@ -121,7 +121,22 @@ def _java_tool(name: str) -> Path | None:
     return None
 
 
-def _runtime_paths() -> tuple[Path, Path, list[Path]] | None:
+def _runtime_paths() -> tuple[Path, list[Path]] | None:
+    configured_minecraft = os.environ.get("MATCHA_MINECRAFT_JAR")
+    configured_classpath = os.environ.get("MATCHA_COMPILE_CLASSPATH")
+    if configured_minecraft and configured_classpath:
+        minecraft = Path(configured_minecraft)
+        dependencies = [
+            Path(entry)
+            for entry in configured_classpath.split(os.pathsep)
+            if entry
+        ]
+        if minecraft.is_file() and dependencies and all(
+            dependency.is_file() for dependency in dependencies
+        ):
+            return minecraft, dependencies
+        return None
+
     app_data = os.environ.get("APPDATA")
     if not app_data:
         user_profile = os.environ.get("USERPROFILE")
@@ -162,7 +177,11 @@ def _runtime_paths() -> tuple[Path, Path, list[Path]] | None:
     libraries = modrinth / "meta" / "libraries"
     if not minecraft.is_file() or profile is None or not libraries.is_dir():
         return None
-    return minecraft, profile / ".fabric" / "processedMods", list(libraries.rglob("*.jar"))
+    dependencies = [
+        *sorted((profile / ".fabric" / "processedMods").glob("*.jar")),
+        *sorted(libraries.rglob("*.jar")),
+    ]
+    return minecraft, dependencies
 
 
 def _java_source_hash() -> str:
@@ -269,10 +288,10 @@ def compile_java_mod_entries() -> dict[str, bytes]:
     if runtime is None or javac is None or javap is None:
         raise RuntimeError(
             "Building the Matcha mod requires a local Java compiler and the Minecraft 26.2 "
-            "Fabric profile. Set MATCHA_JAVA_HOME, MATCHA_PROFILE, and MATCHA_MINECRAFT_JAR "
-            "if they are not discoverable."
+            "Fabric compile classpath. Set MATCHA_JAVA_HOME, MATCHA_MINECRAFT_JAR, and "
+            "MATCHA_COMPILE_CLASSPATH, or set MATCHA_PROFILE when they are not discoverable."
         )
-    minecraft, processed_mods, libraries = runtime
+    minecraft, dependencies = runtime
     verify_mixin_runtime_contracts(minecraft, javap)
     # Always compile full-mod candidates. A source-only cache previously reused
     # classes after Minecraft, Fabric, mappings, or the JDK changed, which can
@@ -281,11 +300,10 @@ def compile_java_mod_entries() -> dict[str, bytes]:
     with tempfile.TemporaryDirectory(prefix="matcha-java-") as temporary:
         output = Path(temporary) / "classes"
         output.mkdir()
-        classpath = ";".join(
+        classpath = os.pathsep.join(
             [
                 minecraft.as_posix(),
-                *(path.as_posix() for path in sorted(processed_mods.glob("*.jar"))),
-                *(path.as_posix() for path in libraries),
+                *(path.as_posix() for path in dependencies),
             ]
         )
         sources = [path.as_posix() for path in sorted(JAVA_SOURCE_ROOT.rglob("*.java"))]
