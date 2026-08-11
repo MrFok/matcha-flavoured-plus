@@ -1,0 +1,2 @@
+advancement grant @p only matcha_flavoured_plus:main/mechanics/trigger_stalking_sounds
+say GivingTriigerAdv

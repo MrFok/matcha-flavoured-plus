@@ -48,7 +48,7 @@
 				"asset_id": "minecraft:ruby_circlet"
 			},
 			"minecraft:enchantments": {
-				"main:fire_proof": 1
+				"matcha_flavoured_plus:main/fire_proof": 1
 			},
 			"minecraft:unbreakable": {}
 		},

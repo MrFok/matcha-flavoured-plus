@@ -1,0 +1,27 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_primary_material": {
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:shulker_spawn_egg"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"requirements": [
+		[
+			"has_primary_material"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"matcha_flavoured_plus:crafting/slime_ball_from_dough",
+			"matcha_flavoured_plus:food/bread",
+			"matcha_flavoured_plus:food/naan"
+		]
+	}
+}

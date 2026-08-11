@@ -1,0 +1,133 @@
+[
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:copper_helmet",
+      "components": {
+        "minecraft:max_damage": 500,
+        "minecraft:lore": [
+          {
+            "text": "    Blindness",
+            "color": "gray",
+            "italic": false
+          },
+          {
+            "text": "    Darkness",
+            "color": "gray",
+            "italic": false
+          },
+          {
+            "text": "⛊ 2",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.shakudo_helmet",
+              "color": "#c96691"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:shakudo_helmet"
+            }
+          ]
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.helmet",
+            "amount": 2,
+            "operation": "add_value",
+            "slot": "head"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:item_model": "minecraft:shakudo_helmet",
+        "minecraft:equippable": {
+          "slot": "head",
+          "asset_id": "minecraft:shakudo"
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:filtered",
+      "item_filter": {
+        "predicates": {
+          "minecraft:enchantments": [
+            {
+              "enchantments": "matcha_flavoured_plus:main/cleanse_armor_head",
+              "levels": {
+                "min": 1
+              }
+            }
+          ]
+        }
+      },
+      "on_fail": {
+        "function": "minecraft:filtered",
+        "item_filter": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "matcha_flavoured_plus:main/cleanse_armor_head",
+                "levels": 0
+              }
+            ]
+          }
+        },
+        "modifier": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "matcha_flavoured_plus:main/cleanse_armor_head": 1
+          },
+          "add": true
+        },
+        "on_fail": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "matcha_flavoured_plus:main/cleanse_armor_head": 1
+          },
+          "add": true
+        }
+      }
+    }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:copper_helmet",
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.shakudo_helmet",
+              "color": "#c96691"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:shakudo_helmet"
+            }
+          ]
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_helmet",
+          "color": "#c96691"
+        }
+      }
+    }
+  }
+]

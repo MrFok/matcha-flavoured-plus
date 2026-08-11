@@ -145,7 +145,7 @@ class SmithingEnchantmentPreservationTests(unittest.TestCase):
         )
 
     def test_recipe_patches_no_longer_replace_enchantments(self):
-        for path in sorted((ROOT / "data/smithing_table/recipe").glob("*.json")):
+        for path in sorted((ROOT / "data/matcha_flavoured_plus/recipe/smithing_table").glob("*.json")):
             with self.subTest(recipe=path.stem):
                 recipe = read_json(path)
                 self.assertNotIn(
@@ -171,16 +171,16 @@ class SmithingEnchantmentPreservationTests(unittest.TestCase):
         for entry in self.entries:
             name = entry["recipe"]
             advancement_path = (
-                ROOT / f"data/main/advancement/smithing_enchantments/{name}.json"
+                ROOT / f"data/matcha_flavoured_plus/advancement/main/smithing_enchantments/{name}.json"
             )
-            modifier_path = ROOT / f"data/main/item_modifier/smithing_enchantments/{name}.json"
-            reward_path = ROOT / f"data/main/function/smithing_enchantments/{name}.mcfunction"
+            modifier_path = ROOT / f"data/matcha_flavoured_plus/item_modifier/main/smithing_enchantments/{name}.json"
+            reward_path = ROOT / f"data/matcha_flavoured_plus/function/main/smithing_enchantments/{name}.mcfunction"
             apply_path = (
-                ROOT / f"data/main/function/smithing_enchantments/apply/{name}.mcfunction"
+                ROOT / f"data/matcha_flavoured_plus/function/main/smithing_enchantments/apply/{name}.mcfunction"
             )
             player_path = (
                 ROOT
-                / f"data/main/function/smithing_enchantments/apply_player/{name}.mcfunction"
+                / f"data/matcha_flavoured_plus/function/main/smithing_enchantments/apply_player/{name}.mcfunction"
             )
             with self.subTest(recipe=name):
                 if not entry["enchantments"]:
@@ -201,11 +201,11 @@ class SmithingEnchantmentPreservationTests(unittest.TestCase):
                         "criteria": {
                             "crafted": {
                                 "trigger": "minecraft:recipe_crafted",
-                                "conditions": {"recipe_id": f"smithing_table:{name}"},
+                                "conditions": {"recipe_id": f"matcha_flavoured_plus:smithing_table/{name}"},
                             }
                         },
                         "rewards": {
-                            "function": f"main:smithing_enchantments/{name}"
+                            "function": f"matcha_flavoured_plus:main/smithing_enchantments/{name}"
                         },
                     },
                 )
@@ -214,22 +214,22 @@ class SmithingEnchantmentPreservationTests(unittest.TestCase):
                 self.assertEqual(
                     reward_path.read_text(encoding="utf-8").splitlines(),
                     [
-                        f"advancement revoke @s only main:smithing_enchantments/{name}",
+                        f"advancement revoke @s only matcha_flavoured_plus:main/smithing_enchantments/{name}",
                         f"tag @s add {tag}",
-                        f"schedule function main:smithing_enchantments/apply/{name} 1t replace",
+                        f"schedule function matcha_flavoured_plus:main/smithing_enchantments/apply/{name} 1t replace",
                     ],
                 )
                 self.assertEqual(
                     apply_path.read_text(encoding="utf-8").splitlines(),
                     [
-                        f"execute as @a[tag={tag}] run function main:smithing_enchantments/apply_player/{name}",
+                        f"execute as @a[tag={tag}] run function matcha_flavoured_plus:main/smithing_enchantments/apply_player/{name}",
                         f"tag @a[tag={tag}] remove {tag}",
                     ],
                 )
                 self.assertEqual(
                     player_path.read_text(encoding="utf-8").splitlines(),
                     [
-                        f"item modify entity @s {slot} main:smithing_enchantments/{name}"
+                        f"item modify entity @s {slot} matcha_flavoured_plus:main/smithing_enchantments/{name}"
                         for slot in generator.PLAYER_SLOTS
                     ],
                 )
@@ -240,7 +240,7 @@ class SmithingEnchantmentPreservationTests(unittest.TestCase):
                 continue
             name = entry["recipe"]
             modifier = read_json(
-                ROOT / f"data/main/item_modifier/smithing_enchantments/{name}.json"
+                ROOT / f"data/matcha_flavoured_plus/item_modifier/main/smithing_enchantments/{name}.json"
             )
             self.assertEqual(len(modifier), len(entry["enchantments"]) + 1)
             by_enchantment = {}
@@ -328,7 +328,7 @@ class SmithingEnchantmentPreservationTests(unittest.TestCase):
                 "minecraft:density",
                 "minecraft:impaling",
                 "minecraft:sharpness",
-                "main:slaughter",
+                "matcha_flavoured_plus:main/slaughter",
             },
         )
         self.assertEqual(

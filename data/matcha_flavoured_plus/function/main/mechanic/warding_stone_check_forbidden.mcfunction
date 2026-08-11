@@ -1,0 +1,2 @@
+execute if predicate matcha_flavoured_plus:main/in_trial_chamber run return run function matcha_flavoured_plus:main/mechanic/warding_stone_forbidden
+function matcha_flavoured_plus:main/mechanic/warding_stone_particles

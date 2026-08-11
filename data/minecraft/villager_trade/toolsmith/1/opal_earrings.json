@@ -48,7 +48,7 @@
 				"asset_id": "minecraft:opal_earrings"
 			},
 			"minecraft:enchantments": {
-				"main:conduit_power": 1
+				"matcha_flavoured_plus:main/conduit_power": 1
 			},
 			"minecraft:unbreakable": {}
 		},

@@ -1,0 +1,28 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_primary_material": {
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:bowl"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"requirements": [
+		[
+			"has_primary_material"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"matcha_flavoured_plus:food/uncooked_ramen",
+			"matcha_flavoured_plus:food/uncooked_green_curry",
+			"matcha_flavoured_plus:food/uncooked_paneer_makhani",
+			"matcha_flavoured_plus:food/uncooked_curry"
+		]
+	}
+}

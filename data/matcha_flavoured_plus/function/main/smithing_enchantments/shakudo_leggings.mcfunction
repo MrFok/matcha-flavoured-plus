@@ -1,0 +1,3 @@
+advancement revoke @s only matcha_flavoured_plus:main/smithing_enchantments/shakudo_leggings
+tag @s add main.smithing_enchantments.shakudo_leggings
+schedule function matcha_flavoured_plus:main/smithing_enchantments/apply/shakudo_leggings 1t replace

@@ -1,0 +1,36 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_primary_material": {
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:disc_fragment_5"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"requirements": [
+		[
+			"has_primary_material"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"matcha_flavoured_plus:crafting/music_disc_11",
+			"matcha_flavoured_plus:crafting/music_disc_13",
+			"matcha_flavoured_plus:crafting/music_disc_blocks",
+			"matcha_flavoured_plus:crafting/music_disc_far",
+			"matcha_flavoured_plus:crafting/music_disc_cat",
+			"matcha_flavoured_plus:crafting/music_disc_chirp",
+			"matcha_flavoured_plus:crafting/music_disc_mall",
+			"matcha_flavoured_plus:crafting/music_disc_mellohi",
+			"matcha_flavoured_plus:crafting/music_disc_stal",
+			"matcha_flavoured_plus:crafting/music_disc_strad",
+			"matcha_flavoured_plus:crafting/music_disc_wait",
+			"matcha_flavoured_plus:crafting/music_disc_ward"
+		]
+	}
+}

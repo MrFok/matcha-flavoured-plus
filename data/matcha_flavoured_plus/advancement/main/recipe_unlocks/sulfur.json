@@ -1,0 +1,29 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_primary_material": {
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:sulfur"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"requirements": [
+		[
+			"has_primary_material"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"matcha_flavoured_plus:crafting/sulfur_chunk_from_sulfur",
+			"matcha_flavoured_plus:crafting/sulfur_from_sulfur_slabs",
+			"matcha_flavoured_plus:crafting/chiseled_sulfur",
+            "matcha_flavoured_plus:crafting/polished_sulfur_from_polished_sulfur_slabs",
+            "matcha_flavoured_plus:crafting/sulfur_bricks_from_sulfur_brick_slabs"
+		]
+	}
+}

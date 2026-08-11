@@ -1,0 +1,42 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"made_hell_bound_book": {
+			"trigger": "minecraft:recipe_crafted",
+			"conditions": {
+				"recipe_id": "matcha_flavoured_plus:blessings/hell_bound_book"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"made_hell_bound_book"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"matcha_flavoured_plus:blessings/bane_of_arthopods",
+			"matcha_flavoured_plus:blessings/channeling_smite",
+			"matcha_flavoured_plus:blessings/density_knockback_punch",
+			"matcha_flavoured_plus:blessings/depth_strider_riptide_aqua_affinity_respiration",
+			"matcha_flavoured_plus:blessings/efficiency_unbreaking",
+			"matcha_flavoured_plus:blessings/feather_falling",
+			"matcha_flavoured_plus:blessings/flame_fire_aspect_fire_protection",
+			"matcha_flavoured_plus:blessings/frost_walker_frost_protection",
+			"matcha_flavoured_plus:blessings/infinity",
+			"matcha_flavoured_plus:blessings/lunge_breach",
+			"matcha_flavoured_plus:blessings/lure_luck_of_the_sea",
+			"matcha_flavoured_plus:blessings/mending",
+			"matcha_flavoured_plus:blessings/piercing_impaling",
+			"matcha_flavoured_plus:blessings/power_multishot",
+			"matcha_flavoured_plus:blessings/reach",
+			"matcha_flavoured_plus:blessings/silk_touch",
+			"matcha_flavoured_plus:blessings/swift_sneak_soul_speed",
+			"matcha_flavoured_plus:blessings/traversal",
+			"matcha_flavoured_plus:blessings/unbreaking",
+			"matcha_flavoured_plus:blessings/warding",
+			"matcha_flavoured_plus:blessings/wind_burst_anemos",
+			"matcha_flavoured_plus:blessings/zephyr"
+		]
+	}
+}

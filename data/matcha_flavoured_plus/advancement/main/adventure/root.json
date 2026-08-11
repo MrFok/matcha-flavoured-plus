@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:map"
+    },
+    "title": {
+      "text": "Dungeons & Taverns"
+    },
+    "description": {
+      "text": "Explore structures, quests, and dungeons across the world."
+    },
+    "background": "minecraft:block/deepslate",
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "sends_telemetry_event": false
+}

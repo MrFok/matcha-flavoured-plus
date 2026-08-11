@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "project": {
+    "id": "matcha_flavoured_plus",
+    "name": "Matcha Flavoured Plus",
+    "version": "1.0.0",
+    "minecraft": "26.2",
+    "loader": {
+      "id": "fabric",
+      "version": "0.19.3"
+    },
+    "java_runtime": "25"
+  },
+  "distribution": {
+    "canonical_variant": "curated-tabs",
+    "server_config_patcher": "tools/patch_profile_configs.py",
+    "resource_pack_patcher": "tools/patch_profile_resourcepacks.py",
+    "resource_pack": "matcha_flavoured_plus-1.0.0-resource-pack.zip",
+    "variants": {
+      "clean-tabs": {
+        "datapack": "matcha_flavoured_plus-1.0.0-clean-tabs-datapack.zip",
+        "mod": "matcha_flavoured_plus-1.0.0-clean-tabs-mod.jar"
+      },
+      "curated-tabs": {
+        "datapack": "matcha_flavoured_plus-1.0.0-curated-tabs-datapack.zip",
+        "mod": "matcha_flavoured_plus-1.0.0-curated-tabs-mod.jar"
+      },
+      "dungeons-and-taverns-compatible": {
+        "datapack": "matcha_flavoured_plus-1.0.0-dungeons-and-taverns-compatible-datapack.zip",
+        "mod": "matcha_flavoured_plus-1.0.0-dungeons-and-taverns-compatible-mod.jar"
+      }
+    }
+  },
+  "integration_contract": {
+    "matcha_namespace": "matcha_flavoured_plus",
+    "upstream_owned_namespaces": [
+      "nova_structures"
+    ],
+    "required_integrations": {
+      "create": "6.0.9-1",
+      "chunkloaders": "1.2.9",
+      "dungeons_and_taverns": "5.3.0",
+      "easyshulkerboxes": "26.2.1",
+      "fabric_api": "0.156.0+26.2",
+      "toms_storage": "2.11.2",
+      "travelersbackpack": "11.3.1",
+      "veinminer": "2.11.2",
+      "veinminer_enchantment": "2.11.2",
+      "waystones": "26.2.0.7"
+    },
+    "policies": {
+      "automation_allowed": true,
+      "chunk_loader_inactive_timeout_days": 7,
+      "waystone_warp_cost": {
+        "currency": "obol",
+        "amount": 1,
+        "registry_item": "minecraft:emerald",
+        "rule_function": "item_cost",
+        "experience_cost": 0
+      },
+      "veinminer_requires_enchantment": true,
+      "enchanting_table": {
+        "books_only": true,
+        "maximum_enchantments": 10,
+        "remaining_label": "{remaining} left",
+        "silk_touch_preserves_table": true,
+        "exhausted_drop": "4 obsidian and 2-5 random enchanted books"
+      },
+      "hud": {
+        "hide_food_bar": true,
+        "hide_experience_bar": true,
+        "retain_experience_as_internal_resource": true
+      },
+      "advancements": {
+        "visible_roots": [
+          "matcha_flavoured_plus:main/tutorial/root",
+          "matcha_flavoured_plus:main/hell/root",
+          "matcha_flavoured_plus:main/end/root",
+          "matcha_flavoured_plus:main/adventure/root"
+        ],
+        "hidden_vanilla_roots": [
+          "advancement/adventure",
+          "advancement/end",
+          "advancement/husbandry",
+          "advancement/nether",
+          "advancement/story"
+        ],
+        "dungeons_and_taverns_root": "nova_structures:root",
+        "dungeons_and_taverns_tab_title": "Dungeons & Taverns"
+      },
+      "resource_pack": {
+        "blocks_and_gui": "vanilla_first",
+        "matcha_items_and_enchanted_effects": "preserve",
+        "host_modpack_identity_packs": "preserve_and_audit_individually"
+      }
+    },
+    "material_aliases": {
+      "minecraft:netherite": "Adamant",
+      "minecraft:emerald": "Obol",
+      "minecraft:redstone": "Electric Wire",
+      "minecraft:gunpowder": "Sulfur Chunk",
+      "minecraft:blaze_powder": "Raw Estus",
+      "minecraft:glowstone_dust": "Estus Ash",
+      "minecraft:blaze_rod": "Stabilised Estus",
+      "minecraft:nether_star": "Divine Favour",
+      "minecraft:turtle_scute": "Divine Fragment",
+      "minecraft:heart_of_the_sea": "Electrum Alloy",
+      "minecraft:phantom_membrane": "Hepatizon Alloy",
+      "minecraft:shulker_shell": "Shakudo Alloy",
+      "minecraft:resin_brick": "Steel Alloy"
+    },
+    "material_alias_note": "These aliases are the current compatibility layer and retain vanilla registry IDs. Do not treat a display rename as a new registry item or assume that vanilla netherite IDs are removed without a deliberate registry-level replacement."
+  },
+  "modpack_snapshot": {
+    "source": "Minecraft 26.2 launch log from the duplicated development profile",
+    "loaded_mod_count": 260,
+    "top_level_mod_count": 105,
+    "mods": {
+      "animatica": "0.6.3+26.2",
+      "armorstatues": "26.2.0",
+      "axiom": "5.5.0",
+      "balm": "26.2.0.5",
+      "betteradvancements": "0.6.0.72",
+      "betterblockentities": "1.3.7+mc26.2",
+      "betterf3": "19.0.0",
+      "betterstats": "5.5.3+fabric-26.2",
+      "boatiview": "0.0.9",
+      "bookshelfinspector": "2.4",
+      "c2me": "0.4.2-alpha.0.35+26.2",
+      "chat_heads": "1.2.6",
+      "chatanimation": "1.3.0",
+      "cherishedworlds": "17.0.0+26.2",
+      "chunkloaders": "1.2.9",
+      "cloth-config": "26.2.155",
+      "continuity": "3.0.1+26.2",
+      "controlify": "3.1.0+26.2-fabric",
+      "controlling": "26.2.2",
+      "create": "6.0.9-1",
+      "cropsloverain": "3.2.1",
+      "cutthrough": "26.2.0",
+      "daycount": "1.6.0-Fabric-mc26.1",
+      "deleteworldstotrash": "26.2.0",
+      "detailabreconst": "5.3.2-26.2-fabric",
+      "distanthorizons": "3.2.0-b",
+      "dynamic_fps": "3.11.9",
+      "easyshulkerboxes": "26.2.1",
+      "eclipseui": "1.0.5+mc26.2-rc-2",
+      "elytratrails": "1.5.0.2-26.2",
+      "elytratrims": "4.8.3",
+      "entity_model_features": "3.2.6",
+      "entity_texture_features": "7.1.1",
+      "entityculling": "1.10.5",
+      "essential-container": "1.0.0",
+      "explosiveenhancement": "1.4.2-26.2",
+      "fabric-api": "0.156.0+26.2",
+      "fabric-language-kotlin": "1.13.12+kotlin.2.4.0",
+      "fabricloader": "0.19.3",
+      "ferritecore": "9.0.0",
+      "flashback": "0.42.1",
+      "forgeconfigapiport": "26.2.1",
+      "freecam": "1.4.1-beta.2",
+      "fullscreenfix": "2.4.1",
+      "glowing-torchflower": "1.4.0",
+      "immediatelyfast": "1.16.2+26.2",
+      "immersive-hotbar": "1.1.2-26.2",
+      "inventoryprofilesnext": "2.3.5",
+      "iris": "1.11.2+mc26.2",
+      "jade": "26.2.10+fabric",
+      "jamlib": "2.3.1+26.2.x",
+      "jei": "30.16.0.130",
+      "libipn": "6.8.2",
+      "libjf": "26.2.1",
+      "light-overlay": "2.10.2+26.2",
+      "litematica": "0.28.4",
+      "lithium": "0.25.2+mc26.2",
+      "locator_lodestones": "1.5.3",
+      "malilib": "0.29.3",
+      "matcha_flavoured_plus": "1.0.0",
+      "modernfix": "5.27.19-build.1",
+      "modmenu": "20.0.1",
+      "moreculling": "1.8.0",
+      "mousetweaks": "2.31",
+      "mr_dungeons_andtaverns": "5.3.0",
+      "mr_speed_happyghast": "1-v1.0",
+      "naturally_trimmed": "3.5.0",
+      "notenoughanimations": "1.12.4",
+      "optigui": "2.3.0-beta.10+26.2",
+      "overlaylib": "0.9.2+26.2",
+      "packed_packs": "2.2.2+26.2",
+      "paginatedadvancements": "2.8.0+26.2",
+      "particle_effects": "1.5.0+26.2+fabric",
+      "pickupnotifications": "3.0.1+26.2",
+      "placeholder-api": "3.1.0-beta.1+26.2",
+      "pneumonocore": "1.3.1",
+      "polytone": "26.2-5.10.2",
+      "puzzleslib": "26.2.1",
+      "reachbehind": "26.2.0",
+      "reeses-sodium-options": "2.2.3+mc26.2",
+      "respackopts": "26.2.0",
+      "rightclickharvest": "4.6.2+26.2.x",
+      "scribble": "2.1.0-beta1",
+      "searchables": "1.0.1",
+      "shogi": "26.2.0.4",
+      "skinlayers3d": "1.11.2",
+      "sodium": "0.9.1+mc26.2",
+      "sodium-extra": "0.9.3+mc26.2",
+      "sspb": "7.0.0",
+      "status-effect-bars": "1.0.12",
+      "supermartijn642configlib": "1.1.8",
+      "supermartijn642corelib": "1.1.23",
+      "tcdcommons": "5.5.3+fabric-26.2",
+      "toms_storage": "2.11.2",
+      "travelersbackpack": "11.3.1",
+      "veinminer": "2.11.2",
+      "veinminer_enchantment": "2.11.2",
+      "visuality": "0.7.14+26.2",
+      "voicechat": "2.6.21+26.2",
+      "waystones": "26.2.0.7",
+      "worldplaytimereborn": "1.2.5",
+      "xaerominimap": "26.4.2",
+      "xaeroworldmap": "1.44.2",
+      "yet_another_config_lib_v3": "3.9.5+26.2-fabric",
+      "zoomify": "2.16.1+26.2"
+    }
+  }
+}

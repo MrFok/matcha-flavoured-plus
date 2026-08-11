@@ -1,0 +1,4 @@
+schedule function matcha_flavoured_plus:main/environmental/player_stepping_sound_adv 20t
+schedule function matcha_flavoured_plus:main/environmental/player_stepping_sound_adv 30t
+schedule function matcha_flavoured_plus:main/environmental/player_stepping_sound_adv 40t
+say InitialStalking

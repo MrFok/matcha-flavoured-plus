@@ -1,0 +1,13 @@
+{
+  "criteria": {
+    "crafted": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "matcha_flavoured_plus:smithing_table/warding_sword"
+      }
+    }
+  },
+  "rewards": {
+    "function": "matcha_flavoured_plus:main/smithing_enchantments/warding_sword"
+  }
+}

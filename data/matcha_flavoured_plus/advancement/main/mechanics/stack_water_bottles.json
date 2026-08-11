@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "water_bottle_added": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:potion",
+            "components": {
+              "minecraft:potion_contents": {
+                "potion": "minecraft:water"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "function": "matcha_flavoured_plus:main/mechanic/water_bottle_stacking"
+  }
+}

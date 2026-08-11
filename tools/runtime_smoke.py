@@ -111,26 +111,68 @@ def wait_for_log(log_path: Path, expected: str, timeout: int) -> None:
 def assert_clean_matcha_log(log_path: Path) -> None:
     log = log_path.read_text(encoding="utf-8", errors="replace")
     prohibited = (
+        "InvalidMixinException",
+        "MixinApplyError",
+        "InjectionError",
+        "Mixin transformation of",
         "Invalid path in pack:",
         "Couldn't parse data file",
         "Failed to parse data file",
         "Failed to load function",
         "Unknown or incomplete command",
         "Unknown scoreboard objective",
+        "Missing block model: minecraft:block/bedrock_buster",
+        "Missing block model: minecraft:block/warding_stone",
+        "Found loot table element validation problem in {minecraft:entities/skeleton",
+        "Found loot table element validation problem in {minecraft:chests/adventure_old/ruin_generic_storage",
     )
     failures = [line for line in log.splitlines() if any(token in line for token in prohibited)]
     if failures:
         raise RconError("Matcha runtime load errors:\n" + "\n".join(failures))
 
 
+def assert_expected_gpu(log_path: Path, expected_gpu: str) -> None:
+    log = log_path.read_text(encoding="utf-8", errors="replace")
+    device_lines = [
+        line for line in log.splitlines() if "Using graphics device:" in line
+    ]
+    if not device_lines:
+        raise RconError("Client log does not report a graphics device")
+    if expected_gpu.casefold() not in device_lines[-1].casefold():
+        raise RconError(
+            f"Expected graphics device {expected_gpu!r}, got: {device_lines[-1]}"
+        )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--log", type=Path, required=True)
+    parser.add_argument(
+        "--log-only",
+        action="store_true",
+        help="Validate an existing client or server log without connecting over RCON.",
+    )
+    parser.add_argument(
+        "--require-gpu",
+        help="Require the client log's selected graphics device to contain this text.",
+    )
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=25575)
-    parser.add_argument("--password", required=True)
+    parser.add_argument("--password")
     parser.add_argument("--timeout", type=int, default=90)
     args = parser.parse_args()
+
+    if args.log_only:
+        assert_clean_matcha_log(args.log)
+        if args.require_gpu:
+            assert_expected_gpu(args.log, args.require_gpu)
+        return
+
+    if args.require_gpu:
+        parser.error("--require-gpu is only valid with --log-only")
+
+    if not args.password:
+        parser.error("--password is required unless --log-only is used")
 
     rcon = wait_for_server(args.log, args.host, args.port, args.password, args.timeout)
     try:
@@ -156,7 +198,7 @@ def main() -> None:
                 f"{reloaded_objectives}"
             )
         rcon.command("scoreboard objectives remove sleepTimerScore")
-        rcon.command("function main:setup/scoreboard")
+        rcon.command("function matcha_flavoured_plus:main/setup/scoreboard")
         sleep_timer = rcon.command("scoreboard players get 1 sleepTimerScore")
         if "has 1 [sleepTimerScore]" not in sleep_timer:
             raise RconError(f"Sleep timer did not initialize: {sleep_timer}")

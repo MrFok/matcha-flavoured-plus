@@ -19,6 +19,31 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '25'
+      - name: Prepare Minecraft 26.2 compile classpath
+        shell: bash
+        run: |
+          set -euo pipefail
+          runtime_dir="$PWD/.ci-runtime"
+          mkdir -p "$runtime_dir"
+          version_manifest=$(curl --fail --location --silent --show-error "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json")
+          version_url=$(printf '%s' "$version_manifest" | jq -r '.versions[] | select(.id == "26.2") | .url' | head -n 1)
+          test -n "$version_url" && test "$version_url" != "null"
+          version=$(curl --fail --location --silent --show-error "$version_url")
+          client_url=$(printf '%s' "$version" | jq -r '.downloads.client.url')
+          test -n "$client_url" && test "$client_url" != "null"
+          curl --fail --location --silent --show-error --output "$runtime_dir/client.jar" "$client_url"
+          mkdir -p "$runtime_dir/libraries"
+          while IFS= read -r library_url; do
+            curl --fail --location --silent --show-error \
+              --output "$runtime_dir/libraries/$(basename "$library_url")" \
+              "$library_url"
+          done < <(printf '%s' "$version" | jq -r '.libraries[].downloads.artifact.url // empty')
+          curl --fail --location --silent --show-error --output "$runtime_dir/libraries/fabric-loader.jar" "https://maven.fabricmc.net/net/fabricmc/fabric-loader/0.19.3/fabric-loader-0.19.3.jar"
+          curl --fail --location --silent --show-error --output "$runtime_dir/libraries/sponge-mixin.jar" "https://maven.fabricmc.net/net/fabricmc/sponge-mixin/0.17.3%2Bmixin.0.8.7/sponge-mixin-0.17.3%2Bmixin.0.8.7.jar"
+          curl --fail --location --silent --show-error --output "$runtime_dir/libraries/asm.jar" "https://repo1.maven.org/maven2/org/ow2/asm/asm/9.10.1/asm-9.10.1.jar"
+          compile_classpath=$(printf '%s:' "$runtime_dir"/libraries/*.jar)
+          echo "MATCHA_MINECRAFT_JAR=$runtime_dir/client.jar" >> "$GITHUB_ENV"
+          echo "MATCHA_COMPILE_CLASSPATH=${compile_classpath%:}" >> "$GITHUB_ENV"
       - run: python -m unittest discover -s tests -v
       - name: Build distribution
         shell: bash
@@ -37,8 +62,8 @@ jobs:
           mkdir -p "$runtime_dir/mods"
           curl --fail --location --silent --show-error --output "$runtime_dir/fabric-server-launch.jar" "https://meta.fabricmc.net/v2/versions/loader/26.2/0.19.3/1.1.0/server/jar"
           curl --fail --location --silent --show-error --output "$runtime_dir/mods/fabric-api-0.156.0+26.2.jar" "https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/0.156.0%2B26.2/fabric-api-0.156.0%2B26.2.jar"
-          mod_artifact=$(find dist -maxdepth 1 -name '*-mod.jar' -print -quit)
-          test -n "$mod_artifact"
+          mod_artifact=dist/matcha_flavoured_plus-1.0.0-clean-tabs-mod.jar
+          test -f "$mod_artifact"
           cp "$mod_artifact" "$runtime_dir/mods/"
           printf '%s\n' 'eula=true' > "$runtime_dir/eula.txt"
           printf '%s\n' 'server-ip=127.0.0.1' 'server-port=25565' 'enable-rcon=true' 'rcon.password=matcha-runtime-smoke' 'rcon.port=25575' 'online-mode=false' 'pause-when-empty-seconds=600' > "$runtime_dir/server.properties"

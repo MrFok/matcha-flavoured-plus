@@ -1,1 +1,0 @@
-schedule function main:mechanic/set_clear_weather 3s

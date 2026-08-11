@@ -1,0 +1,1 @@
+schedule function matcha_flavoured_plus:main/mechanic/set_rain 3s

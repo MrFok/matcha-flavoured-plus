@@ -1,0 +1,28 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_primary_material": {
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:echo_shard"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"requirements": [
+		[
+			"has_primary_material"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"matcha_flavoured_plus:crafting/music_disc_5",
+			"matcha_flavoured_plus:crafting/sculk_sensor",
+			"matcha_flavoured_plus:crafting/sculk_shrieker",
+			"matcha_flavoured_plus:crafting/sculk"
+		]
+	}
+}

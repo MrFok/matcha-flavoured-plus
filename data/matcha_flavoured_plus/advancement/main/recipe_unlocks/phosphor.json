@@ -1,0 +1,28 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_primary_material": {
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:glow_ink_sac"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"requirements": [
+		[
+			"has_primary_material"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"matcha_flavoured_plus:crafting/phosphor_rod",
+			"matcha_flavoured_plus:crafting/verdant_froglight",
+			"matcha_flavoured_plus:crafting/pearlescent_froglight",
+			"matcha_flavoured_plus:crafting/ochre_froglight"
+		]
+	}
+}

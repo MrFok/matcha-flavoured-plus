@@ -1,0 +1,60 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_straw": {
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:wheat"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"has_tall_dry_grass": {
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:tall_dry_grass"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"has_short_dry_grass": {
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:short_dry_grass"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"has_the_recipe": {
+			"conditions": {
+				"recipe": "matcha_flavoured_plus:crafting/alt_torch"
+			},
+			"trigger": "minecraft:recipe_unlocked"
+		}
+	},
+	"requirements": [
+		[
+			"has_the_recipe",
+			"has_short_dry_grass",
+			"has_tall_dry_grass",
+			"has_straw"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"matcha_flavoured_plus:crafting/torch_from_short_dry_grass",
+			"matcha_flavoured_plus:crafting/tall_dry_grass_from_short_dry_grass",
+			"matcha_flavoured_plus:crafting/short_dry_grass_from_tall_dry_grass",
+			"matcha_flavoured_plus:crafting/packed_mud_from_dirt",
+			"matcha_flavoured_plus:crafting/hay_block",
+			"matcha_flavoured_plus:crafting/tall_dry_grass_from_wheat",
+            "matcha_flavoured_plus:crafting/wheat_from_hay_block"
+		]
+	}
+}

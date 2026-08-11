@@ -1,0 +1,27 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_primary_material": {
+			"conditions": {
+				"items": [
+					{
+						"items": "#minecraft:soul_fire_base_blocks"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"requirements": [
+		[
+			"has_primary_material"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"matcha_flavoured_plus:crafting/soul_campfire",
+			"matcha_flavoured_plus:crafting/soul_torch",
+			"matcha_flavoured_plus:crafting/soul_lantern"
+		]
+	}
+}

@@ -27,13 +27,13 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-RECIPE_DIR = ROOT / "data" / "smithing_table" / "recipe"
-DATA_ROOT = ROOT / "data" / "main"
+RECIPE_DIR = ROOT / "data" / "matcha_flavoured_plus" / "recipe" / "smithing_table"
+DATA_ROOT = ROOT / "data" / "matcha_flavoured_plus"
 MANIFEST_PATH = ROOT / "tools" / "smithing_enchantment_manifest.json"
 
-ADVANCEMENT_DIR = DATA_ROOT / "advancement" / "smithing_enchantments"
-FUNCTION_DIR = DATA_ROOT / "function" / "smithing_enchantments"
-MODIFIER_DIR = DATA_ROOT / "item_modifier" / "smithing_enchantments"
+ADVANCEMENT_DIR = DATA_ROOT / "advancement" / "main" / "smithing_enchantments"
+FUNCTION_DIR = DATA_ROOT / "function" / "main" / "smithing_enchantments"
+MODIFIER_DIR = DATA_ROOT / "item_modifier" / "main" / "smithing_enchantments"
 PENDING_MARKER = "matcha_smithing_pending"
 
 # 26.2 vanilla exclusive-set memberships, plus Matcha's custom damage member.
@@ -49,7 +49,7 @@ EXCLUSIVE_CONFLICTS = {
         "minecraft:density",
         "minecraft:impaling",
         "minecraft:sharpness",
-        "main:slaughter",
+        "matcha_flavoured_plus:main/slaughter",
     ),
     "minecraft:blast_protection": (
         "minecraft:fire_protection",
@@ -388,10 +388,10 @@ def render_advancement(entry: dict[str, Any]) -> str:
         "criteria": {
             "crafted": {
                 "trigger": "minecraft:recipe_crafted",
-                "conditions": {"recipe_id": f"smithing_table:{name}"},
+                "conditions": {"recipe_id": f"matcha_flavoured_plus:smithing_table/{name}"},
             }
         },
-        "rewards": {"function": f"main:smithing_enchantments/{name}"},
+        "rewards": {"function": f"matcha_flavoured_plus:main/smithing_enchantments/{name}"},
     }
     return render_json(advancement)
 
@@ -405,9 +405,9 @@ def render_reward_function(entry: dict[str, Any]) -> str:
     tag = tag_name(entry)
     return "\n".join(
         (
-            f"advancement revoke @s only main:smithing_enchantments/{name}",
+            f"advancement revoke @s only matcha_flavoured_plus:main/smithing_enchantments/{name}",
             f"tag @s add {tag}",
-            f"schedule function main:smithing_enchantments/apply/{name} 1t replace",
+            f"schedule function matcha_flavoured_plus:main/smithing_enchantments/apply/{name} 1t replace",
             "",
         )
     )
@@ -418,7 +418,7 @@ def render_apply_function(entry: dict[str, Any]) -> str:
     tag = tag_name(entry)
     return "\n".join(
         (
-            f"execute as @a[tag={tag}] run function main:smithing_enchantments/apply_player/{name}",
+            f"execute as @a[tag={tag}] run function matcha_flavoured_plus:main/smithing_enchantments/apply_player/{name}",
             f"tag @a[tag={tag}] remove {tag}",
             "",
         )
@@ -426,7 +426,7 @@ def render_apply_function(entry: dict[str, Any]) -> str:
 
 
 def render_apply_player_function(entry: dict[str, Any]) -> str:
-    modifier = f"main:smithing_enchantments/{entry['recipe']}"
+    modifier = f"matcha_flavoured_plus:main/smithing_enchantments/{entry['recipe']}"
     return "\n".join(
         [f"item modify entity @s {slot} {modifier}" for slot in PLAYER_SLOTS] + [""]
     )

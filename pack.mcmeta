@@ -1,7 +1,7 @@
 {
   "pack": {
-    "min_format":88.0,
-    "max_format":107.1,
+    "min_format": [88, 0],
+    "max_format": [107, 1],
     "description": [
       {
         "text": "Klei's Matcha Flavoured",
@@ -32,6 +32,45 @@
 		},{
 			"namespace": "minecraft",
 			"path": "advancement/story"
+		},{
+			"namespace": "nova_structures",
+			"path": "advancement/root.json"
+		},{
+			"namespace": "nova_structures",
+			"path": "advancement/adventure/find_all_illager_structures.json"
+		},{
+			"namespace": "nova_structures",
+			"path": "advancement/adventure/find_desert_ruins.json"
+		},{
+			"namespace": "nova_structures",
+			"path": "advancement/adventure/find_jungle_ruins.json"
+		},{
+			"namespace": "nova_structures",
+			"path": "advancement/adventure/find_shrine.json"
+		},{
+			"namespace": "nova_structures",
+			"path": "advancement/adventure/find_stray_outlook.json"
+		},{
+			"namespace": "nova_structures",
+			"path": "advancement/adventure/find_trident_trial_monument.json"
+		},{
+			"namespace": "nova_structures",
+			"path": "advancement/end/find_end_lighthouse.json"
+		},{
+			"namespace": "nova_structures",
+			"path": "advancement/end/find_end_ship.json"
+		},{
+			"namespace": "nova_structures",
+			"path": "advancement/nether/find_nether_skeleton.json"
+		},{
+			"namespace": "nova_structures",
+			"path": "advancement/nether/find_piglins.json"
+		},{
+			"namespace": "nova_structures",
+			"path": "advancement/nether/give_netherite_piglin_gold_armor.json"
+		},{
+			"namespace": "nova_structures",
+			"path": "advancement/story/bookworm.json"
 		},{
 			"namespace": "minecraft",
 			"path": "recipe/mace.json"

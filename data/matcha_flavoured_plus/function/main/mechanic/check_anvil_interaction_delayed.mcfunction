@@ -1,0 +1,1 @@
+execute at @a run execute if score @p anvil_interaction >= 1 anvil_interaction run function matcha_flavoured_plus:main/mechanic/set_xp

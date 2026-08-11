@@ -1,0 +1,2 @@
+execute at @a run execute if items entity @p inventory.* minecraft:blaze_powder run function matcha_flavoured_plus:main/mechanic/estus_effects
+execute at @a run execute if items entity @p hotbar.* minecraft:blaze_powder run function matcha_flavoured_plus:main/mechanic/estus_effects

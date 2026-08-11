@@ -1,0 +1,128 @@
+[
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:copper_leggings",
+      "components": {
+        "minecraft:max_damage": 500,
+        "minecraft:lore": [
+          {
+            "text": "    Slowness",
+            "color": "gray",
+            "italic": false
+          },
+          {
+            "text": "⛊ 5",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.shakudo_leggings",
+              "color": "#c96691"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:shakudo_leggings"
+            }
+          ]
+        },
+        "minecraft:attribute_modifiers": [
+          {
+            "type": "minecraft:armor",
+            "id": "minecraft:armor.leggings",
+            "amount": 5,
+            "operation": "add_value",
+            "slot": "legs"
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:enchantment_glint_override": false,
+        "minecraft:item_model": "minecraft:shakudo_leggings",
+        "minecraft:equippable": {
+          "slot": "legs",
+          "asset_id": "minecraft:shakudo"
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:filtered",
+      "item_filter": {
+        "predicates": {
+          "minecraft:enchantments": [
+            {
+              "enchantments": "matcha_flavoured_plus:main/cleanse_armor_legs",
+              "levels": {
+                "min": 1
+              }
+            }
+          ]
+        }
+      },
+      "on_fail": {
+        "function": "minecraft:filtered",
+        "item_filter": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "matcha_flavoured_plus:main/cleanse_armor_legs",
+                "levels": 0
+              }
+            ]
+          }
+        },
+        "modifier": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "matcha_flavoured_plus:main/cleanse_armor_legs": 1
+          },
+          "add": true
+        },
+        "on_fail": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "matcha_flavoured_plus:main/cleanse_armor_legs": 1
+          },
+          "add": true
+        }
+      }
+    }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:copper_leggings",
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.kleispack.shakudo_leggings",
+              "color": "#c96691"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:shakudo_leggings"
+            }
+          ]
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:item_name": {
+          "translate": "item.kleispack.shakudo_leggings",
+          "color": "#c96691"
+        }
+      }
+    }
+  }
+]

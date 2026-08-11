@@ -1,0 +1,328 @@
+[
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:netherite_boots",
+      "components": {
+        "minecraft:max_damage": 1500,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛨ 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "💥🚫 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block"
+          ]
+        },
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_boots",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_boots"
+            }
+          ]
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:filtered",
+      "item_filter": {
+        "predicates": {
+          "minecraft:enchantments": [
+            {
+              "enchantments": "matcha_flavoured_plus:main/divinity",
+              "levels": {
+                "min": 1
+              }
+            }
+          ]
+        }
+      },
+      "on_fail": {
+        "function": "minecraft:filtered",
+        "item_filter": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "matcha_flavoured_plus:main/divinity",
+                "levels": 0
+              }
+            ]
+          }
+        },
+        "modifier": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "matcha_flavoured_plus:main/divinity": 1
+          },
+          "add": true
+        },
+        "on_fail": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "matcha_flavoured_plus:main/divinity": 1
+          },
+          "add": true
+        }
+      }
+    }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:netherite_boots",
+      "components": {
+        "minecraft:max_damage": 1500,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛨ 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "💥🚫 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block"
+          ]
+        },
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_boots",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_boots"
+            }
+          ]
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:filtered",
+      "item_filter": {
+        "predicates": {
+          "minecraft:enchantments": [
+            {
+              "enchantments": "minecraft:unbreaking",
+              "levels": {
+                "min": 2
+              }
+            }
+          ]
+        }
+      },
+      "on_fail": {
+        "function": "minecraft:filtered",
+        "item_filter": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "minecraft:unbreaking",
+                "levels": 0
+              }
+            ]
+          }
+        },
+        "modifier": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "minecraft:unbreaking": 2
+          },
+          "add": true
+        },
+        "on_fail": {
+          "function": "minecraft:filtered",
+          "item_filter": {
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "minecraft:unbreaking",
+                  "levels": 1
+                }
+              ]
+            }
+          },
+          "modifier": {
+            "function": "minecraft:set_enchantments",
+            "enchantments": {
+              "minecraft:unbreaking": 1
+            },
+            "add": true
+          },
+          "on_fail": {
+            "function": "minecraft:set_enchantments",
+            "enchantments": {
+              "minecraft:unbreaking": 2
+            },
+            "add": true
+          }
+        }
+      }
+    }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:netherite_boots",
+      "components": {
+        "minecraft:max_damage": 1500,
+        "minecraft:lore": [
+          {
+            "text": "⛊ 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "⛨ 3",
+            "color": "dark_green",
+            "italic": false
+          },
+          {
+            "text": "💥🚫 1",
+            "color": "dark_green",
+            "italic": false
+          }
+        ],
+        "minecraft:tooltip_display": {
+          "hidden_components": [
+            "minecraft:attribute_modifiers"
+          ]
+        },
+        "minecraft:repairable": {
+          "items": [
+            "minecraft:diamond_block",
+            "minecraft:gold_block"
+          ]
+        },
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_boots",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_boots"
+            }
+          ]
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:filtered",
+      "item_filter": {
+        "predicates": {
+          "minecraft:enchantments": [
+            {
+              "enchantments": "minecraft:protection",
+              "levels": {
+                "min": 1
+              }
+            }
+          ]
+        }
+      },
+      "on_fail": {
+        "function": "minecraft:filtered",
+        "item_filter": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "minecraft:protection",
+                "levels": 0
+              }
+            ]
+          }
+        },
+        "modifier": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "minecraft:protection": 1
+          },
+          "add": true
+        },
+        "on_fail": {
+          "function": "minecraft:set_enchantments",
+          "enchantments": {
+            "minecraft:protection": 1
+          },
+          "add": true
+        }
+      }
+    }
+  },
+  {
+    "function": "minecraft:filtered",
+    "item_filter": {
+      "items": "minecraft:netherite_boots",
+      "components": {
+        "minecraft:item_name": {
+          "text": "",
+          "extra": [
+            {
+              "translate": "item.minecraft.netherite_boots",
+              "color": "gold"
+            },
+            {
+              "text": "",
+              "insertion": "matcha_smithing_pending:adamant_boots"
+            }
+          ]
+        }
+      }
+    },
+    "modifier": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:item_name": {
+          "translate": "item.minecraft.netherite_boots",
+          "color": "gold"
+        }
+      }
+    }
+  }
+]

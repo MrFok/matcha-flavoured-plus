@@ -48,7 +48,7 @@
 				"asset_id": "minecraft:amber_earrings"
 			},
 			"minecraft:enchantments": {
-				"main:regeneration": 1
+				"matcha_flavoured_plus:main/regeneration": 1
 			},
 			"minecraft:unbreakable": {}
 		},
