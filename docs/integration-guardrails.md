@@ -1,10 +1,10 @@
-# 5IVE integration guardrails
+# Matcha Flavoured Plus integration guardrails
 
-These rules apply to every Matcha Flavoured Plus build, install, and debugging pass for the 5IVE modpack.
+These rules apply to every Matcha Flavoured Plus build, install, and debugging pass.
 
 ## Scope and system safety
 
-- Target only `%APPDATA%\ModrinthApp\profiles\5IVE` unless the user explicitly names another profile.
+- Target only the profile supplied through `MATCHA_PROFILE` unless the user explicitly names another profile.
 - Never change Windows graphics preferences, GPU routing, drivers, registry values, power plans, or global Java settings unless the user explicitly requests that system-level change and a fresh log identifies the exact executable involved.
 - GPU routing fixes must target the `Java Path` reported by the current launch. Modrinth can retain a high-performance preference for an older Java runtime while a newer Minecraft version launches a different `javaw.exe`. Back up `HKCU\Software\Microsoft\DirectX\UserGpuPreferences`, change only the exact current executable, and verify the selected adapter from a fresh client log.
 - Treat third-party renderer warnings separately from adapter selection. Do not disable rendering or performance mods to compensate for an unverified GPU-routing theory.
@@ -15,8 +15,9 @@ These rules apply to every Matcha Flavoured Plus build, install, and debugging p
 - Refuse to replace an active JAR while any `java` or `javaw` Minecraft process is running.
 - Back up the exact active file before replacement and keep the backup outside the loader's active extension/path.
 - Hash the built artifact and installed artifact with SHA-256 and require an exact match.
-- Build selection must be deterministic. Prefer the explicit `MATCHA_PROFILE`; otherwise the development fallback may only select the `5IVE` folder or a single unambiguous profile.
+- Build selection must be deterministic. Prefer the explicit `MATCHA_PROFILE`; otherwise the development fallback may select only one unambiguous Fabric profile.
 - Never silently select the first profile returned by a directory listing.
+- Server-side integration changes must use `tools/patch_profile_configs.py` with an explicit `MATCHA_PROFILE`; dry-run first, refuse active Java processes, and keep hash-named backups.
 
 ## Build correctness
 
@@ -29,13 +30,13 @@ These rules apply to every Matcha Flavoured Plus build, install, and debugging p
 
 ## Runtime verification
 
-- Automated tests are necessary but not sufficient. Every installed candidate must pass a fresh launch of `5IVE Dev Build`.
+- Automated tests are necessary but not sufficient. Every installed candidate must pass a fresh launch of the explicitly selected development profile.
 - The fresh client log must contain none of:
   - `InvalidMixinException`, `MixinApplyError`, `InjectionError`, or a Matcha Mixin transformation failure;
   - missing `bedrock_buster` or `warding_stone` models;
   - Matcha skeleton or ruin loot-table validation failures;
   - malformed Matcha pack metadata.
-- Use `tools/runtime_smoke.py --log <latest.log> --log-only --require-gpu "NVIDIA GeForce RTX 5080"` for 5IVE client-log validation.
+- Use `tools/runtime_smoke.py --log <latest.log> --log-only --require-gpu "NVIDIA GeForce RTX 5080"` for development client-log validation.
 - Enter the duplicated test world for visible behavior checks. Confirm the HUD, recipes, item models, enchanting-table restrictions/counter, Silk Touch preservation, and ten-use break/drop behavior before calling those flows complete.
 
 ## Resource-pack policy
@@ -63,3 +64,4 @@ These rules apply to every Matcha Flavoured Plus build, install, and debugging p
 - A normal client boot does not prove gameplay behavior. Runtime claims must state exactly what was exercised and what remains untested.
 - A warning-count reduction is not sufficient by itself. After every resource-pack rewrite, relaunch and compare all error categories; restore the SHA-backed prior archive immediately if a different category regresses.
 - Do not infer GPU routing from FPS, backend choice, fullscreen state, or an old Java preference. The decisive evidence is the current log's `Java Path` paired with its `Using graphics device` line.
+- Waystones 26.2 uses Shogi rules: Matcha's one-Obol policy must use the underlying `minecraft:emerald` item ID and `item_cost(...)`, because “Obol” is a language alias rather than a separate registry item.

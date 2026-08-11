@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Apply the reproducible, minimal resource-pack policy for the 5IVE profile."""
+"""Apply the reproducible, minimal resource-pack policy to an explicit profile."""
 
 from __future__ import annotations
 
@@ -18,7 +18,7 @@ DEFAULT_PROFILE = (
     Path(os.environ.get("APPDATA", Path.home() / "AppData" / "Roaming"))
     / "ModrinthApp"
     / "profiles"
-    / "5IVE"
+    / "Matcha Flavoured Plus Dev Build"
 )
 
 PRESERVED_PACKS = (

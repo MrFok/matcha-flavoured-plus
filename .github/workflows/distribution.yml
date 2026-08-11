@@ -62,7 +62,7 @@ jobs:
           mkdir -p "$runtime_dir/mods"
           curl --fail --location --silent --show-error --output "$runtime_dir/fabric-server-launch.jar" "https://meta.fabricmc.net/v2/versions/loader/26.2/0.19.3/1.1.0/server/jar"
           curl --fail --location --silent --show-error --output "$runtime_dir/mods/fabric-api-0.156.0+26.2.jar" "https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/0.156.0%2B26.2/fabric-api-0.156.0%2B26.2.jar"
-          mod_artifact=dist/matcha_flavoured_plus-1.0.0-clean-tabs-mod.jar
+          mod_artifact=dist/matcha_flavoured_plus-1.0.0-curated-tabs-mod.jar
           test -f "$mod_artifact"
           cp "$mod_artifact" "$runtime_dir/mods/"
           printf '%s\n' 'eula=true' > "$runtime_dir/eula.txt"

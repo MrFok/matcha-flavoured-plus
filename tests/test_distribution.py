@@ -478,7 +478,8 @@ class DistributionTests(unittest.TestCase):
         self.assertIn('"--release",', source)
         self.assertIn('"21",', source)
         self.assertNotIn("if marker.is_file()", source)
-        self.assertIn('preferred = profiles_root / "5IVE"', source)
+        self.assertIn("Never guess between multiple local profiles", source)
+        self.assertNotIn("preferred = profiles_root", source)
 
     def test_source_json_is_valid(self):
         paths = [builder.ROOT / "pack.mcmeta"]
@@ -648,6 +649,9 @@ class DistributionTests(unittest.TestCase):
         with zipfile.ZipFile(self.artifact("dungeons-and-taverns-compatible", "datapack")) as archive:
             compatible = json.loads(archive.read("pack.mcmeta"))
             compatible_names = set(archive.namelist())
+        with zipfile.ZipFile(self.artifact(builder.CANONICAL_VARIANT, "datapack")) as archive:
+            canonical = json.loads(archive.read("pack.mcmeta"))
+            canonical_names = set(archive.namelist())
 
         def filtered_roots(metadata):
             return {
@@ -670,11 +674,18 @@ class DistributionTests(unittest.TestCase):
             filtered_roots(compatible),
             set(),
         )
+        self.assertEqual(
+            filtered_roots(canonical),
+            set(builder.VANILLA_ADVANCEMENT_ROOTS),
+        )
         self.assertFalse(
             any(name.startswith(builder.DNT_OVERLAY_PREFIX) for name in clean_tab_names)
         )
         self.assertTrue(
             any(name.startswith(builder.DNT_OVERLAY_PREFIX) for name in compatible_names)
+        )
+        self.assertTrue(
+            any(name.startswith(builder.DNT_OVERLAY_PREFIX) for name in canonical_names)
         )
 
         for kind in ("datapack", "mod"):
@@ -694,6 +705,15 @@ class DistributionTests(unittest.TestCase):
                         for name in archive.namelist()
                     )
                 )
+            with zipfile.ZipFile(self.artifact(builder.CANONICAL_VARIANT, kind)) as archive:
+                self.assertTrue(
+                    any(
+                        name.startswith(builder.DNT_OVERLAY_PREFIX)
+                        for name in archive.namelist()
+                    )
+                )
+                metadata = json.loads(archive.read("pack.mcmeta"))
+                self.assertEqual(filtered_roots(metadata), set(builder.VANILLA_ADVANCEMENT_ROOTS))
 
     def test_generated_archive_paths_are_relative(self):
         for artifact in self.artifacts.values():

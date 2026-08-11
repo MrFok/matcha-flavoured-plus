@@ -17,11 +17,12 @@ replace the manual checks that require a real player, including two-player
 sleep quorum, fishing outcomes, custom-model presentation, or Warding Stone
 placement inside a generated Trial Chamber.
 
-For the 5IVE client, validate both Matcha load errors and GPU routing from the
-fresh launch log:
+For a selected Matcha Flavoured Plus development client, validate both Matcha
+load errors and GPU routing from the fresh launch log:
 
 ```powershell
-python tools/runtime_smoke.py --log "$env:APPDATA\ModrinthApp\profiles\5IVE\logs\latest.log" --log-only --require-gpu "NVIDIA GeForce RTX 5080"
+$env:MATCHA_PROFILE = "C:\path\to\Matcha Flavoured Plus Dev Build"
+python tools/runtime_smoke.py --log "$env:MATCHA_PROFILE\logs\latest.log" --log-only --require-gpu "NVIDIA GeForce RTX 5080"
 ```
 
 The GPU assertion is opt-in because dedicated-server logs do not create a

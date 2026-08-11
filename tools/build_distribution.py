@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -67,20 +68,26 @@ OWNED_LOOT_TABLE_DESTINATION = "data/matcha_flavoured_plus/loot_table/main/"
 OWNED_LOOT_REFERENCE = b"minecraft:kleis_items"
 OWNED_LOOT_REPLACEMENT = b"matcha_flavoured_plus:main"
 DNT_OVERLAY_PREFIX = "data/nova_structures/"
+VANILLA_ADVANCEMENT_ROOTS = (
+    "advancement/adventure",
+    "advancement/end",
+    "advancement/husbandry",
+    "advancement/nether",
+    "advancement/story",
+)
+CANONICAL_VARIANT = "curated-tabs"
 PACK_VARIANTS = {
     "clean-tabs": {
         "include_dnt_overlay": False,
-        "blocked_advancement_roots": (
-            "advancement/adventure",
-            "advancement/end",
-            "advancement/husbandry",
-            "advancement/nether",
-            "advancement/story",
-        )
+        "blocked_advancement_roots": VANILLA_ADVANCEMENT_ROOTS,
     },
     "dungeons-and-taverns-compatible": {
         "include_dnt_overlay": True,
         "blocked_advancement_roots": (),
+    },
+    CANONICAL_VARIANT: {
+        "include_dnt_overlay": True,
+        "blocked_advancement_roots": VANILLA_ADVANCEMENT_ROOTS,
     },
 }
 
@@ -174,11 +181,10 @@ def _runtime_paths() -> tuple[Path, list[Path]] | None:
             if profiles_root.is_dir()
             else []
         )
-        preferred = profiles_root / "5IVE"
-        if preferred in discovered:
-            profile = preferred
-        else:
-            profile = discovered[0] if len(discovered) == 1 else None
+        # Never guess between multiple local profiles.  A caller that needs a
+        # particular profile must set MATCHA_PROFILE explicitly; the only
+        # implicit case allowed here is one unambiguous Fabric profile.
+        profile = discovered[0] if len(discovered) == 1 else None
     libraries = modrinth / "meta" / "libraries"
     if not minecraft.is_file() or profile is None or not libraries.is_dir():
         return None
@@ -526,7 +532,32 @@ def write_archive(destination: Path, entries: dict[str, bytes]) -> None:
         raise RuntimeError(f"archive validation failed for {destination}: {corrupt_entry}")
 
 
+def validate_source_contracts() -> None:
+    """Run source-level graph and manifest checks before creating artifacts."""
+
+    checks = (
+        (ROOT / "tools" / "validate_advancements.py", "validate_advancements", ROOT),
+        (
+            ROOT / "tools" / "validate_manifest.py",
+            "validate_manifest",
+            ROOT / "modpack" / "matcha-flavoured-plus.manifest.json",
+        ),
+    )
+    failures: list[str] = []
+    for path, module_name, argument in checks:
+        spec = importlib.util.spec_from_file_location(module_name, path)
+        if spec is None or spec.loader is None:
+            failures.append(f"{path}: could not load validator")
+            continue
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        failures.extend(str(failure) for failure in module.validate(argument))
+    if failures:
+        raise RuntimeError("Matcha source contract validation failed:\n" + "\n".join(f"- {failure}" for failure in failures))
+
+
 def build(output_dir: Path = DIST, include_mod: bool = False) -> list[Path]:
+    validate_source_contracts()
     output_dir.mkdir(parents=True, exist_ok=True)
     for name in DEPRECATED_ARTIFACT_NAMES:
         deprecated = output_dir / name
